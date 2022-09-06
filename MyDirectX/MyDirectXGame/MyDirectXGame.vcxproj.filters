@@ -171,9 +171,6 @@
     <ClCompile Include="3d\LightGroop.cpp">
       <Filter>engine\3d</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy\Enemy.cpp">
-      <Filter>engine\3d</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2d\DebugText.h">
@@ -258,9 +255,6 @@
       <Filter>engine\helper</Filter>
     </ClInclude>
     <ClInclude Include="3d\LightGroop.h">
-      <Filter>engine\3d</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy\Enemy.h">
       <Filter>engine\3d</Filter>
     </ClInclude>
   </ItemGroup>
