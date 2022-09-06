@@ -12,48 +12,48 @@ protected: // エイリアス
 	using XMVECTOR = DirectX::XMVECTOR;
 	using XMMATRIX = DirectX::XMMATRIX;
 public:
-	
-	void Initialize();//最初の初期化
-	
+
+	void Initialize(MapChip* map);//最初の初期化
+
 	void InitializeValue();//タイトル時の初期化
 
-	void Update(MapChip* mapChip);//アップデート
-	
+	void Update(MapChip* map);//アップデート
+
 	void Draw();
-	
+
 	void DrawSprite();
 
-	void Move(MapChip* mapChip);//歩き
+	void Move(MapChip* map);//歩き
 
-	void WalkShaking();//揺れ
+	void PutBom(MapChip* map);
 
-	void View();//視点の動き
+	void Explosion(MapChip* map);
 
-	void AngleSearch();//歩く方向の算出
-	
 	XMFLOAT3 GetPos() { return pos; }
-	XMFLOAT3 GetTarget() { return target; }
-	float GetAngle() { return angle.y; }
-	float GetViewSpeed() { return mouseViewSpeed; }
+	int Get1() { return explosionCount[0]; }
 private:
 
-	Sprite* spritePlayerDot = nullptr;
-	Sprite* spritePlayerAngle = nullptr;
+	const int MapValue = 8;//マップサイズ
+	int mapY = (pos.z / 4) + ((8 + 1) / 2);//盤面の位置
+	int mapX = (pos.x / 4) + ((8 + 1) / 2);//盤面の位置
 
-	XMFLOAT3 pos = { -8.0f,0.0f,-40.0f };//プレイヤーの位置
-	XMFLOAT2 miniMapPos = { 100 + (16.0f * 10),650 + (16.0f * 8) };
-	float r = 0.5;//プレイヤーの半径
-	float moveSpeed = 0.4f;//歩きの速度
-	float viewSpeed = 4.0f;//視点の速さ
-	float mouseViewSpeed = 0.3f;//視点の速さ
-	XMFLOAT3 target = { 0,0.0f,0 };//注視点
-	float targetY = 0;//揺れの調整
-	XMFLOAT3 angle = { 0,0,0 };//歩く方向
-	float walkShaking = 2.5;//歩きの揺れる値
-	bool isWalkShaking = false;//歩きの揺れのフラグ
-	int walkShakingTime = 0;//歩きの揺れのタイム
-	float angleX = 0; //カメラX軸
-	float angleY = 0; //カメラY軸
+	Model* modelPlayer = nullptr;
+	Object3d* objPlayer;
 
+	XMFLOAT3 pos = { -8.0f,0.0f,-40.0f };//プレイヤーの位置a
+	XMFLOAT3 angle = { 0,0,0 };
 
+	float moveSpeed = 4.0f;//歩きの速度
+
+	int bomNo = 0;
+
+	Model* modelBom = nullptr;
+	Object3d* objBom[3];
+
+	XMFLOAT3 bomPos[3] = { {0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f} };//プレイヤーの位置
+	bool bomAlive[3] = {false, false, false};
+	int explosionCount[3] = { 1,1,1 };
+	bool putFlag = false;
+	int bomY[3] = {0,0,0};//盤面の位置
+	int bomX[3] = {0,0,0};//盤面の位置
 };

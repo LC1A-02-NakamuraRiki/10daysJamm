@@ -38,6 +38,9 @@
     <Filter Include="engine\helper">
       <UniqueIdentifier>{67f6a998-edf7-4099-b6b3-fddc8cec64ea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Library\player">
+      <UniqueIdentifier>{fc704070-2d68-47c9-8a7c-0e476ff03b5f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shaders\Sprite.hlsli">
@@ -171,6 +174,9 @@
     <ClCompile Include="3d\LightGroop.cpp">
       <Filter>engine\3d</Filter>
     </ClCompile>
+    <ClCompile Include="Player\Player.cpp">
+      <Filter>Library\player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2d\DebugText.h">
@@ -256,6 +262,9 @@
     </ClInclude>
     <ClInclude Include="3d\LightGroop.h">
       <Filter>engine\3d</Filter>
+    </ClInclude>
+    <ClInclude Include="Player\Player.h">
+      <Filter>Library\player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
