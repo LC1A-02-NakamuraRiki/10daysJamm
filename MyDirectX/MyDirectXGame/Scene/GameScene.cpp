@@ -25,6 +25,7 @@ GameScene::~GameScene()
 	safe_delete(modelGround);
 	safe_delete(light);
 	safe_delete(map);
+	safe_delete(player);
 }
 
 void GameScene::Initialize(DirectXCommon *dxCommon, Sound *audio)
@@ -89,6 +90,8 @@ void GameScene::Initialize(DirectXCommon *dxCommon, Sound *audio)
 
 	map = new MapChip;
 	map->Initialize();
+	player = new Player;
+	player->Initialize(map);
 	
 }
 
@@ -96,6 +99,12 @@ void GameScene::Update()
 {
 	debugText.Print(20, 20, 2.0f, "END : ESC");
 	
+	int mapY = (player->GetPos().z / 4) + ((8 + 1) / 2);
+	int mapX = (player->GetPos().x / 4) + ((8 + 1) / 2);
+	debugText.Print(20, 40, 2.0f, "z :  %d", mapY);
+	debugText.Print(20, 70, 2.0f, "x :  %d", mapX);
+	debugText.Print(20, 100, 2.0f, "a :  %d", player->Get1());
+	debugText.Print(20, 130, 2.0f, "a :  %d", map->ArrayValue(player->GetPos().x, player->GetPos().z));
 	/*debugText.Print(20, 50, 2.0f, "MOVE : W A S D");
 	debugText.Print(20, 80, 2.0f, "VIEW : MOUSE or ArrowKey ");
 	debugText.Print(20, 110, 2.0f, "SENSI CHANGE -/+  :  9/0 ");
@@ -121,7 +130,8 @@ void GameScene::Update()
 	
 	light->SetDirLightDir(5, XMVECTOR({ lightDir5[0], lightDir5[1], lightDir5[2], 0 }));
 	light->SetDirLightColor(5, XMFLOAT3(lightColor5));
-
+	map->Update();
+	player->Update(map);
 	particle3d->Update();
 	camera->Update();
 	objSkydome->Update();
@@ -156,7 +166,7 @@ void GameScene::Draw()
 	objSkydome->Draw();
 	objGround->Draw();
 	map->Draw();
-	
+	player->Draw();
 	//-------------------------------------------------------------//
 	// 3Dオブジェクト描画後処理
 	Object3d::PostDraw();

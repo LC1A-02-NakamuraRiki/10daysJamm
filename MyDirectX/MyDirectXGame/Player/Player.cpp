@@ -2,312 +2,366 @@
 #include "../input/Input.h"
 using namespace DirectX;
 
-void Player::Initialize()
+void Player::Initialize(MapChip* map)
 {
-	if (!Sprite::LoadTexture(3, L"Resources/PlayerDot.png")) {
-		assert(0);
-		return;
-	}
-	spritePlayerDot = Sprite::Create(3, miniMapPos);
+	modelPlayer = Model::CreateFromObject("attacker1", false);
 
-	if (!Sprite::LoadTexture(6, L"Resources/angle.png")) {
-		assert(0);
-		return;
+	objPlayer = Object3d::Create(modelPlayer);
+	objPlayer->SetScale(XMFLOAT3({ 1, 1, 1 }));
+	pos = XMFLOAT3({ 3 * 4.0f - (MapValue * 4.0f / 2) + 2, 2.0f, 3 * 4.0f - (MapValue * 4.0f / 2) + 2 });
+	objPlayer->SetPosition(pos);
+
+
+	modelBom = Model::CreateFromObject("bom", false);
+	for (int i = 0; i < 3; i++)
+	{
+		objBom[i] = Object3d::Create(modelBom);
+		objBom[i]->SetScale(XMFLOAT3({ 0.5, 0.5, 0.5 }));
+		bomPos[i] = XMFLOAT3({ 4 * 4.0f - (MapValue * 4.0f / 2) + 2, 1.0f, 4 * 4.0f - (MapValue * 4.0f / 2) + 2 });
+		objBom[i]->SetPosition(bomPos[i]);
 	}
-	spritePlayerAngle = Sprite::Create(6, miniMapPos);
 }
 
 void Player::InitializeValue()
 {
-	miniMapPos = { 100 + (16.0f * 10),650 + (16.0f * 8) };
-	pos = { -8.0f,0.0f,-40.0f };//プレイヤーの位置
-	r = 0.5;//プレイヤーの半径
-	moveSpeed = 0.4f;//歩きの速度
-	viewSpeed = 4.0f;//視点の速さ
-	mouseViewSpeed = 0.3f;//視点の速さ
-	target = { 0,0.0f,0 };//注視点
-	targetY = 0;//揺れの調整
-	angle = { 0,0,0 };//歩く方向
-	walkShaking = 2.5;//歩きの揺れる値
-	isWalkShaking = false;//歩きの揺れのフラグ
-	walkShakingTime = 0;//歩きの揺れのタイム
-	angleX = 0; //カメラX軸
-	angleY = 0; //カメラY軸
 }
 
-void Player::Update(MapChip *mapChip)
+void Player::Update(MapChip* map)
 {
-	AngleSearch();//プレイヤーの向きの算出
-	Move(mapChip);//移動
-	WalkShaking();//歩きの揺れ
-	View();//視点制御
+	Move(map);
+	PutBom(map);
+	objPlayer->Update();
+	for (int i = 0; i < 3; i++)
+	{
+		objBom[i]->Update();
+	}
+	Explosion(map);
 }
 
 void Player::Draw()
 {
+	objPlayer->Draw();
+	for (int i = 0; i < 3; i++)
+	{
+		if (bomAlive[i] == true)
+		{
+			objBom[i]->Draw();
+		}
+	}
 }
 
 void Player::DrawSprite()
 {
-	spritePlayerAngle->Draw();
-	spritePlayerDot->Draw();
 }
 
-void Player::Move(MapChip *mapChip)
+void Player::Move(MapChip* map)
 {
-	float r = 0.5f;
-	float cornerR = 0.35;
-	if (mapChip->ArrayValue(pos.x - cornerR, pos.z + cornerR) == 1)
-	{
-		pos.x += cos((45 * 3.14) / -180) * moveSpeed;      // x座標を更新
-		pos.z += sin((45 * 3.14) / -180) * moveSpeed;      // z座標を更新
-		miniMapPos.x += cos((45 * 3.14) / -180) * moveSpeed;
-		miniMapPos.y += sin((45 * 3.14) / -180) * moveSpeed;
-	}
-	else if (mapChip->ArrayValue(pos.x + cornerR, pos.z + cornerR) == 1)
-	{
-		pos.x += cos((135 * 3.14) / -180) * moveSpeed;      // x座標を更新
-		pos.z += sin((135 * 3.14) / -180) * moveSpeed;      // z座標を更新
-		miniMapPos.x += cos((135 * 3.14) / -180) * moveSpeed;
-		miniMapPos.y += sin((135 * 3.14) / -180) * moveSpeed;
+	mapY = (pos.z / 4) + ((8 + 1) / 2);
+	mapX = (pos.x / 4) + ((8 + 1) / 2);
 
-	}
-	else if (mapChip->ArrayValue(pos.x - cornerR, pos.z - cornerR) == 1)
+	if (Input::GetInstance()->KeybordTrigger(DIK_W) && mapY != 7 && map->GetWallFlag(mapX, mapY + 1) != 1)
 	{
-		pos.x += cos((-45 * 3.14) / -180) * moveSpeed;      // x座標を更新
-		pos.z += sin((-45 * 3.14) / -180) * moveSpeed;      // z座標を更新
-		miniMapPos.x +=	cos((-45 * 3.14) / -180) * moveSpeed;
-		miniMapPos.y +=	sin((-45 * 3.14) / -180) * moveSpeed;
+		pos.z += moveSpeed;// z座標を更新
+		angle.y = 180;
+		for (int i = 0; i < 3; i++)
+		{
+			if (bomAlive[i])
+			{
+				explosionCount[i]++;
+			}
+		}
 	}
-	else if (mapChip->ArrayValue(pos.x + cornerR, pos.z - cornerR) == 1)
+	if (Input::GetInstance()->KeybordTrigger(DIK_A) && mapX != 0 && map->GetWallFlag(mapX-1, mapY) != 1)
 	{
-		pos.x += cos((225 * 3.14) / -180) * moveSpeed;      // x座標を更新
-		pos.z += sin((225 * 3.14) / -180) * moveSpeed;      // z座標を更新
-		miniMapPos.x += cos((225 * 3.14) / -180) * moveSpeed;
-		miniMapPos.y += sin((225 * 3.14) / -180) * moveSpeed;
+		pos.x -= moveSpeed;// x座標を更新
+		angle.y = 90;
+		for (int i = 0; i < 3; i++)
+		{
+			if (bomAlive[i])
+			{
+				explosionCount[i]++;
+			}
+		}
 	}
-
-	if (Input::GetInstance()->KeybordPush(DIK_W))
+	if (Input::GetInstance()->KeybordTrigger(DIK_S) && mapY != 0 && map->GetWallFlag(mapX, mapY - 1) != 1)
 	{
-		pos.x += cos((angle.y * 3.14) / -180) * moveSpeed;      // x座標を更新
-		pos.z += sin((angle.y * 3.14) / -180) * moveSpeed;      // z座標を更新
-		miniMapPos.x +=cos(((angle.y + 180) * 3.14 ) / -180) * moveSpeed;
-		miniMapPos.y +=sin((angle.y * 3.14 ) / -180) * moveSpeed;
-
-		target.x += cos((angle.y * 3.14) / -180) * moveSpeed;      // x座標を更新
-		target.z += sin((angle.y * 3.14) / -180) * moveSpeed;      // z座標を更新
-		//上
-		if (mapChip->ArrayValue(pos.x, pos.z + r) == 1)
+		pos.z -= moveSpeed;// z座標を更新
+		angle.y = 0;
+		for (int i = 0; i < 3; i++)
 		{
-			pos.z += sin(((angle.y + 180) * 3.14) / -180) * moveSpeed;      // z座標を更新
-			miniMapPos.y += sin(((angle.y + 180) * 3.14) / -180) * moveSpeed;
+			if (bomAlive[i])
+			{
+				explosionCount[i]++;
+			}
 		}
-		//左
-		if (mapChip->ArrayValue(pos.x - r, pos.z) == 1)
-		{
-			pos.x += cos(((angle.y + 180) * 3.14) / -180) * moveSpeed;      // x座標を更新
-			miniMapPos.x += cos(((angle.y + 360) * 3.14) / -180) * moveSpeed;
-		}
-		//下
-		if (mapChip->ArrayValue(pos.x, pos.z - r) == 1)
-		{
-			pos.z += sin(((angle.y + 180) * 3.14) / -180) * moveSpeed;      // z座標を更新
-			miniMapPos.y += sin(((angle.y + 180) * 3.14) / -180) * moveSpeed;
-		}
-		//右
-		if (mapChip->ArrayValue(pos.x + r, pos.z) == 1)
-		{
-			pos.x += cos(((angle.y + 180) * 3.14) / -180) * moveSpeed;      // x座標を更新
-			miniMapPos.x += cos(((angle.y + 360) * 3.14) / -180) * moveSpeed;
-		}
-		isWalkShaking = true;
 	}
-	if (Input::GetInstance()->KeybordPush(DIK_A))
+	if (Input::GetInstance()->KeybordTrigger(DIK_D) && mapX != 7 && map->GetWallFlag(mapX + 1, mapY) != 1)
 	{
-		pos.x += cos(((angle.y - 90) * 3.14) / -180) * moveSpeed;      // x座標を更新
-		pos.z += sin(((angle.y - 90) * 3.14) / -180) * moveSpeed;      // z座標を更新
-		miniMapPos.x += cos(((angle.y - 90 + 180) * 3.14) / -180) * moveSpeed;
-		miniMapPos.y += sin(((angle.y - 90) * 3.14) / -180) * moveSpeed;
-
-		target.x += cos(((angle.y - 90) * 3.14) / -180) * moveSpeed;      // x座標を更新
-		target.z += sin(((angle.y - 90) * 3.14) / -180) * moveSpeed;      // z座標を更新
-		//上
-		if (mapChip->ArrayValue(pos.x, pos.z + r) == 1)
+		pos.x += moveSpeed;// x座標を更新
+		angle.y = 270;
+		for (int i = 0; i < 3; i++)
 		{
-			pos.z += sin(((angle.y - 90 + 180) * 3.14) / -180) * moveSpeed;      // z座標を更新
-			miniMapPos.y += sin(((angle.y - 90 + 180) * 3.14) / -180) * moveSpeed;
+			if (bomAlive[i])
+			{
+				explosionCount[i]++;
+			}
 		}
-		//左
-		if (mapChip->ArrayValue(pos.x - r, pos.z) == 1)
-		{
-			pos.x += cos(((angle.y - 90 + 180) * 3.14) / -180) * moveSpeed;      // x座標を更新
-			miniMapPos.x += cos(((angle.y - 90 + 180 + 180) * 3.14) / -180) * moveSpeed;
-		}
-		//下
-		if (mapChip->ArrayValue(pos.x, pos.z - r) == 1)
-		{
-			pos.z += sin(((angle.y - 90 + 180) * 3.14) / -180) * moveSpeed;      // z座標を更新
-			miniMapPos.y += sin(((angle.y - 90 + 180) * 3.14) / -180) * moveSpeed;
-		}
-		//右
-		if (mapChip->ArrayValue(pos.x + r, pos.z) == 1)
-		{
-			pos.x += cos(((angle.y - 90 + 180) * 3.14) / -180) * moveSpeed;      // x座標を更新
-			miniMapPos.x += cos(((angle.y - 90 + 180 + 180) * 3.14) / -180) * moveSpeed;
-		}
-		isWalkShaking = true;
 	}
-	if (Input::GetInstance()->KeybordPush(DIK_S))
-	{
-		pos.x += cos(((angle.y + 180) * 3.14) / -180) * moveSpeed;      // x座標を更新
-		pos.z += sin(((angle.y + 180) * 3.14) / -180) * moveSpeed;      // z座標を更新
-		miniMapPos.x += cos(((angle.y + 180 + 180) * 3.14) / -180) * moveSpeed;
-		miniMapPos.y += sin(((angle.y + 180) * 3.14) / -180) * moveSpeed;
-
-		target.x -= cos((angle.y * 3.14) / -180) * moveSpeed;      // x座標を更新
-		target.z -= sin((angle.y * 3.14) / -180) * moveSpeed;      // z座標を更新
-		//上
-		if (mapChip->ArrayValue(pos.x, pos.z + r) == 1)
-		{
-			pos.z += sin(((angle.y) * 3.14) / -180) * moveSpeed;      // z座標を更新
-			miniMapPos.y += sin(((angle.y) * 3.14) / -180) * moveSpeed;
-		}
-		//左
-		if (mapChip->ArrayValue(pos.x - r, pos.z) == 1)
-		{
-			pos.x += cos(((angle.y) * 3.14) / -180) * moveSpeed;      // x座標を更新
-			miniMapPos.x += cos(((angle.y + 180) * 3.14) / -180) * moveSpeed;
-		}
-		//下
-		if (mapChip->ArrayValue(pos.x, pos.z - r) == 1)
-		{
-			pos.z += sin(((angle.y) * 3.14) / -180) * moveSpeed;      // z座標を更新
-			miniMapPos.y += sin(((angle.y) * 3.14) / -180) * moveSpeed;
-		}
-		//右
-		if (mapChip->ArrayValue(pos.x + r, pos.z) == 1)
-		{
-			pos.x += cos(((angle.y) * 3.14) / -180) * moveSpeed;      // x座標を更新
-			miniMapPos.x += cos(((angle.y + 180) * 3.14) / -180) * moveSpeed;
-		}
-		isWalkShaking = true;
-	}
-	if (Input::GetInstance()->KeybordPush(DIK_D))
-	{
-		pos.x += cos(((angle.y + 90) * 3.14) / -180) * moveSpeed;      // x座標を更新
-		pos.z += sin(((angle.y + 90) * 3.14) / -180) * moveSpeed;      // z座標を更新
-		miniMapPos.x += cos(((angle.y + 90 + 180) * 3.14) / -180) * moveSpeed;
-		miniMapPos.y += sin(((angle.y + 90) * 3.14) / -180) * moveSpeed;
-
-		target.x += cos(((angle.y + 90) * 3.14) / -180) * moveSpeed;      // x座標を更新
-		target.z += sin(((angle.y + 90) * 3.14) / -180) * moveSpeed;      // z座標を更新
-		//上
-		if (mapChip->ArrayValue(pos.x, pos.z + r) == 1)
-		{
-			pos.z += sin(((angle.y + 90 + 180) * 3.14) / -180) * moveSpeed;      // z座標を更新
-			miniMapPos.y += sin(((angle.y + 90 + 180) * 3.14) / -180) * moveSpeed;
-		}
-		//左
-		if (mapChip->ArrayValue(pos.x - r, pos.z) == 1)
-		{
-			pos.x += cos(((angle.y + 90 + 180) * 3.14) / -180) * moveSpeed;      // x座標を更新
-			miniMapPos.x += cos(((angle.y + 90 + 180 + 180) * 3.14) / -180) * moveSpeed;
-		}
-		//下
-		if (mapChip->ArrayValue(pos.x, pos.z - r) == 1)
-		{
-			pos.z += sin(((angle.y + 90 + 180) * 3.14) / -180) * moveSpeed;      // z座標を更新
-			miniMapPos.y += sin(((angle.y + 90 + 180) * 3.14) / -180) * moveSpeed;
-		}
-		//右
-		if (mapChip->ArrayValue(pos.x + r, pos.z) == 1)
-		{
-			pos.x += cos(((angle.y + 90 + 180) * 3.14) / -180) * moveSpeed;      // x座標を更新
-			miniMapPos.x += cos(((angle.y + 90 + 180 + 180) * 3.14) / -180) * moveSpeed;
-		}
-		isWalkShaking = true;
-	}
-	spritePlayerDot->SetPosition(miniMapPos);
-	spritePlayerAngle->SetPosition({ miniMapPos.x + 8, miniMapPos.y + 8 });
-	spritePlayerAngle->SetRotation(angle.y + 135);
+	objPlayer->SetPosition(pos);
+	objPlayer->SetRotation(angle);
 }
 
-void Player::WalkShaking()
+void Player::PutBom(MapChip* map)
 {
-	if (isWalkShaking == true)
+	if (Input::GetInstance()->KeybordTrigger(DIK_SPACE))
 	{
-		walkShakingTime++;
-		if (walkShakingTime <= 10)
-		{
-			walkShaking += 0.1;
+		if(angle.y == 180 && mapY != 7 && map->GetWallFlag(mapX, mapY + 1) != 1)
+		{ 
+			for (int i = 0; i < 3; i++)
+			{
+				if (bomAlive[i])
+				{
+					explosionCount[i]++;
+				}
+			}
+			bomPos[bomNo] = XMFLOAT3({ mapX * 4.0f - (MapValue * 4.0f / 2) + 2, 1.0f, (mapY + 1) * 4.0f - (MapValue * 4.0f / 2) + 2 });
+			objBom[bomNo]->SetPosition(bomPos[bomNo]);
+			bomAlive[bomNo] = true;
+			putFlag = true;
+			bomY[bomNo] = (bomPos[bomNo].z / 4) + ((8 + 1) / 2);//盤面の位置
+			bomX[bomNo] = (bomPos[bomNo].x / 4) + ((8 + 1) / 2);//盤面の位置
+			map->SetWallFlag(bomX[bomNo], bomY[bomNo], 2);
 		}
-		else if(walkShakingTime >= 10 && walkShakingTime <= 20)
+		else if (angle.y == 90 && mapX != 0 && map->GetWallFlag(mapX-1, mapY) != 1)
 		{
-			walkShaking -= 0.1;
+			for (int i = 0; i < 3; i++)
+			{
+				if (bomAlive[i])
+				{
+					explosionCount[i]++;
+				}
+			}
+			bomPos[bomNo] = XMFLOAT3({ (mapX - 1) * 4.0f - (MapValue * 4.0f / 2) + 2, 1.0f, mapY * 4.0f - (MapValue * 4.0f / 2) + 2 });
+			objBom[bomNo]->SetPosition(bomPos[bomNo]);
+			bomAlive[bomNo] = true;
+			putFlag = true;
+			bomY[bomNo] = (bomPos[bomNo].z / 4) + ((8 + 1) / 2);//盤面の位置
+			bomX[bomNo] = (bomPos[bomNo].x / 4) + ((8 + 1) / 2);//盤面の位置
+			map->SetWallFlag(bomX[bomNo], bomY[bomNo], 2);
 		}
-		else if (walkShakingTime > 20)
+		else if (angle.y == 0 && mapY != 0 && map->GetWallFlag(mapX, mapY - 1) != 1)
 		{
-			walkShaking = 2.5;
-			walkShakingTime = 0;
-			isWalkShaking = false;
+			for (int i = 0; i < 3; i++)
+			{
+				if (bomAlive[i])
+				{
+					explosionCount[i]++;
+				}
+			}
+			bomPos[bomNo] = XMFLOAT3({ mapX * 4.0f - (MapValue * 4.0f / 2) + 2, 1.0f, (mapY - 1) * 4.0f - (MapValue * 4.0f / 2) + 2 });
+			objBom[bomNo]->SetPosition(bomPos[bomNo]);
+			bomAlive[bomNo] = true;
+			putFlag = true;
+			bomY[bomNo] = (bomPos[bomNo].z / 4) + ((8 + 1) / 2);//盤面の位置
+			bomX[bomNo] = (bomPos[bomNo].x / 4) + ((8 + 1) / 2);//盤面の位置
+			map->SetWallFlag(bomX[bomNo], bomY[bomNo], 2);
+		}
+		else if (angle.y == 270 && mapX != 7 && map->GetWallFlag(mapX+1, mapY) != 1)
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				if (bomAlive[i])
+				{
+					explosionCount[i]++;
+				}
+			}
+			bomPos[bomNo] = XMFLOAT3({ (mapX + 1) * 4.0f - (MapValue * 4.0f / 2) + 2, 1.0f, mapY * 4.0f - (MapValue * 4.0f / 2) + 2 });
+			objBom[bomNo]->SetPosition(bomPos[bomNo]);
+			bomAlive[bomNo] = true;
+			putFlag = true;
+			bomY[bomNo] = (bomPos[bomNo].z / 4) + ((8 + 1) / 2);//盤面の位置
+			bomX[bomNo] = (bomPos[bomNo].x / 4) + ((8 + 1) / 2);//盤面の位置
+			map->SetWallFlag(bomX[bomNo], bomY[bomNo], 2);
+		}
+		if (putFlag == true)
+		{
+			if (bomNo != 2)
+			{
+				bomNo++;
+			}
+			else if (bomNo == 2)
+			{
+				bomNo = 0;
+			}
+			putFlag = false;
 		}
 	}
-	pos.y = walkShaking;
-	target.y = targetY + walkShaking;
 }
 
-void Player::View()
+void Player::Explosion(MapChip* map)
 {
-	XMVECTOR v0 = { 0,0,-10, 0 };
-	//angleラジアンだけy軸まわりに回転。半径は-100
-	XMMATRIX  rotM = XMMatrixIdentity();
-	rotM *= XMMatrixRotationX(XMConvertToRadians(angleX));
-	rotM *= XMMatrixRotationY(XMConvertToRadians(angleY));
-	XMVECTOR v = XMVector3TransformNormal(v0, rotM);
-	XMVECTOR cameraPos = { pos.x,pos.y,pos.z };
-	XMVECTOR v3 = cameraPos + v;
-	XMFLOAT3 f = { v3.m128_f32[0], v3.m128_f32[1], v3.m128_f32[2] };
-	pos = { cameraPos.m128_f32[0], cameraPos.m128_f32[1], cameraPos.m128_f32[2] };
-	target = f;
+	for (int i = 0; i < 3; i++)
+	{
+		if (explosionCount[i] > 2)
+		{		
+				//左
+				bool cansel1 = false;
+				if (map->GetWallFlag(bomX[i] - 4, bomY[i]) == 1)
+				{
+					if (bomX[i] - 4 == 0){ cansel1 = true;}
+					if (cansel1 == false)
+					{
+						map->SetWallFlag(bomX[i] - 5, bomY[i], 1);
+						map->SetWallFlag(bomX[i] - 4, bomY[i], 0);
+					}
+				}
+				if (map->GetWallFlag(bomX[i] - 3, bomY[i]) == 1)
+				{
+					if (bomX[i] - 3 == 0) { cansel1 = true; }
+					if (cansel1 == false)
+					{
+						map->SetWallFlag(bomX[i] - 4, bomY[i], 1);
+						map->SetWallFlag(bomX[i] - 3, bomY[i], 0);
+					}
+				}
+				if (map->GetWallFlag(bomX[i] - 2, bomY[i]) == 1)
+				{
+					if (bomX[i] - 2 == 0) { cansel1 = true; }
+					if (cansel1 == false)
+					{
+						map->SetWallFlag(bomX[i] - 3, bomY[i], 1);
+						map->SetWallFlag(bomX[i] - 2, bomY[i], 0);
+					}
+				}
+				if (map->GetWallFlag(bomX[i] - 1, bomY[i]) == 1)
+				{
+					if (bomX[i] - 1 == 0) { cansel1 = true; }
+					if (cansel1 == false)
+					{
+						map->SetWallFlag(bomX[i] - 2, bomY[i], 1);
+						map->SetWallFlag(bomX[i] - 1, bomY[i], 0);
+					}
+				}
 
-	if (Input::GetInstance()->KeybordTrigger(DIK_9))
-	{
-		mouseViewSpeed -= 0.01;
-	}
-	if (Input::GetInstance()->KeybordTrigger(DIK_0))
-	{
-		mouseViewSpeed += 0.01;
-	}
+				//右
+				bool cansel2 = false;
+				if (map->GetWallFlag(bomX[i] + 4, bomY[i]) == 1)
+				{
+					if (bomX[i] + 4 == 7) { cansel2 = true; }
+					if (cansel2 == false)
+					{
+						map->SetWallFlag(bomX[i] + 5, bomY[i], 1);
+						map->SetWallFlag(bomX[i] + 4, bomY[i], 0);
+					}
+				}
+				if (map->GetWallFlag(bomX[i] + 3, bomY[i]) == 1)
+				{
+					if (bomX[i] + 3 == 7) { cansel2 = true; }
+					if (cansel2 == false)
+					{
+						map->SetWallFlag(bomX[i] + 4, bomY[i], 1);
+						map->SetWallFlag(bomX[i] + 3, bomY[i], 0);
+					}
+				}
+				if (map->GetWallFlag(bomX[i] + 2, bomY[i]) == 1)
+				{
+					if (bomX[i] + 2 == 7) { cansel2 = true; }
+					if (cansel2 == false)
+					{
+						map->SetWallFlag(bomX[i] + 3, bomY[i], 1);
+						map->SetWallFlag(bomX[i] + 2, bomY[i], 0);
+					}
+				}
+				if (map->GetWallFlag(bomX[i] + 1, bomY[i]) == 1)
+				{
+					if (bomX[i] + 1 == 7) { cansel2 = true; }
+					if (cansel2 == false)
+					{
+						map->SetWallFlag(bomX[i] + 2, bomY[i], 1);
+						map->SetWallFlag(bomX[i] + 1, bomY[i], 0);
+					}
+				}
+				
+				//上
+				bool cansel3 = false;
+				if (map->GetWallFlag(bomX[i], bomY[i] + 4) == 1)
+				{
+					if (bomY[i] + 4 == 7) { cansel3 = true; }
+					if (cansel3 == false)
+					{
+						map->SetWallFlag(bomX[i], bomY[i] + 5, 1);
+						map->SetWallFlag(bomX[i], bomY[i] + 4, 0);
+					}
+				}
+				if (map->GetWallFlag(bomX[i], bomY[i] + 3) == 1)
+				{
+					if (bomY[i] + 3 == 7) { cansel3 = true; }
+					if (cansel3 == false)
+					{
+						map->SetWallFlag(bomX[i], bomY[i] + 4, 1);
+						map->SetWallFlag(bomX[i], bomY[i] + 3, 0);
+					}
+				}
+				if (map->GetWallFlag(bomX[i], bomY[i] + 2) == 1)
+				{
+					if (bomY[i] + 2 == 7) { cansel3 = true; }
+					if (cansel3 == false)
+					{
+						map->SetWallFlag(bomX[i], bomY[i] + 3, 1);
+						map->SetWallFlag(bomX[i], bomY[i] + 2, 0);
+					}
+				}
+				if (map->GetWallFlag(bomX[i], bomY[i] + 1) == 1)
+				{
+					if (bomY[i] + 1 == 7) { cansel3 = true; }
+					if (cansel3 == false)
+					{
+						map->SetWallFlag(bomX[i], bomY[i] + 2, 1);
+						map->SetWallFlag(bomX[i], bomY[i] + 1, 0);
+					}
+				}
 
-	if (angleX >= 85)
-	{
-		angleX = 85;
+				//下
+				bool cansel4 = false;
+				if (map->GetWallFlag(bomX[i], bomY[i] - 4) == 1)
+				{
+					if (bomY[i] - 4 == 0) { cansel4 = true; }
+					if (cansel4 == false)
+					{
+						map->SetWallFlag(bomX[i], bomY[i] - 5, 1);
+						map->SetWallFlag(bomX[i], bomY[i] - 4, 0);
+					}
+				}
+				if (map->GetWallFlag(bomX[i], bomY[i] - 3) == 1)
+				{
+					if (bomY[i] - 3 == 0) { cansel4 = true; }
+					if (cansel4 == false)
+					{
+						map->SetWallFlag(bomX[i], bomY[i] - 4, 1);
+						map->SetWallFlag(bomX[i], bomY[i] - 3, 0);
+					}
+				}
+				if (map->GetWallFlag(bomX[i], bomY[i] - 2) == 1)
+				{
+					if (bomY[i] - 2 == 0) { cansel4 = true; }
+					if (cansel4 == false)
+					{
+						map->SetWallFlag(bomX[i], bomY[i] - 3, 1);
+						map->SetWallFlag(bomX[i], bomY[i] - 2, 0);
+					}
+				}
+				if (map->GetWallFlag(bomX[i], bomY[i] - 1) == 1)
+				{
+					if (bomY[i] - 1 == 0) { cansel4 = true; }
+					if (cansel4 == false)
+					{
+						map->SetWallFlag(bomX[i], bomY[i] - 2, 1);
+						map->SetWallFlag(bomX[i], bomY[i] - 1, 0);
+					}
+				}
+			bomAlive[i] = false;
+			map->SetWallFlag(bomX[i], bomY[i], 0);
+			explosionCount[i] = 0;
+		}
 	}
-	else if (Input::GetInstance()->KeybordPush(DIK_UP))
-	{
-		angleX += viewSpeed;
-	}
-	if (angleX <= -85)
-	{
-		angleX = -85;
-	}
-	else if (Input::GetInstance()->KeybordPush(DIK_DOWN))
-	{
-		angleX -= viewSpeed;
-	}
-	if (Input::GetInstance()->KeybordPush(DIK_LEFT))
-	{
-		angleY -= viewSpeed;
-	}
-	if (Input::GetInstance()->KeybordPush(DIK_RIGHT))
-	{
-		angleY += viewSpeed;
-	}
-	angleY += Input::GetInstance()->GetMouseMove().lX * mouseViewSpeed;
-	angleX -= Input::GetInstance()->GetMouseMove().lY * mouseViewSpeed;
-}
-
-void Player::AngleSearch()
-{
-	angle.y = XMConvertToDegrees(atan2(pos.x - target.x, pos.z - target.z)) + 90;
 }

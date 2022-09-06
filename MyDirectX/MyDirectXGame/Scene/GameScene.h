@@ -15,7 +15,7 @@
 #include "../3d/DebugCamera.h"
 #include "../Map/MapChip.h"
 #include "../3d/LightGroop.h"
-
+#include "../Player/Player.h"
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -94,7 +94,7 @@ private: // メンバ変数
 
 	ParticleManager *particle3d = nullptr;
 	MapChip* map = nullptr;
-
+	Player* player = nullptr;
 	bool stopFlag;
 
 	float ambientColor0[3] = { 0.6,0.6,0.6 };
