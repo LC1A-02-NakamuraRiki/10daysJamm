@@ -13,9 +13,7 @@
 #include "../3d/ParticleManager.h"
 #include "../3d/DebugCamera.h"
 #include "../3d/DebugCamera.h"
-#include "../Player/Player.h"
 #include "../Map/MapChip.h"
-#include "../enemy/enemy.h"
 #include "../3d/LightGroop.h"
 
 /// <summary>
@@ -95,15 +93,11 @@ private: // ƒƒ“ƒo•Ï”
 	Object3d *objGround = nullptr;
 
 	ParticleManager *particle3d = nullptr;
-	Player* player = nullptr;
-	Enemy* enemy = nullptr;
 	MapChip* map = nullptr;
-	int scene = 0;
-	float collision;
 
 	bool stopFlag;
 
-	float ambientColor0[3] = { 0.1,0.1,0.1 };
+	float ambientColor0[3] = { 0.6,0.6,0.6 };
 	// Œõü•ûŒü‰Šú’l
 
 	float lightDir0[3] = { 0,1,0 };

@@ -3,7 +3,7 @@
 using namespace DirectX;
 
 // 視点座標
-XMFLOAT3 Camera::eye = { 0, 0, -20 };
+XMFLOAT3 Camera::eye = { 0, 5, -40 };
 // 注視点座標
 XMFLOAT3 Camera::target = { 0, 0, 0 };
 // 上方向ベクトル

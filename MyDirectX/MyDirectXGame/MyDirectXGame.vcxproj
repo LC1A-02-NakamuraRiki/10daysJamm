@@ -249,7 +249,6 @@
     <ClCompile Include="base\WinApp.cpp" />
     <ClCompile Include="collision\Collision.cpp" />
     <ClCompile Include="collision\CollisionPrimitive.cpp" />
-    <ClCompile Include="enemy\enemy.cpp" />
     <ClCompile Include="helper\LoadCSV.cpp" />
     <ClCompile Include="input\GamePad.cpp" />
     <ClCompile Include="input\Input.cpp" />
@@ -257,7 +256,6 @@
     <ClCompile Include="input\Mouse.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map\MapChip.cpp" />
-    <ClCompile Include="Player\Player.cpp" />
     <ClCompile Include="Scene\GameScene.cpp" />
     <ClCompile Include="Sound\Sound.cpp" />
   </ItemGroup>
@@ -282,14 +280,12 @@
     <ClInclude Include="base\WinApp.h" />
     <ClInclude Include="collision\Collision.h" />
     <ClInclude Include="collision\CollisionPrimitive.h" />
-    <ClInclude Include="enemy\enemy.h" />
     <ClInclude Include="helper\LoadCSV.h" />
     <ClInclude Include="input\GamePad.h" />
     <ClInclude Include="input\Input.h" />
     <ClInclude Include="input\KeyBoard.h" />
     <ClInclude Include="input\Mouse.h" />
     <ClInclude Include="Map\MapChip.h" />
-    <ClInclude Include="Player\Player.h" />
     <ClInclude Include="Scene\GameScene.h" />
     <ClInclude Include="Sound\Sound.h" />
   </ItemGroup>

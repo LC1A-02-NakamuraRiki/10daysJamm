@@ -411,7 +411,7 @@ int MapChip::ArrayValue(float x, float y)
 
 void MapChip::Draw()
 {
-	for (int x = 0; x < MapValue; x++)
+	/*for (int x = 0; x < MapValue; x++)
 	{
 		for (int y = 0; y < MapValue; y++)
 		{
@@ -437,12 +437,12 @@ void MapChip::Draw()
 		{
 			objCrystal[i]->Draw();
 		}
-	}
+	}*/
 }
 
 void MapChip::DrawSprite()
 {
-	spriteMapBack->Draw();
+	/*spriteMapBack->Draw();
 	for (int x = 0; x < MapValue; x++)
 	{
 		for (int y = 0; y < MapValue; y++)
@@ -467,7 +467,7 @@ void MapChip::DrawSprite()
 		{
 			spriteNumber[i]->Draw();
 		}
-	}
+	}*/
 }
 
 void MapChip::TimeStop()

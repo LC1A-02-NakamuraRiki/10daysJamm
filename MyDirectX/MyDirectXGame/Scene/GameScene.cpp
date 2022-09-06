@@ -24,8 +24,6 @@ GameScene::~GameScene()
 	safe_delete(objGround);
 	safe_delete(modelGround);
 	safe_delete(light);
-	safe_delete(player);
-	safe_delete(enemy);
 	safe_delete(map);
 }
 
@@ -89,92 +87,47 @@ void GameScene::Initialize(DirectXCommon *dxCommon, Sound *audio)
 	
 	Object3d::SetLightGroup(light);
 
-	player = new Player;
-	player->Initialize();
 	map = new MapChip;
 	map->Initialize();
 	
-	enemy = new Enemy;
-	enemy->Initialize();
 }
 
 void GameScene::Update()
 {
 	debugText.Print(20, 20, 2.0f, "END : ESC");
-	if (scene == TITLE)
-	{	
-		if (Input::GetInstance()->KeybordTrigger(DIK_SPACE))
-		{
-			player->InitializeValue();
-			enemy->InitializeValue();
-			map->InitializeValue();
-			scene = PLAY;
-		}
-	}
-	else if (scene == PLAY)
-	{
-		debugText.Print(20, 50, 2.0f, "MOVE : W A S D");
-		debugText.Print(20, 80, 2.0f, "VIEW : MOUSE or ArrowKey ");
-		debugText.Print(20, 110, 2.0f, "SENSI CHANGE -/+  :  9/0 ");
-		debugText.Print(20, 140, 2.0f, "NowSENSI :  %f", player->GetViewSpeed());
-		
-		//プレイヤー系
-		camera->SetEye(player->GetPos());
-		camera->SetTarget(player->GetTarget());
+	
+	/*debugText.Print(20, 50, 2.0f, "MOVE : W A S D");
+	debugText.Print(20, 80, 2.0f, "VIEW : MOUSE or ArrowKey ");
+	debugText.Print(20, 110, 2.0f, "SENSI CHANGE -/+  :  9/0 ");
+	debugText.Print(20, 140, 2.0f, "NowSENSI :  %f", player->GetViewSpeed());*/
 
-		//ライト
-		light->SetAmbientColor(XMFLOAT3(ambientColor0));
+	//ライト
+	light->SetAmbientColor(XMFLOAT3(ambientColor0));
 
-		light->SetDirLightDir(0, XMVECTOR({ lightDir0[0], lightDir0[1], lightDir0[2], 0 }));
-		light->SetDirLightColor(0, XMFLOAT3(lightColor0));
+	light->SetDirLightDir(0, XMVECTOR({ lightDir0[0], lightDir0[1], lightDir0[2], 0 }));
+	light->SetDirLightColor(0, XMFLOAT3(lightColor0));
 
-		light->SetDirLightDir(1, XMVECTOR({ lightDir1[0], lightDir1[1], lightDir1[2], 0 }));
-		light->SetDirLightColor(1, XMFLOAT3(lightColor1));
+	light->SetDirLightDir(1, XMVECTOR({ lightDir1[0], lightDir1[1], lightDir1[2], 0 }));
+	light->SetDirLightColor(1, XMFLOAT3(lightColor1));
 
-		light->SetDirLightDir(2, XMVECTOR({ lightDir2[0], lightDir2[1], lightDir2[2], 0 }));
-		light->SetDirLightColor(2, XMFLOAT3(lightColor2));
+	light->SetDirLightDir(2, XMVECTOR({ lightDir2[0], lightDir2[1], lightDir2[2], 0 }));
+	light->SetDirLightColor(2, XMFLOAT3(lightColor2));
 
-		light->SetDirLightDir(3, XMVECTOR({ lightDir3[0], lightDir3[1], lightDir3[2], 0 }));
-		light->SetDirLightColor(3, XMFLOAT3(lightColor3));
+	light->SetDirLightDir(3, XMVECTOR({ lightDir3[0], lightDir3[1], lightDir3[2], 0 }));
+	light->SetDirLightColor(3, XMFLOAT3(lightColor3));
 
-		light->SetDirLightDir(4, XMVECTOR({ lightDir4[0], lightDir4[1], lightDir4[2], 0 }));
-		light->SetDirLightColor(4, XMFLOAT3(lightColor4));
-		
-		light->SetDirLightDir(5, XMVECTOR({ lightDir5[0], lightDir5[1], lightDir5[2], 0 }));
-		light->SetDirLightColor(5, XMFLOAT3(lightColor5));
+	light->SetDirLightDir(4, XMVECTOR({ lightDir4[0], lightDir4[1], lightDir4[2], 0 }));
+	light->SetDirLightColor(4, XMFLOAT3(lightColor4));
+	
+	light->SetDirLightDir(5, XMVECTOR({ lightDir5[0], lightDir5[1], lightDir5[2], 0 }));
+	light->SetDirLightColor(5, XMFLOAT3(lightColor5));
 
-		player->Update(map);
-		particle3d->Update();
-		camera->Update();
-		objSkydome->Update();
-		objGround->Update();
-		light->Update();
-		map->Update(player->GetPos());
-		stopFlag = map->GetStopFlag();
-		enemy->Update(player, map);
-		if (enemy->catchCollision(player))
-		{
-			scene = GAMEOVER;
-		}
-		if (map->GetAllGetFlag())
-		{
-			scene = CLEAR;
-		}
-	}
-	else if (scene == CLEAR)
-	{
-		if (Input::GetInstance()->KeybordTrigger(DIK_SPACE))
-		{
-			scene = TITLE;
-		}
-	}
-	else if (scene == GAMEOVER)
-	{
-		if (Input::GetInstance()->KeybordTrigger(DIK_SPACE))
-		{
-			scene = TITLE;
-		}
-	}
+	particle3d->Update();
+	camera->Update();
+	objSkydome->Update();
+	objGround->Update();
+	light->Update();
+	stopFlag = map->GetStopFlag();
 }
 
 void GameScene::Draw()
@@ -199,13 +152,11 @@ void GameScene::Draw()
 	// 3Dオブジェクト描画前処理
 	Object3d::PreDraw(cmdList);
 	//-------------------------------------------------------------//
-	if (scene == TITLE || scene == PLAY)
-	{
-		objSkydome->Draw();
-		objGround->Draw();
-		map->Draw();
-		enemy->Draw();
-	}
+
+	objSkydome->Draw();
+	objGround->Draw();
+	map->Draw();
+	
 	//-------------------------------------------------------------//
 	// 3Dオブジェクト描画後処理
 	Object3d::PostDraw();
@@ -218,25 +169,9 @@ void GameScene::Draw()
 	//// 前景スプライト描画前処理
 	Sprite::PreDraw(cmdList);
 	//-------------------------------------------------------------//
-	if (scene == TITLE)
-	{
-		spriteTitle->Draw();
-	}
-	if (scene == CLEAR)
-	{
-		spriteClear->Draw();
-	}
-	if (scene == GAMEOVER)
-	{
-		spriteGAMEOVER->Draw();
-	}
-	if (scene == PLAY)
-	{
-		map->DrawSprite();
-		player->DrawSprite();
-		enemy->DrawSprite(map);
-	}
-
+	
+	map->DrawSprite();
+	
 	//-------------------------------------------------------------//
 	// デバッグテキストの描画
 	debugText.DrawAll(cmdList);
