@@ -92,7 +92,7 @@ void GameScene::Initialize(DirectXCommon *dxCommon, Sound *audio)
 	map->Initialize();
 	player = new Player;
 	player->Initialize(map);
-	
+	player->SetParticle(particle3d);
 }
 
 void GameScene::Update()
