@@ -362,6 +362,53 @@ void Player::Explosion(MapChip* map)
 			bomAlive[i] = false;
 			map->SetWallFlag(bomX[i], bomY[i], 0);
 			explosionCount[i] = 0;
+			effectTimer[i] = 10;//エフェクト継続時間
+		}
+		//エフェクト発生
+		if (effectTimer[i] >= 0 && explosionCount[i] == 0)
+		{
+			ExplosionEffect({ bomPos[i].x, bomPos[i].y, bomPos[i].z });
+			ExplosionEffect({ bomPos[i].x - 4, bomPos[i].y, bomPos[i].z });
+			ExplosionEffect({ bomPos[i].x + 4, bomPos[i].y, bomPos[i].z });
+			ExplosionEffect({ bomPos[i].x, bomPos[i].y, bomPos[i].z - 4 });
+			ExplosionEffect({ bomPos[i].x, bomPos[i].y, bomPos[i].z + 4 });
+			effectTimer[i]--;
 		}
 	}
+}
+
+void Player::ExplosionEffect(XMFLOAT3 position)
+{
+	//表示される長さ
+	int life = 10;
+
+	//初期位置
+	XMFLOAT3 pos{};
+	pos = position;
+
+	//速度
+	float rand_range = 18;
+	XMFLOAT3 vel{};
+	vel.x =		(float)((rand() % (int)rand_range) - (int)rand_range / 2) / 40;
+	vel.y = abs((float)((rand() % (int)rand_range) - (int)rand_range / 2) / 40);
+	vel.z =		(float)((rand() % (int)rand_range) - (int)rand_range / 2) / 40;
+
+	//加速度
+	XMFLOAT3 acc{};
+	acc.x = 0;
+	acc.y = 0;
+	acc.z = 0;
+
+	//大きさ
+	float start_scale = 2.5f;
+	float end_scale = 0.4f;
+
+	//色
+	XMFLOAT4 color{};
+	color.x = 0.0f;//B
+	color.y = 16.0f;//R
+	color.z = 0.5f;//G
+	color.w = 0.2f;
+
+	particle->Add(life, pos, vel, acc, start_scale, end_scale, color);
 }

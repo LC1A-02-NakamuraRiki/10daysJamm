@@ -2,6 +2,7 @@
 #include <DirectXMath.h>
 #include "../Map/MapChip.h"
 #include "../2d/Sprite.h"
+#include "../3d/ParticleManager.h"
 class Player
 {
 protected: // エイリアス
@@ -29,8 +30,12 @@ public:
 
 	void Explosion(MapChip* map);
 
+	void ExplosionEffect(XMFLOAT3 position);//爆発エフェクト
+
 	XMFLOAT3 GetPos() { return pos; }
 	int Get1() { return explosionCount[0]; }
+
+	void SetParticle(ParticleManager* particle) { this->particle = particle; }
 private:
 
 	const int MapValue = 8;//マップサイズ
@@ -56,4 +61,7 @@ private:
 	bool putFlag = false;
 	int bomY[3] = {0,0,0};//盤面の位置
 	int bomX[3] = {0,0,0};//盤面の位置
+
+	int effectTimer[3] = {10, 10, 10};
+	ParticleManager* particle = nullptr;//爆発エフェクト用
 };
