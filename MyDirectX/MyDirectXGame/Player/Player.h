@@ -33,7 +33,6 @@ public:
 	void ExplosionEffect(XMFLOAT3 position);//爆発エフェクト
 
 	XMFLOAT3 GetPos() { return pos; }
-	int Get1() { return explosionCount[0]; }
 
 	void SetParticle(ParticleManager* particle) { this->particle = particle; }
 private:

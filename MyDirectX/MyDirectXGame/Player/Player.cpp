@@ -361,7 +361,7 @@ void Player::Explosion(MapChip* map)
 				}
 			bomAlive[i] = false;
 			map->SetWallFlag(bomX[i], bomY[i], 0);
-			explosionCount[i] = 0;
+			explosionCount[i] = 1;
 			effectTimer[i] = 10;//エフェクト継続時間
 		}
 		//エフェクト発生
