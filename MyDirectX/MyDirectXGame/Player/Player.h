@@ -25,12 +25,13 @@ public:
 
 	void Move(MapChip* map);//歩き
 
+	void playerAngle();
+
 	void PutBom(MapChip* map);
 
 	void Explosion(MapChip* map);
 
 	XMFLOAT3 GetPos() { return pos; }
-	int Get1() { return explosionCount[0]; }
 private:
 
 	const int MapValue = 8;//マップサイズ
