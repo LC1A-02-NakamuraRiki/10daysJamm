@@ -29,6 +29,7 @@ void Player::InitializeValue()
 void Player::Update(MapChip* map)
 {
 	Move(map);
+	playerAngle();
 	PutBom(map);
 	objPlayer->Update();
 	for (int i = 0; i < 3; i++)
@@ -59,7 +60,7 @@ void Player::Move(MapChip* map)
 	mapY = (pos.z / 4) + ((8 + 1) / 2);
 	mapX = (pos.x / 4) + ((8 + 1) / 2);
 
-	if (Input::GetInstance()->KeybordTrigger(DIK_W) && mapY != 7 && map->GetWallFlag(mapX, mapY + 1) != 1)
+	if (Input::GetInstance()->KeybordTrigger(DIK_W) && mapY != 7 && map->GetWallFlag(mapX, mapY + 1) == 0)
 	{
 		pos.z += moveSpeed;// z座標を更新
 		angle.y = 180;
@@ -71,7 +72,7 @@ void Player::Move(MapChip* map)
 			}
 		}
 	}
-	if (Input::GetInstance()->KeybordTrigger(DIK_A) && mapX != 0 && map->GetWallFlag(mapX-1, mapY) != 1)
+	if (Input::GetInstance()->KeybordTrigger(DIK_A) && mapX != 0 && map->GetWallFlag(mapX-1, mapY) == 0)
 	{
 		pos.x -= moveSpeed;// x座標を更新
 		angle.y = 90;
@@ -83,7 +84,7 @@ void Player::Move(MapChip* map)
 			}
 		}
 	}
-	if (Input::GetInstance()->KeybordTrigger(DIK_S) && mapY != 0 && map->GetWallFlag(mapX, mapY - 1) != 1)
+	if (Input::GetInstance()->KeybordTrigger(DIK_S) && mapY != 0 && map->GetWallFlag(mapX, mapY - 1) == 0)
 	{
 		pos.z -= moveSpeed;// z座標を更新
 		angle.y = 0;
@@ -95,7 +96,7 @@ void Player::Move(MapChip* map)
 			}
 		}
 	}
-	if (Input::GetInstance()->KeybordTrigger(DIK_D) && mapX != 7 && map->GetWallFlag(mapX + 1, mapY) != 1)
+	if (Input::GetInstance()->KeybordTrigger(DIK_D) && mapX != 7 && map->GetWallFlag(mapX + 1, mapY) == 0)
 	{
 		pos.x += moveSpeed;// x座標を更新
 		angle.y = 270;
@@ -111,11 +112,32 @@ void Player::Move(MapChip* map)
 	objPlayer->SetRotation(angle);
 }
 
+void Player::playerAngle()
+{
+	if (Input::GetInstance()->KeybordTrigger(DIK_UP))
+	{
+		angle.y = 180;
+	}
+	else if (Input::GetInstance()->KeybordTrigger(DIK_DOWN))
+	{
+		angle.y = 0;
+	}
+	else if (Input::GetInstance()->KeybordTrigger(DIK_RIGHT))
+	{
+		angle.y = 270;
+	}
+	else if (Input::GetInstance()->KeybordTrigger(DIK_LEFT))
+	{
+		angle.y = 90;
+	}
+	objPlayer->SetRotation(angle);
+}
+
 void Player::PutBom(MapChip* map)
 {
 	if (Input::GetInstance()->KeybordTrigger(DIK_SPACE))
 	{
-		if(angle.y == 180 && mapY != 7 && map->GetWallFlag(mapX, mapY + 1) != 1)
+		if(angle.y == 180 && mapY != 7 && map->GetWallFlag(mapX, mapY + 1) == 0)
 		{ 
 			for (int i = 0; i < 3; i++)
 			{
@@ -132,7 +154,7 @@ void Player::PutBom(MapChip* map)
 			bomX[bomNo] = (bomPos[bomNo].x / 4) + ((8 + 1) / 2);//盤面の位置
 			map->SetWallFlag(bomX[bomNo], bomY[bomNo], 2);
 		}
-		else if (angle.y == 90 && mapX != 0 && map->GetWallFlag(mapX-1, mapY) != 1)
+		else if (angle.y == 90 && mapX != 0 && map->GetWallFlag(mapX-1, mapY) == 0)
 		{
 			for (int i = 0; i < 3; i++)
 			{
@@ -149,7 +171,7 @@ void Player::PutBom(MapChip* map)
 			bomX[bomNo] = (bomPos[bomNo].x / 4) + ((8 + 1) / 2);//盤面の位置
 			map->SetWallFlag(bomX[bomNo], bomY[bomNo], 2);
 		}
-		else if (angle.y == 0 && mapY != 0 && map->GetWallFlag(mapX, mapY - 1) != 1)
+		else if (angle.y == 0 && mapY != 0 && map->GetWallFlag(mapX, mapY - 1) == 0)
 		{
 			for (int i = 0; i < 3; i++)
 			{
@@ -166,7 +188,7 @@ void Player::PutBom(MapChip* map)
 			bomX[bomNo] = (bomPos[bomNo].x / 4) + ((8 + 1) / 2);//盤面の位置
 			map->SetWallFlag(bomX[bomNo], bomY[bomNo], 2);
 		}
-		else if (angle.y == 270 && mapX != 7 && map->GetWallFlag(mapX+1, mapY) != 1)
+		else if (angle.y == 270 && mapX != 7 && map->GetWallFlag(mapX+1, mapY) == 0)
 		{
 			for (int i = 0; i < 3; i++)
 			{
@@ -206,33 +228,6 @@ void Player::Explosion(MapChip* map)
 		{		
 				//左
 				bool cansel1 = false;
-				if (map->GetWallFlag(bomX[i] - 4, bomY[i]) == 1)
-				{
-					if (bomX[i] - 4 == 0){ cansel1 = true;}
-					if (cansel1 == false)
-					{
-						map->SetWallFlag(bomX[i] - 5, bomY[i], 1);
-						map->SetWallFlag(bomX[i] - 4, bomY[i], 0);
-					}
-				}
-				if (map->GetWallFlag(bomX[i] - 3, bomY[i]) == 1)
-				{
-					if (bomX[i] - 3 == 0) { cansel1 = true; }
-					if (cansel1 == false)
-					{
-						map->SetWallFlag(bomX[i] - 4, bomY[i], 1);
-						map->SetWallFlag(bomX[i] - 3, bomY[i], 0);
-					}
-				}
-				if (map->GetWallFlag(bomX[i] - 2, bomY[i]) == 1)
-				{
-					if (bomX[i] - 2 == 0) { cansel1 = true; }
-					if (cansel1 == false)
-					{
-						map->SetWallFlag(bomX[i] - 3, bomY[i], 1);
-						map->SetWallFlag(bomX[i] - 2, bomY[i], 0);
-					}
-				}
 				if (map->GetWallFlag(bomX[i] - 1, bomY[i]) == 1)
 				{
 					if (bomX[i] - 1 == 0) { cansel1 = true; }
@@ -245,33 +240,6 @@ void Player::Explosion(MapChip* map)
 
 				//右
 				bool cansel2 = false;
-				if (map->GetWallFlag(bomX[i] + 4, bomY[i]) == 1)
-				{
-					if (bomX[i] + 4 == 7) { cansel2 = true; }
-					if (cansel2 == false)
-					{
-						map->SetWallFlag(bomX[i] + 5, bomY[i], 1);
-						map->SetWallFlag(bomX[i] + 4, bomY[i], 0);
-					}
-				}
-				if (map->GetWallFlag(bomX[i] + 3, bomY[i]) == 1)
-				{
-					if (bomX[i] + 3 == 7) { cansel2 = true; }
-					if (cansel2 == false)
-					{
-						map->SetWallFlag(bomX[i] + 4, bomY[i], 1);
-						map->SetWallFlag(bomX[i] + 3, bomY[i], 0);
-					}
-				}
-				if (map->GetWallFlag(bomX[i] + 2, bomY[i]) == 1)
-				{
-					if (bomX[i] + 2 == 7) { cansel2 = true; }
-					if (cansel2 == false)
-					{
-						map->SetWallFlag(bomX[i] + 3, bomY[i], 1);
-						map->SetWallFlag(bomX[i] + 2, bomY[i], 0);
-					}
-				}
 				if (map->GetWallFlag(bomX[i] + 1, bomY[i]) == 1)
 				{
 					if (bomX[i] + 1 == 7) { cansel2 = true; }
@@ -284,33 +252,6 @@ void Player::Explosion(MapChip* map)
 				
 				//上
 				bool cansel3 = false;
-				if (map->GetWallFlag(bomX[i], bomY[i] + 4) == 1)
-				{
-					if (bomY[i] + 4 == 7) { cansel3 = true; }
-					if (cansel3 == false)
-					{
-						map->SetWallFlag(bomX[i], bomY[i] + 5, 1);
-						map->SetWallFlag(bomX[i], bomY[i] + 4, 0);
-					}
-				}
-				if (map->GetWallFlag(bomX[i], bomY[i] + 3) == 1)
-				{
-					if (bomY[i] + 3 == 7) { cansel3 = true; }
-					if (cansel3 == false)
-					{
-						map->SetWallFlag(bomX[i], bomY[i] + 4, 1);
-						map->SetWallFlag(bomX[i], bomY[i] + 3, 0);
-					}
-				}
-				if (map->GetWallFlag(bomX[i], bomY[i] + 2) == 1)
-				{
-					if (bomY[i] + 2 == 7) { cansel3 = true; }
-					if (cansel3 == false)
-					{
-						map->SetWallFlag(bomX[i], bomY[i] + 3, 1);
-						map->SetWallFlag(bomX[i], bomY[i] + 2, 0);
-					}
-				}
 				if (map->GetWallFlag(bomX[i], bomY[i] + 1) == 1)
 				{
 					if (bomY[i] + 1 == 7) { cansel3 = true; }
@@ -323,33 +264,6 @@ void Player::Explosion(MapChip* map)
 
 				//下
 				bool cansel4 = false;
-				if (map->GetWallFlag(bomX[i], bomY[i] - 4) == 1)
-				{
-					if (bomY[i] - 4 == 0) { cansel4 = true; }
-					if (cansel4 == false)
-					{
-						map->SetWallFlag(bomX[i], bomY[i] - 5, 1);
-						map->SetWallFlag(bomX[i], bomY[i] - 4, 0);
-					}
-				}
-				if (map->GetWallFlag(bomX[i], bomY[i] - 3) == 1)
-				{
-					if (bomY[i] - 3 == 0) { cansel4 = true; }
-					if (cansel4 == false)
-					{
-						map->SetWallFlag(bomX[i], bomY[i] - 4, 1);
-						map->SetWallFlag(bomX[i], bomY[i] - 3, 0);
-					}
-				}
-				if (map->GetWallFlag(bomX[i], bomY[i] - 2) == 1)
-				{
-					if (bomY[i] - 2 == 0) { cansel4 = true; }
-					if (cansel4 == false)
-					{
-						map->SetWallFlag(bomX[i], bomY[i] - 3, 1);
-						map->SetWallFlag(bomX[i], bomY[i] - 2, 0);
-					}
-				}
 				if (map->GetWallFlag(bomX[i], bomY[i] - 1) == 1)
 				{
 					if (bomY[i] - 1 == 0) { cansel4 = true; }

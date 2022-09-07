@@ -103,8 +103,6 @@ void GameScene::Update()
 	int mapX = (player->GetPos().x / 4) + ((8 + 1) / 2);
 	debugText.Print(20, 40, 2.0f, "z :  %d", mapY);
 	debugText.Print(20, 70, 2.0f, "x :  %d", mapX);
-	debugText.Print(20, 100, 2.0f, "a :  %d", player->Get1());
-	debugText.Print(20, 130, 2.0f, "a :  %d", map->ArrayValue(player->GetPos().x, player->GetPos().z));
 	/*debugText.Print(20, 50, 2.0f, "MOVE : W A S D");
 	debugText.Print(20, 80, 2.0f, "VIEW : MOUSE or ArrowKey ");
 	debugText.Print(20, 110, 2.0f, "SENSI CHANGE -/+  :  9/0 ");

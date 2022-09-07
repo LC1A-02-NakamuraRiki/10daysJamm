@@ -26,6 +26,8 @@ public:
 
 	void Move(MapChip* map);//•à‚«
 
+	void playerAngle();
+
 	void PutBom(MapChip* map);
 
 	void Explosion(MapChip* map);
