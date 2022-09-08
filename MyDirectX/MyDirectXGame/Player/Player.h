@@ -16,6 +16,7 @@ public:
 	void Initialize(MapChip* map);//最初の初期化
 
 	void InitializeValue();//タイトル時の初期化
+	void BomInitialize(int i);//タイトル時の初期化
 
 	void Update(MapChip* map);//アップデート
 
@@ -30,8 +31,18 @@ public:
 	void PutBom(MapChip* map);
 
 	void Explosion(MapChip* map);
+	void enemyExplosion(int no, MapChip* map);
 
 	XMFLOAT3 GetPos() { return pos; }
+	XMFLOAT3 GetBomPos(int no) { return bomPos[no]; };
+	XMFLOAT3 SetBomPos(int no) { return bomPos[no] = XMFLOAT3({ 100,100,100 }); };
+	int GetPlayCount() { return playCount; }
+	int SetPlayCount() { return playCount += 600; }
+	bool GetBomAlive(int No) { return bomAlive[No]; }
+	bool GetTurnFlag(int no) { return turnFlag[no]; }
+	bool SetTurnFlag(bool turn,int no) { return turnFlag[no] = turn; }
+	bool GetExplosion(int No) { return nowExplosion[No]; }
+	bool SetExplosion(int No) { return nowExplosion[No] = false; }
 private:
 
 	const int MapValue = 8;//マップサイズ
@@ -52,9 +63,13 @@ private:
 	Object3d* objBom[3];
 
 	XMFLOAT3 bomPos[3] = { {0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f} };//プレイヤーの位置
-	bool bomAlive[3] = {false, false, false};
+	bool bomAlive[3] = { false, false, false };
 	int explosionCount[3] = { 1,1,1 };
 	bool putFlag = false;
-	int bomY[3] = {0,0,0};//盤面の位置
-	int bomX[3] = {0,0,0};//盤面の位置
+	int bomY[3] = { 0,0,0 };//盤面の位置
+	int bomX[3] = { 0,0,0 };//盤面の位置
+
+	bool turnFlag[12] ={ false, false,false ,false , false , false , false , false , false , false , false , false };
+	bool nowExplosion[3] = { false, false, false };
+	int playCount = 2400;
 };

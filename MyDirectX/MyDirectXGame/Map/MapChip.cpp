@@ -23,6 +23,31 @@ void MapChip::Initialize()
 
 void MapChip::InitializeValue()
 {
+	MapValue = 8;
+	MapValueX = 15;
+	MapValueZ = 15;
+	for (int x = 0; x < MapValue; x++)
+	{
+		for (int y = 0; y < MapValue; y++)
+		{
+			mapWall[y][x] = mapWall2[y][x];
+		}
+	}
+	stopTime = 0;
+	stopFlag = false;
+	for (int x = 0; x < MapValue; x++)
+	{
+		for (int y = 0; y < MapValue; y++)
+		{
+			objMapWall[y][x] = Object3d::Create(modelMapWall);
+			objMapWall[y][x]->SetScale(XMFLOAT3({ 2, 1, 2 }));
+			objMapWall[y][x]->SetPosition(XMFLOAT3({ x * 4.0f - (MapValue * 4.0f / 2) + 2, 0.0f, y * 4.0f - (MapValue * 4.0f / 2) + 2 }));
+
+			objMapWall2[y][x] = Object3d::Create(modelMapWall);
+			objMapWall2[y][x]->SetScale(XMFLOAT3({ 2, 2, 2 }));
+			objMapWall2[y][x]->SetPosition(XMFLOAT3({ x * 4.0f - (MapValue * 4.0f / 2) + 2, 2.0f, y * 4.0f - (MapValue * 4.0f / 2) + 2 }));
+		}
+	}
 }
 
 
