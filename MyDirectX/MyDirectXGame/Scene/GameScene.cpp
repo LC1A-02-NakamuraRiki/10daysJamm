@@ -6,6 +6,7 @@
 #include "../3d/FbxLoader.h"
 #include "../3d/FbxObject3d.h"
 #include "../input/Input.h"
+#include "../Effect/Effect.h"
 
 using namespace DirectX;
 
@@ -26,6 +27,7 @@ GameScene::~GameScene()
 	safe_delete(light);
 	safe_delete(map);
 	safe_delete(player);
+	safe_delete(enemy);
 }
 
 void GameScene::Initialize(DirectXCommon *dxCommon, Sound *audio)
@@ -92,50 +94,100 @@ void GameScene::Initialize(DirectXCommon *dxCommon, Sound *audio)
 	map->Initialize();
 	player = new Player;
 	player->Initialize(map);
-	player->SetParticle(particle3d);
+	enemy = new Enemy;
+	enemy->Initialize(7, 0, 1, 0 );
+	enemy->Initialize(7, 1, 1, 1 );
+	enemy->Initialize(7, 2, 1, 2 );
+	enemy->Initialize(7, 3, 1, 3 );
+	enemy->Initialize(7, 4, 1, 4 );
+	enemy->Initialize(7, 5, 1, 5 );
+	enemy->Initialize(7, 6, 1, 6 );
+	enemy->Initialize(7, 7, 1, 7 );
+	enemy->Initialize(0, 0, 0, 8 );
+	enemy->Initialize(1, 0, 0, 9 );
+	enemy->Initialize(2, 0, 0, 10);
+	enemy->Initialize(3, 0, 0, 11);
+	Effect::SetParticleManager(particle3d);
 }
 
 void GameScene::Update()
 {
 	debugText.Print(20, 20, 2.0f, "END : ESC");
-	
-	int mapY = (player->GetPos().z / 4) + ((8 + 1) / 2);
-	int mapX = (player->GetPos().x / 4) + ((8 + 1) / 2);
-	debugText.Print(20, 40, 2.0f, "z :  %d", mapY);
-	debugText.Print(20, 70, 2.0f, "x :  %d", mapX);
-	/*debugText.Print(20, 50, 2.0f, "MOVE : W A S D");
-	debugText.Print(20, 80, 2.0f, "VIEW : MOUSE or ArrowKey ");
-	debugText.Print(20, 110, 2.0f, "SENSI CHANGE -/+  :  9/0 ");
-	debugText.Print(20, 140, 2.0f, "NowSENSI :  %f", player->GetViewSpeed());*/
+	if (scene == TITLE)
+	{
+		if (Input::GetInstance()->KeybordTrigger(DIK_SPACE))
+		{
+			map->InitializeValue();
+			player->InitializeValue();
+			enemy->EndInitialize();
+			scene = PLAY;
+		}
+	}
+	else if (scene == PLAY)
+	{
+		if (player->GetPlayCount() / 60 < 0)
+		{
+			scene = CLEAR;
+		}
+		int mapY = (player->GetPos().z / 4) + ((8 + 1) / 2);
+		int mapX = (player->GetPos().x / 4) + ((8 + 1) / 2);
 
-	//ライト
-	light->SetAmbientColor(XMFLOAT3(ambientColor0));
+		debugText.Print(20, 70, 2.0f, "score :  %d", enemy->GetScore());
+		debugText.Print(20, 100, 2.0f, "faze :  %d", enemy->GetWave());
+		debugText.Print(20, 130, 2.0f, "time :  %d", player->GetPlayCount() / 60);
 
-	light->SetDirLightDir(0, XMVECTOR({ lightDir0[0], lightDir0[1], lightDir0[2], 0 }));
-	light->SetDirLightColor(0, XMFLOAT3(lightColor0));
+		/*debugText.Print(20, 50, 2.0f, "MOVE : W A S D");
+		debugText.Print(20, 80, 2.0f, "VIEW : MOUSE or ArrowKey ");
+		debugText.Print(20, 110, 2.0f, "SENSI CHANGE -/+  :  9/0 ");
+		debugText.Print(20, 140, 2.0f, "NowSENSI :  %f", player->GetViewSpeed());*/
 
-	light->SetDirLightDir(1, XMVECTOR({ lightDir1[0], lightDir1[1], lightDir1[2], 0 }));
-	light->SetDirLightColor(1, XMFLOAT3(lightColor1));
+		//ライト
+		light->SetAmbientColor(XMFLOAT3(ambientColor0));
 
-	light->SetDirLightDir(2, XMVECTOR({ lightDir2[0], lightDir2[1], lightDir2[2], 0 }));
-	light->SetDirLightColor(2, XMFLOAT3(lightColor2));
+		light->SetDirLightDir(0, XMVECTOR({ lightDir0[0], lightDir0[1], lightDir0[2], 0 }));
+		light->SetDirLightColor(0, XMFLOAT3(lightColor0));
 
-	light->SetDirLightDir(3, XMVECTOR({ lightDir3[0], lightDir3[1], lightDir3[2], 0 }));
-	light->SetDirLightColor(3, XMFLOAT3(lightColor3));
+		light->SetDirLightDir(1, XMVECTOR({ lightDir1[0], lightDir1[1], lightDir1[2], 0 }));
+		light->SetDirLightColor(1, XMFLOAT3(lightColor1));
 
-	light->SetDirLightDir(4, XMVECTOR({ lightDir4[0], lightDir4[1], lightDir4[2], 0 }));
-	light->SetDirLightColor(4, XMFLOAT3(lightColor4));
-	
-	light->SetDirLightDir(5, XMVECTOR({ lightDir5[0], lightDir5[1], lightDir5[2], 0 }));
-	light->SetDirLightColor(5, XMFLOAT3(lightColor5));
-	map->Update();
-	player->Update(map);
-	particle3d->Update();
-	camera->Update();
-	objSkydome->Update();
-	objGround->Update();
-	light->Update();
-	stopFlag = map->GetStopFlag();
+		light->SetDirLightDir(2, XMVECTOR({ lightDir2[0], lightDir2[1], lightDir2[2], 0 }));
+		light->SetDirLightColor(2, XMFLOAT3(lightColor2));
+
+		light->SetDirLightDir(3, XMVECTOR({ lightDir3[0], lightDir3[1], lightDir3[2], 0 }));
+		light->SetDirLightColor(3, XMFLOAT3(lightColor3));
+
+		light->SetDirLightDir(4, XMVECTOR({ lightDir4[0], lightDir4[1], lightDir4[2], 0 }));
+		light->SetDirLightColor(4, XMFLOAT3(lightColor4));
+
+		light->SetDirLightDir(5, XMVECTOR({ lightDir5[0], lightDir5[1], lightDir5[2], 0 }));
+		light->SetDirLightColor(5, XMFLOAT3(lightColor5));
+		map->Update();
+		enemy->Update(player, map);
+		player->Update(map);
+		particle3d->Update();
+		camera->Update();
+		objSkydome->Update();
+		objGround->Update();
+		light->Update();
+		stopFlag = map->GetStopFlag();
+	}
+	else if (scene == CLEAR)
+	{
+		debugText.Print(20, 70, 2.0f, "score :  %d", enemy->GetScore());
+		debugText.Print(20, 100, 2.0f, "faze :  %d", enemy->GetWave());
+		debugText.Print(200, 700, 4.0f, "PlayScene[B]");
+		if (Input::GetInstance()->KeybordTrigger(DIK_B))
+		{
+			map->InitializeValue();
+			player->InitializeValue();
+			enemy->EndInitialize();
+			scene = PLAY;
+		}
+		if (Input::GetInstance()->KeybordTrigger(DIK_SPACE))
+		{
+			scene = TITLE;
+		}
+	}
 }
 
 void GameScene::Draw()
@@ -160,11 +212,14 @@ void GameScene::Draw()
 	// 3Dオブジェクト描画前処理
 	Object3d::PreDraw(cmdList);
 	//-------------------------------------------------------------//
-
-	objSkydome->Draw();
-	objGround->Draw();
-	map->Draw();
-	player->Draw();
+	if (scene == PLAY)
+	{
+		objSkydome->Draw();
+		objGround->Draw();
+		map->Draw();
+		player->Draw();
+		enemy->Draw();
+	}
 	//-------------------------------------------------------------//
 	// 3Dオブジェクト描画後処理
 	Object3d::PostDraw();
@@ -178,7 +233,18 @@ void GameScene::Draw()
 	Sprite::PreDraw(cmdList);
 	//-------------------------------------------------------------//
 	
-	map->DrawSprite();
+	if (scene == TITLE)
+	{
+		spriteTitle->Draw();
+	}
+	if (scene == CLEAR)
+	{
+		spriteClear->Draw();
+	}
+	if (scene == GAMEOVER)
+	{
+		spriteGAMEOVER->Draw();
+	}
 	
 	//-------------------------------------------------------------//
 	// デバッグテキストの描画
