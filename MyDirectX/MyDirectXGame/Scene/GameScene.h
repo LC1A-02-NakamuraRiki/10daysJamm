@@ -16,6 +16,7 @@
 #include "../Map/MapChip.h"
 #include "../3d/LightGroop.h"
 #include "../Player/Player.h"
+#include "../enemy/enemy.h"
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -95,6 +96,7 @@ private: // メンバ変数
 	ParticleManager *particle3d = nullptr;
 	MapChip* map = nullptr;
 	Player* player = nullptr;
+	Enemy* enemy = nullptr;
 	bool stopFlag;
 
 	float ambientColor0[3] = { 0.6,0.6,0.6 };
@@ -113,4 +115,6 @@ private: // メンバ変数
 	float lightColor3[3] = { 1.2,1.2,0.96 };
 	float lightColor4[3] = { 1.2,1.2,0.96 };
 	float lightColor5[3] = { 1.5,1.5,1.2 };
+
+	int scene = 0;
 };

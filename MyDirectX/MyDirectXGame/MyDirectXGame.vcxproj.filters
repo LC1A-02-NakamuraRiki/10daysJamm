@@ -41,6 +41,9 @@
     <Filter Include="Library\player">
       <UniqueIdentifier>{fc704070-2d68-47c9-8a7c-0e476ff03b5f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Library\enemy">
+      <UniqueIdentifier>{9c72e95b-94d7-4640-8e81-4e9f35df891a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shaders\Sprite.hlsli">
@@ -177,6 +180,9 @@
     <ClCompile Include="Player\Player.cpp">
       <Filter>Library\player</Filter>
     </ClCompile>
+    <ClCompile Include="enemy\enemy.cpp">
+      <Filter>Library\enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2d\DebugText.h">
@@ -265,6 +271,9 @@
     </ClInclude>
     <ClInclude Include="Player\Player.h">
       <Filter>Library\player</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy\enemy.h">
+      <Filter>Library\enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
