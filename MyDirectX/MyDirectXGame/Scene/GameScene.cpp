@@ -6,6 +6,7 @@
 #include "../3d/FbxLoader.h"
 #include "../3d/FbxObject3d.h"
 #include "../input/Input.h"
+#include "../Effect/Effect.h"
 
 using namespace DirectX;
 
@@ -106,7 +107,7 @@ void GameScene::Initialize(DirectXCommon *dxCommon, Sound *audio)
 	enemy->Initialize(1, 0, 0, 9 );
 	enemy->Initialize(2, 0, 0, 10);
 	enemy->Initialize(3, 0, 0, 11);
-	player->SetParticle(particle3d);
+	Effect::SetParticleManager(particle3d);
 }
 
 void GameScene::Update()

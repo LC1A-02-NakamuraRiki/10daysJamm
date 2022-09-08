@@ -34,8 +34,6 @@ public:
 	void Explosion(MapChip* map);
 	void enemyExplosion(int no, MapChip* map);
 
-	void ExplosionEffect(XMFLOAT3 position);//爆発エフェクト
-
 	XMFLOAT3 GetPos() { return pos; }
 	XMFLOAT3 GetBomPos(int no) { return bomPos[no]; };
 	XMFLOAT3 SetBomPos(int no) { return bomPos[no] = XMFLOAT3({ 100,100,100 }); };
@@ -48,7 +46,6 @@ public:
 	bool SetExplosion(int No) { return nowExplosion[No] = false; }
 	int Get1() { return explosionCount[0]; }
 
-	void SetParticle(ParticleManager* particle) { this->particle = particle; }
 private:
 
 	const int MapValue = 8;//マップサイズ
@@ -78,9 +75,8 @@ private:
 	bool turnFlag[12] ={ false, false,false ,false , false , false , false , false , false , false , false , false };
 	bool nowExplosion[3] = { false, false, false };
 	int playCount = 2400;
-	int bomY[3] = {0,0,0};//盤面の位置
-	int bomX[3] = {0,0,0};//盤面の位置
 
-	int effectTimer[3] = {10, 10, 10};
-	ParticleManager* particle = nullptr;//爆発エフェクト用
+	XMFLOAT3 effectPos[3]{};//爆発エフェクト用
+	int effectTimer[3] = {0, 0, 0};
+	bool effectFlag[3] = { false,false,false };
 };

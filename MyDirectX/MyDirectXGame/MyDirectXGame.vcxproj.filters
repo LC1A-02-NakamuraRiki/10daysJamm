@@ -183,6 +183,7 @@
     <ClCompile Include="enemy\enemy.cpp">
       <Filter>Library\enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Effect\Effect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2d\DebugText.h">
@@ -275,5 +276,6 @@
     <ClInclude Include="enemy\enemy.h">
       <Filter>Library\enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Effect\Effect.h" />
   </ItemGroup>
 </Project>
