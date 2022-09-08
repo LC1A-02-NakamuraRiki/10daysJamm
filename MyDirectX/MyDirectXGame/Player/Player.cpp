@@ -106,6 +106,7 @@ void Player::Update(MapChip* map)
 		objBom[i]->Update();
 	}
 	Explosion(map);
+	Effect::Move(pos, {1.0f,0.0f,0.2f,0.5f});
 }
 
 void Player::Draw()
@@ -374,19 +375,34 @@ void Player::Explosion(MapChip* map)
 			effectTimer[i] = 10;//エフェクト継続時間
 		}
 		//エフェクト発生
+		if (bomAlive[i])
+		{
+			Effect::Move(bomPos[i], { 1.0f,0.0f,0.2f,0.1f });
+		}
 		if (effectTimer[i] == 10)
 		{
 			effectFlag[i] = true;
 
 			effectPos[i] = bomPos[i];
 		}
-		if (effectFlag[i] == true)
+		if (effectFlag[i])
 		{
+			//爆発の中心
 			Effect::Explosion({ effectPos[i].x, effectPos[i].y, effectPos[i].z });
-			Effect::Explosion({ effectPos[i].x - 4, effectPos[i].y, effectPos[i].z });
-			Effect::Explosion({ effectPos[i].x + 4, effectPos[i].y, effectPos[i].z });
-			Effect::Explosion({ effectPos[i].x, effectPos[i].y, effectPos[i].z - 4 });
-			Effect::Explosion({ effectPos[i].x, effectPos[i].y, effectPos[i].z + 4 });
+
+			//爆風
+			if (effectTimer[i] <= 8)
+			{
+				Effect::Explosion({ effectPos[i].x - 2, effectPos[i].y, effectPos[i].z });
+				Effect::Explosion({ effectPos[i].x + 2, effectPos[i].y, effectPos[i].z });
+				Effect::Explosion({ effectPos[i].x, effectPos[i].y, effectPos[i].z - 2 });
+				Effect::Explosion({ effectPos[i].x, effectPos[i].y, effectPos[i].z + 2 });
+
+				Effect::Dust({ effectPos[i].x - 3, effectPos[i].y, effectPos[i].z });
+				Effect::Dust({ effectPos[i].x + 3, effectPos[i].y, effectPos[i].z });
+				Effect::Dust({ effectPos[i].x, effectPos[i].y, effectPos[i].z - 3 });
+				Effect::Dust({ effectPos[i].x, effectPos[i].y, effectPos[i].z + 3 });
+			}
 			effectTimer[i]--;
 		}
 		if (effectTimer[i] < 0)

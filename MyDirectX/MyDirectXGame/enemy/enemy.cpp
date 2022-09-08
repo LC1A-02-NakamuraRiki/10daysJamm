@@ -1,5 +1,6 @@
 #include "enemy.h"
 #include "../collision/Collision.h"
+#include "../Effect/Effect.h"
 #include<time.h>
 #include<random>
 
@@ -168,6 +169,7 @@ void Enemy::Draw()
 		if (!enemyDead[enemyNo])
 		{
 			objEnemy[enemyNo]->Draw();
+			//Effect::Move(pos[enemyNo], { 0.0f,1.0f,0.5f,1.0f });
 		}
 	}
 }
