@@ -440,3 +440,5 @@ $RECYCLE.BIN/
 !.vscode/extensions.json
 *.rej
 MyDirectX/MyDirectXGame/MyDirectXGame.exe
+*.mp3
+*.wav
