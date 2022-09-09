@@ -16,9 +16,15 @@ GameScene::GameScene()
 
 GameScene::~GameScene()
 {
+	safe_delete(spriteText1);
+	safe_delete(spriteText2);
 	safe_delete(spriteTitle);
+	safe_delete(spriteTitle1);
+	safe_delete(spriteTitle2);
 	safe_delete(spriteClear);
 	safe_delete(spriteGAMEOVER);
+	safe_delete(spriteBom);
+	safe_delete(spriteBom2);
 	safe_delete(particle3d);
 	safe_delete(objSkydome);
 	safe_delete(modelSkydome);
@@ -30,7 +36,7 @@ GameScene::~GameScene()
 	safe_delete(enemy);
 }
 
-void GameScene::Initialize(DirectXCommon *dxCommon, Sound *audio)
+void GameScene::Initialize(DirectXCommon* dxCommon, Sound* audio)
 {
 	// nullptrチェック
 	assert(dxCommon);
@@ -52,7 +58,7 @@ void GameScene::Initialize(DirectXCommon *dxCommon, Sound *audio)
 	debugText.Initialize(debugTextTexNumber);
 
 	particle3d = ParticleManager::Create(dxCommon->GetDevice(), camera);
-	
+
 	//スプライト
 	// テクスチャ読み込み
 	if (!Sprite::LoadTexture(18, L"Resources/Title.png")) {
@@ -67,15 +73,53 @@ void GameScene::Initialize(DirectXCommon *dxCommon, Sound *audio)
 		assert(0);
 		return;
 	}
+	if (!Sprite::LoadTexture(21, L"Resources/tmp_01.png")) {
+		assert(0);
+		return;
+	}
+	if (!Sprite::LoadTexture(22, L"Resources/title_01.png")) {
+		assert(0);
+		return;
+	}
+	if (!Sprite::LoadTexture(23, L"Resources/title_02.png")) {
+		assert(0);
+		return;
+	}
+	if (!Sprite::LoadTexture(24, L"Resources/title_back.png")) {
+		assert(0);
+		return;
+	}
+	if (!Sprite::LoadTexture(25, L"Resources/text_01.png")) {
+		assert(0);
+		return;
+	}
+	if (!Sprite::LoadTexture(26, L"Resources/text_02.png")) {
+		assert(0);
+		return;
+	}
 	//// 背景スプライト生成
-	spriteTitle = Sprite::Create(18, { 0.0f,0.0f });
+	spriteBom = Sprite::Create(21, { 0.0f,0.0f });
+	spriteBom2 = Sprite::Create(21, { 0.0f,0.0f });
+	spriteTitle = Sprite::Create(24, { 0.0f,0.0f });
+	spriteTitle1 = Sprite::Create(23, { 0,0 });
+	spriteTitle1->SetSize({ 987.0f,428.0f });
+	spriteTitle1->SetPosition({ 466.5, 110 });
+	spriteTitle2 = Sprite::Create(22, { 0.0f,0.0f });
+	spriteTitle2->SetSize({ 861.0f,212.0f });
+	spriteTitle2->SetPosition({ 539.5, 210 });
+	spriteText1 = Sprite::Create(25, { 0.0f,0.0f });
+	spriteText1->SetSize({ 742.0f,82.0f });
+	spriteText1->SetPosition({ 589.0, 810 });
+	spriteText2 = Sprite::Create(26, { 0.0f,0.0f });
+	spriteText2->SetSize({ 742.0f,82.0f });
+	spriteText2->SetPosition({ 589.0, 810 });
 	spriteClear = Sprite::Create(19, { 0.0f,0.0f });
 	spriteGAMEOVER = Sprite::Create(20, { 0.0f,0.0f });
 
 	// 3Dオブジェクト生成
 	modelSkydome = Model::CreateFromObject("skydome", false);
 	objSkydome = Object3d::Create(modelSkydome);
-	objSkydome->SetScale({5.0f,5.0f,5.0f});
+	objSkydome->SetScale({ 5.0f,5.0f,5.0f });
 	modelGround = Model::CreateFromObject("ground", true);
 	objGround = Object3d::Create(modelGround);
 	objGround->SetScale({ 5.0f,2.0f ,5.0f });
@@ -87,27 +131,28 @@ void GameScene::Initialize(DirectXCommon *dxCommon, Sound *audio)
 	// グラフィックスパイプライン生成
 	FbxObject3d::CreateGraphicsPipeline();
 	light = LightGroop::Create();
-	
+
 	Object3d::SetLightGroup(light);
 
 	map = new MapChip;
 	map->Initialize();
 	player = new Player;
 	player->Initialize(map);
+	Effect::SetParticleManager(particle3d);
 	enemy = new Enemy;
-	enemy->Initialize(7, 0, 1, 0 );
-	enemy->Initialize(7, 1, 1, 1 );
-	enemy->Initialize(7, 2, 1, 2 );
-	enemy->Initialize(7, 3, 1, 3 );
-	enemy->Initialize(7, 4, 1, 4 );
-	enemy->Initialize(7, 5, 1, 5 );
-	enemy->Initialize(7, 6, 1, 6 );
-	enemy->Initialize(7, 7, 1, 7 );
-	enemy->Initialize(0, 0, 0, 8 );
-	enemy->Initialize(1, 0, 0, 9 );
+	enemy->Initialize(7, 0, 1, 0);
+	enemy->Initialize(7, 1, 1, 1);
+	enemy->Initialize(7, 2, 1, 2);
+	enemy->Initialize(7, 3, 1, 3);
+	enemy->Initialize(7, 4, 1, 4);
+	enemy->Initialize(7, 5, 1, 5);
+	enemy->Initialize(7, 6, 1, 6);
+	enemy->Initialize(7, 7, 1, 7);
+	enemy->Initialize(0, 0, 0, 8);
+	enemy->Initialize(1, 0, 0, 9);
 	enemy->Initialize(2, 0, 0, 10);
 	enemy->Initialize(3, 0, 0, 11);
-	Effect::SetParticleManager(particle3d);
+	audio->PlayBGM("Resources/BGM/title_bgm.wav",true);
 }
 
 void GameScene::Update()
@@ -115,18 +160,92 @@ void GameScene::Update()
 	debugText.Print(20, 20, 2.0f, "END : ESC");
 	if (scene == TITLE)
 	{
+		textCount++;
+		if (textCount <= 50)
+		{
+			text1Draw = true;
+		}
+		else if (textCount > 50)
+		{
+			text1Draw = false;
+		}
+
+		if (textCount > 100)
+		{
+			textCount = 0;
+		}
+
 		if (Input::GetInstance()->KeybordTrigger(DIK_SPACE))
 		{
+			audio->PlaySE("Resources/SE/title_dicided.wav", false);
 			map->InitializeValue();
 			player->InitializeValue();
 			enemy->EndInitialize();
-			scene = PLAY;
+			bomSceneChange = true;
+		}
+
+		
+		if (bomSceneChange == true)
+		{
+			sceneChangeCount++;
+			for (int i = 0; i < 12; i++)
+			{
+				size.x += size.x / 100;
+				size.y += size.y / 100;
+				pos.x -= (size.x / 100) / 2;
+				pos.y -= (size.y / 100) / 2;
+			}
+
+			spriteBom->SetPosition(pos);
+			spriteBom->SetSize(size);
+			
+			if (sceneChangeCount > 60)
+			{
+				audio->StopBGM();
+				audio->PlayBGM("Resources/BGM/game_bgm.wav", true);
+				scene = PLAY;
+			}
 		}
 	}
 	else if (scene == PLAY)
 	{
+	
+		if (bomSceneChange2 == true)
+		{
+			bomSceneChange = false;
+			sceneChangeCount2++;
+			for (int i = 0; i < 12; i++)
+			{
+				size2.x -= size2.x / 100;
+				size2.y -= size2.y / 100;
+				pos2.x += (size2.x / 100) / 2;
+				pos2.y += (size2.y / 100) / 2;
+			}
+				
+				spriteBom2->SetPosition(pos2);
+				spriteBom2->SetSize(size2);
+
+			if (sceneChangeCount2 > 60)
+			{
+				bomSceneChange = false;
+			}
+		}
+
+		if (player->GetFire())
+		{
+			audio->PlaySE("Resources/SE/game_fire.wav", false);
+			player->SetFire();
+		}
+		if (player->GetMove())
+		{
+			audio->PlaySE("Resources/SE/game_move.wav", false);
+			player->SetMove();
+		}
+		
 		if (player->GetPlayCount() / 60 < 0)
 		{
+			audio->StopBGM();
+			audio->PlayBGM("Resources/BGM/result_bgm.wav", true);
 			scene = CLEAR;
 		}
 		int mapY = (player->GetPos().z / 4) + ((8 + 1) / 2);
@@ -178,14 +297,51 @@ void GameScene::Update()
 		debugText.Print(200, 700, 4.0f, "PlayScene[B]");
 		if (Input::GetInstance()->KeybordTrigger(DIK_B))
 		{
+			audio->PlaySE("Resources/SE/title_dicided.wav", false);
+			pos = { 954.03,532.74 };
+			size = { 8.47,10.3 };
+
+			pos2 = { -800,-1625 };
+			size2 = { 3560,4330 };
+			bomSceneChange = false;
+			sceneChangeCount = 0;
+			bomSceneChange2 = true;
+			sceneChangeCount2 = 0;
+			spriteBom->SetPosition(pos);
+			spriteBom->SetSize(size);
+			spriteBom2->SetPosition(pos2);
+			spriteBom2->SetSize(size2);
+
 			map->InitializeValue();
 			player->InitializeValue();
 			enemy->EndInitialize();
+			audio->StopBGM();
+			audio->PlayBGM("Resources/BGM/title_bgm.wav", true);
 			scene = PLAY;
 		}
 		if (Input::GetInstance()->KeybordTrigger(DIK_SPACE))
 		{
 			scene = TITLE;
+			audio->PlaySE("Resources/SE/title_dicided.wav", false);
+			pos = { 954.03,532.74 };
+			size = { 8.47,10.3 };
+
+			pos2 = { -800,-1625 };
+			size2 = { 3560,4330 };
+			bomSceneChange = false;
+			sceneChangeCount = 0;
+			bomSceneChange2 = true;
+			sceneChangeCount2 = 0;
+			spriteBom->SetPosition(pos);
+			spriteBom->SetSize(size);
+			spriteBom2->SetPosition(pos2);
+			spriteBom2->SetSize(size2);
+
+			map->InitializeValue();
+			player->InitializeValue();
+			enemy->EndInitialize();
+			audio->StopBGM();
+			audio->PlayBGM("Resources/BGM/title_bgm.wav", true);
 		}
 	}
 }
@@ -193,7 +349,7 @@ void GameScene::Update()
 void GameScene::Draw()
 {
 	// コマンドリストの取得
-	ID3D12GraphicsCommandList *cmdList = dxCommon->GetCommandList();
+	ID3D12GraphicsCommandList* cmdList = dxCommon->GetCommandList();
 
 #pragma region 背景スプライト描画
 	// 背景スプライト描画前処理
@@ -207,7 +363,7 @@ void GameScene::Draw()
 	// 深度バッファクリア
 	dxCommon->ClearDepthBuffer();
 #pragma endregion
-	
+
 #pragma region 3Dオブジェクト描画
 	// 3Dオブジェクト描画前処理
 	Object3d::PreDraw(cmdList);
@@ -227,15 +383,37 @@ void GameScene::Draw()
 	particle3d->Draw(cmdList);
 #pragma endregion
 
-	
+
 #pragma region 前景スプライト描画
 	//// 前景スプライト描画前処理
 	Sprite::PreDraw(cmdList);
 	//-------------------------------------------------------------//
-	
+
 	if (scene == TITLE)
 	{
+
 		spriteTitle->Draw();
+		spriteTitle1->Draw();
+		spriteTitle2->Draw();
+		if (text1Draw == true)
+		{
+			spriteText1->Draw();
+		}
+		if (text1Draw == false)
+		{
+			spriteText2->Draw();
+		}
+		if (bomSceneChange == true)
+		{
+			spriteBom->Draw();
+		}
+	}
+	if (scene == PLAY)
+	{
+		if (bomSceneChange2 == true)
+		{
+			spriteBom2->Draw();
+		}
 	}
 	if (scene == CLEAR)
 	{
@@ -245,7 +423,7 @@ void GameScene::Draw()
 	{
 		spriteGAMEOVER->Draw();
 	}
-	
+
 	//-------------------------------------------------------------//
 	// デバッグテキストの描画
 	debugText.DrawAll(cmdList);

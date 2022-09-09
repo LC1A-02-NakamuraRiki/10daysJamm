@@ -44,6 +44,7 @@ public:
 	int GetScore() { return score; }
 	int GetWave() { return wave; }
 
+	
 private:
 	const int MapValue = 8;//マップサイズ
 	const int enemyMaxNo = 12;
@@ -72,5 +73,7 @@ private:
 
 	int wave = 1;
 	int killCount = 0;
+
+	
 };
 

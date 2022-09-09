@@ -64,6 +64,7 @@ void Player::InitializeValue()
 		bomPos[i] = XMFLOAT3({ 4 * 4.0f - (MapValue * 4.0f / 2) + 2, 1.0f, 4 * 4.0f - (MapValue * 4.0f / 2) + 2 });
 		objBom[i]->SetPosition(bomPos[i]);
 	}
+	
 }
 
 void Player::BomInitialize(int i)
@@ -106,7 +107,7 @@ void Player::Update(MapChip* map)
 		objBom[i]->Update();
 	}
 	Explosion(map);
-	Effect::Move(pos, {1.0f,0.0f,0.2f,0.5f});
+	Effect::Move(pos, { 1.0f,0.0f,0.2f,0.5f });
 }
 
 void Player::Draw()
@@ -145,6 +146,7 @@ void Player::Move(MapChip* map)
 				explosionCount[i]++;
 			}
 		}
+		move = true;
 	}
 	if (Input::GetInstance()->KeybordTrigger(DIK_A) && mapX != 0 && map->GetWallFlag(mapX-1, mapY) == 0)
 	{
@@ -161,6 +163,7 @@ void Player::Move(MapChip* map)
 				explosionCount[i]++;
 			}
 		}
+		move = true;
 	}
 	if (Input::GetInstance()->KeybordTrigger(DIK_S) && mapY != 0 && map->GetWallFlag(mapX, mapY - 1) == 0)
 	{
@@ -177,6 +180,7 @@ void Player::Move(MapChip* map)
 				explosionCount[i]++;
 			}
 		}
+		move = true;
 	}
 	if (Input::GetInstance()->KeybordTrigger(DIK_D) && mapX != 7 && map->GetWallFlag(mapX + 1, mapY) == 0)
 	{
@@ -193,6 +197,7 @@ void Player::Move(MapChip* map)
 				explosionCount[i]++;
 			}
 		}
+		move = true;
 	}
 	objPlayer->SetPosition(pos);
 	objPlayer->SetRotation(angle);
@@ -369,16 +374,17 @@ void Player::Explosion(MapChip* map)
 						map->SetWallFlag(bomX[i], bomY[i] - 1, 0);
 					}
 				}
+				fire = true;
 			bomAlive[i] = false;
 			map->SetWallFlag(bomX[i], bomY[i], 0);
 			explosionCount[i] = 1;
 			effectTimer[i] = 10;//エフェクト継続時間
 		}
-		//エフェクト発生
 		if (bomAlive[i])
 		{
 			Effect::Move(bomPos[i], { 1.0f,0.0f,0.2f,0.1f });
 		}
+		//エフェクト発生
 		if (effectTimer[i] == 10)
 		{
 			effectFlag[i] = true;
@@ -417,6 +423,7 @@ void Player::enemyExplosion(int no,MapChip* map)
 {
 	int bomNo = no;
 	bomAlive[bomNo] = false;
+	fire = true;
 	map->SetWallFlag(bomX[bomNo], bomY[bomNo], 0);
 	explosionCount[bomNo] = 1;
 }

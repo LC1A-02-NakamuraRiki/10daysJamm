@@ -33,9 +33,7 @@ public:
 
 	void Explosion(MapChip* map);
 	void enemyExplosion(int no, MapChip* map);
-
-	void ExplosionEffect(XMFLOAT3 position);//爆発エフェクト
-
+	
 	XMFLOAT3 GetPos() { return pos; }
 	XMFLOAT3 GetBomPos(int no) { return bomPos[no]; };
 	XMFLOAT3 SetBomPos(int no) { return bomPos[no] = XMFLOAT3({ 100,100,100 }); };
@@ -46,8 +44,10 @@ public:
 	bool SetTurnFlag(bool turn,int no) { return turnFlag[no] = turn; }
 	bool GetExplosion(int No) { return nowExplosion[No]; }
 	bool SetExplosion(int No) { return nowExplosion[No] = false; }
-	int Get1() { return explosionCount[0]; }
-
+	bool GetFire() { return fire; }
+	bool SetFire() { return fire = false; }
+	bool GetMove() { return move; }
+	bool SetMove() { return move = false; }
 private:
 
 	const int MapValue = 8;//マップサイズ
@@ -61,6 +61,8 @@ private:
 	XMFLOAT3 angle = { 0,0,0 };
 
 	float moveSpeed = 4.0f;//歩きの速度
+
+	bool move = false;
 
 	int bomNo = 0;
 
@@ -78,7 +80,9 @@ private:
 	bool nowExplosion[3] = { false, false, false };
 	int playCount = 2400;
 
+	bool fire = false;
+
 	XMFLOAT3 effectPos[3]{};//爆発エフェクト用
-	int effectTimer[3] = {0, 0, 0};
+	int effectTimer[3] = { 0, 0, 0 };
 	bool effectFlag[3] = { false,false,false };
 };

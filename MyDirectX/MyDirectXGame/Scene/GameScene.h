@@ -85,8 +85,14 @@ private: // ÉÅÉìÉoïœêî
 	/// </summary>
 	DebugCamera *camera = nullptr;
 	Sprite *spriteTitle = nullptr;
+	Sprite* spriteTitle1 = nullptr;
+	Sprite* spriteTitle2 = nullptr;
+	Sprite* spriteText1 = nullptr;
+	Sprite* spriteText2 = nullptr;
 	Sprite* spriteClear = nullptr;
 	Sprite* spriteGAMEOVER = nullptr;
+	Sprite* spriteBom = nullptr;
+	Sprite* spriteBom2 = nullptr;
 	Model *modelSkydome = nullptr;
 	Object3d *objSkydome = nullptr;
 
@@ -117,4 +123,17 @@ private: // ÉÅÉìÉoïœêî
 	float lightColor5[3] = { 1.5,1.5,1.2 };
 
 	int scene = 0;
+	XMFLOAT2 pos = { 954.03,532.74 };
+	XMFLOAT2 size = {8.47,10.3};
+
+	XMFLOAT2 pos2 = { -800,-1625 };
+	XMFLOAT2 size2 = { 3560,4330 };
+
+	bool text1Draw = false;
+	int  textCount = 0;
+
+	bool bomSceneChange = false;
+	int sceneChangeCount = 0;
+	bool bomSceneChange2 = true;
+	int sceneChangeCount2 = 0;
 };
