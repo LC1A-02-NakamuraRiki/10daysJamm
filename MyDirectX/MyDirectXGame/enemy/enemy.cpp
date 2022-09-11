@@ -63,7 +63,7 @@ void Enemy::enemyCreate()
 		{
 			std::random_device rnd;
 			std::mt19937 mt(rnd());
-			std::uniform_int_distribution<>rand500(1, 5000);//0~3‚Ì”ÍˆÍ
+			std::uniform_int_distribution<>rand500(1, 2000);//0~3‚Ì”ÍˆÍ
 			int spown_cnt = rand500(mt);
 		
 			if (spown_cnt == 1)
@@ -369,10 +369,10 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 			
 			for (int i = 0; i < 20; i++)
 			{
-				if (player->GetBomPos(i).x - 2 <= pos[enemyNo].x &&
-					player->GetBomPos(i).x + 2 >= pos[enemyNo].x &&
-					player->GetBomPos(i).z - 2 <= pos[enemyNo].z &&
-					player->GetBomPos(i).z + 2 >= pos[enemyNo].z)
+				if (player->GetBomPos(i).x - 3.5f <= pos[enemyNo].x &&
+					player->GetBomPos(i).x + 3.5f >= pos[enemyNo].x &&
+					player->GetBomPos(i).z - 3.5f <= pos[enemyNo].z &&
+					player->GetBomPos(i).z + 3.5f >= pos[enemyNo].z)
 				{
 					player->SetEffectTimer(i);
 					player->SetWallFlag(i);
@@ -407,142 +407,70 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 						killCount++;
 						enemyDead[enemyNo] = true;
 					}*/
-					if (player->GetBomPos(i).x - 2 - 4 <= pos[enemyNo].x &&
-						player->GetBomPos(i).x + 2 - 4 >= pos[enemyNo].x &&
-						player->GetBomPos(i).z - 2 <= pos[enemyNo].z &&
-						player->GetBomPos(i).z + 2 >= pos[enemyNo].z && player->GetLv(i) >= 2)
+					if (player->GetBomPos(i).x - 3 - 4 <= pos[enemyNo].x &&
+						player->GetBomPos(i).x + 3 - 4 >= pos[enemyNo].x &&
+						player->GetBomPos(i).z - 3 <= pos[enemyNo].z &&
+						player->GetBomPos(i).z + 3 >= pos[enemyNo].z && player->GetLv(i) >= 2)
 					{
 						score += 1000 * player->GetLv(i);
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
 					}
-					if (player->GetBomPos(i).x - 2 - 8 <= pos[enemyNo].x &&
-						player->GetBomPos(i).x + 2 - 8 >= pos[enemyNo].x &&
-						player->GetBomPos(i).z - 2 <= pos[enemyNo].z &&
-						player->GetBomPos(i).z + 2 >= pos[enemyNo].z && player->GetLv(i) >= 3)
+					if (player->GetBomPos(i).x - 3 - 8 <= pos[enemyNo].x &&
+						player->GetBomPos(i).x + 3 - 8 >= pos[enemyNo].x &&
+						player->GetBomPos(i).z - 3 <= pos[enemyNo].z &&
+						player->GetBomPos(i).z + 3 >= pos[enemyNo].z && player->GetLv(i) >= 3)
 					{
 						score += 1000 * player->GetLv(i);
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
 					}
-					if (player->GetBomPos(i).x - 2 - 12 <= pos[enemyNo].x &&
-						player->GetBomPos(i).x + 2 - 12 >= pos[enemyNo].x &&
-						player->GetBomPos(i).z - 2 <= pos[enemyNo].z &&
-						player->GetBomPos(i).z + 2 >= pos[enemyNo].z && player->GetLv(i) >= 4)
+					if (player->GetBomPos(i).x - 3 - 12 <= pos[enemyNo].x &&
+						player->GetBomPos(i).x + 3 - 12 >= pos[enemyNo].x &&
+						player->GetBomPos(i).z - 3 <= pos[enemyNo].z &&
+						player->GetBomPos(i).z + 3 >= pos[enemyNo].z && player->GetLv(i) >= 4)
 					{
 						score += 1000 * player->GetLv(i);
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
 					}
-					if (player->GetBomPos(i).x - 2 - 16 <= pos[enemyNo].x &&
-						player->GetBomPos(i).x + 2 - 16 >= pos[enemyNo].x &&
-						player->GetBomPos(i).z - 2 <= pos[enemyNo].z &&
-						player->GetBomPos(i).z + 2 >= pos[enemyNo].z && player->GetLv(i) >= 5)
+					if (player->GetBomPos(i).x - 3 - 16 <= pos[enemyNo].x &&
+						player->GetBomPos(i).x + 3 - 16 >= pos[enemyNo].x &&
+						player->GetBomPos(i).z - 3 <= pos[enemyNo].z &&
+						player->GetBomPos(i).z + 3 >= pos[enemyNo].z && player->GetLv(i) >= 5)
 					{
 						score += 1000 * player->GetLv(i);
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
 					}
-					if (player->GetBomPos(i).x - 2 - 20 <= pos[enemyNo].x &&
-						player->GetBomPos(i).x + 2 - 20 >= pos[enemyNo].x &&
-						player->GetBomPos(i).z - 2 <= pos[enemyNo].z &&
-						player->GetBomPos(i).z + 2 >= pos[enemyNo].z && player->GetLv(i) >= 6)
+					if (player->GetBomPos(i).x - 3 - 20 <= pos[enemyNo].x &&
+						player->GetBomPos(i).x + 3 - 20 >= pos[enemyNo].x &&
+						player->GetBomPos(i).z - 3 <= pos[enemyNo].z &&
+						player->GetBomPos(i).z + 3 >= pos[enemyNo].z && player->GetLv(i) >= 6)
 					{
 						score += 1000 * player->GetLv(i);
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
 					}
-					if (player->GetBomPos(i).x - 2 - 24 <= pos[enemyNo].x &&
-						player->GetBomPos(i).x + 2 - 24 >= pos[enemyNo].x &&
-						player->GetBomPos(i).z - 2 <= pos[enemyNo].z &&
-						player->GetBomPos(i).z + 2 >= pos[enemyNo].z && player->GetLv(i) >= 7)
+					if (player->GetBomPos(i).x - 3 - 24 <= pos[enemyNo].x &&
+						player->GetBomPos(i).x + 3 - 24 >= pos[enemyNo].x &&
+						player->GetBomPos(i).z - 3 <= pos[enemyNo].z &&
+						player->GetBomPos(i).z + 3 >= pos[enemyNo].z && player->GetLv(i) >= 7)
 					{
 						score += 1000 * player->GetLv(i);
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
 					}
-					if (player->GetBomPos(i).x - 2 - 28 <= pos[enemyNo].x &&
-						player->GetBomPos(i).x + 2 - 28 >= pos[enemyNo].x &&
-						player->GetBomPos(i).z - 2 <= pos[enemyNo].z &&
-						player->GetBomPos(i).z + 2 >= pos[enemyNo].z && player->GetLv(i) >= 8)
-					{
-						score += 1000 * player->GetLv(i);
-						player->SetPlayCount();
-						killCount++;
-						enemyDead[enemyNo] = true;
-					}
-
-
-					if (player->GetBomPos(i).x + 2 + 4 >= pos[enemyNo].x &&
-						player->GetBomPos(i).x - 2 + 4 <= pos[enemyNo].x &&
-						player->GetBomPos(i).z - 2 <= pos[enemyNo].z &&
-						player->GetBomPos(i).z + 2 >= pos[enemyNo].z && player->GetLv(i) >= 2)
-					{
-						score += 1000 * player->GetLv(i);
-						player->SetPlayCount();
-						killCount++;
-						enemyDead[enemyNo] = true;
-					}
-					if (player->GetBomPos(i).x + 2 + 8 >= pos[enemyNo].x &&
-						player->GetBomPos(i).x - 2 + 8 <= pos[enemyNo].x &&
-						player->GetBomPos(i).z - 2 <= pos[enemyNo].z &&
-						player->GetBomPos(i).z + 2 >= pos[enemyNo].z && player->GetLv(i) >= 3)
-					{
-						score += 1000 * player->GetLv(i);
-						player->SetPlayCount();
-						killCount++;
-						enemyDead[enemyNo] = true;
-					}
-					if (player->GetBomPos(i).x + 2 + 12 >= pos[enemyNo].x &&
-						player->GetBomPos(i).x - 2 + 12 <= pos[enemyNo].x &&
-						player->GetBomPos(i).z - 2 <= pos[enemyNo].z &&
-						player->GetBomPos(i).z + 2 >= pos[enemyNo].z && player->GetLv(i) >= 4)
-					{
-						score += 1000 * player->GetLv(i);
-						player->SetPlayCount();
-						killCount++;
-						enemyDead[enemyNo] = true;
-					}
-					if (player->GetBomPos(i).x + 2 + 16 >= pos[enemyNo].x &&
-						player->GetBomPos(i).x - 2 + 16 <= pos[enemyNo].x &&
-						player->GetBomPos(i).z - 2 <= pos[enemyNo].z &&
-						player->GetBomPos(i).z + 2 >= pos[enemyNo].z && player->GetLv(i) >= 5)
-					{
-						score += 1000 * player->GetLv(i);
-						player->SetPlayCount();
-						killCount++;
-						enemyDead[enemyNo] = true;
-					}
-					if (player->GetBomPos(i).x + 2 + 20 >= pos[enemyNo].x &&
-						player->GetBomPos(i).x - 2 + 20 <= pos[enemyNo].x &&
-						player->GetBomPos(i).z - 2 <= pos[enemyNo].z &&
-						player->GetBomPos(i).z + 2 >= pos[enemyNo].z && player->GetLv(i) >= 6)
-					{
-						score += 1000 * player->GetLv(i);
-						player->SetPlayCount();
-						killCount++;
-						enemyDead[enemyNo] = true;
-					}
-					if (player->GetBomPos(i).x + 2 + 24 >= pos[enemyNo].x &&
-						player->GetBomPos(i).x - 2 + 24 <= pos[enemyNo].x &&
-						player->GetBomPos(i).z - 2 <= pos[enemyNo].z &&
-						player->GetBomPos(i).z + 2 >= pos[enemyNo].z && player->GetLv(i) >= 7)
-					{
-						score += 1000 * player->GetLv(i);
-						player->SetPlayCount();
-						killCount++;
-						enemyDead[enemyNo] = true;
-					}
-					if (player->GetBomPos(i).x + 2 + 28 >= pos[enemyNo].x &&
-						player->GetBomPos(i).x - 2 + 28 <= pos[enemyNo].x &&
-						player->GetBomPos(i).z - 2 <= pos[enemyNo].z &&
-						player->GetBomPos(i).z + 2 >= pos[enemyNo].z && player->GetLv(i) >= 8)
+					if (player->GetBomPos(i).x - 3 - 28 <= pos[enemyNo].x &&
+						player->GetBomPos(i).x + 3 - 28 >= pos[enemyNo].x &&
+						player->GetBomPos(i).z - 3 <= pos[enemyNo].z &&
+						player->GetBomPos(i).z + 3 >= pos[enemyNo].z && player->GetLv(i) >= 8)
 					{
 						score += 1000 * player->GetLv(i);
 						player->SetPlayCount();
@@ -551,80 +479,152 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 					}
 
 
-					if (player->GetBomPos(i).z - 2 <= pos[enemyNo].z &&
-						player->GetBomPos(i).z + 2 >= pos[enemyNo].z &&
-						player->GetBomPos(i).x - 2 <= pos[enemyNo].x &&
-						player->GetBomPos(i).x + 2 >= pos[enemyNo].x)
+					if (player->GetBomPos(i).x + 3 + 4 >= pos[enemyNo].x &&
+						player->GetBomPos(i).x - 3 + 4 <= pos[enemyNo].x &&
+						player->GetBomPos(i).z - 3 <= pos[enemyNo].z &&
+						player->GetBomPos(i).z + 3 >= pos[enemyNo].z && player->GetLv(i) >= 2)
 					{
 						score += 1000 * player->GetLv(i);
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
 					}
-					if (player->GetBomPos(i).z + 2 - 4 >= pos[enemyNo].z &&
-						player->GetBomPos(i).z - 2 - 4 <= pos[enemyNo].z &&
-						player->GetBomPos(i).x - 2 <= pos[enemyNo].x &&
-						player->GetBomPos(i).x + 2 >= pos[enemyNo].x && player->GetLv(i) >= 2)
+					if (player->GetBomPos(i).x + 3 + 8 >= pos[enemyNo].x &&
+						player->GetBomPos(i).x - 3 + 8 <= pos[enemyNo].x &&
+						player->GetBomPos(i).z - 3 <= pos[enemyNo].z &&
+						player->GetBomPos(i).z + 3 >= pos[enemyNo].z && player->GetLv(i) >= 3)
 					{
 						score += 1000 * player->GetLv(i);
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
 					}
-					if (player->GetBomPos(i).z + 2 - 8 >= pos[enemyNo].z &&
-						player->GetBomPos(i).z - 2 - 8 <= pos[enemyNo].z &&
-						player->GetBomPos(i).x - 2 <= pos[enemyNo].x &&
-						player->GetBomPos(i).x + 2 >= pos[enemyNo].x && player->GetLv(i) >= 3)
+					if (player->GetBomPos(i).x + 3 + 12 >= pos[enemyNo].x &&
+						player->GetBomPos(i).x - 3 + 12 <= pos[enemyNo].x &&
+						player->GetBomPos(i).z - 3 <= pos[enemyNo].z &&
+						player->GetBomPos(i).z + 3 >= pos[enemyNo].z && player->GetLv(i) >= 4)
 					{
 						score += 1000 * player->GetLv(i);
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
 					}
-					if (player->GetBomPos(i).z + 2 - 12 >= pos[enemyNo].z &&
-						player->GetBomPos(i).z - 2 - 12 <= pos[enemyNo].z &&
-						player->GetBomPos(i).x - 2 <= pos[enemyNo].x &&
-						player->GetBomPos(i).x + 2 >= pos[enemyNo].x && player->GetLv(i) >= 4)
+					if (player->GetBomPos(i).x + 3 + 16 >= pos[enemyNo].x &&
+						player->GetBomPos(i).x - 3 + 16 <= pos[enemyNo].x &&
+						player->GetBomPos(i).z - 3 <= pos[enemyNo].z &&
+						player->GetBomPos(i).z + 3 >= pos[enemyNo].z && player->GetLv(i) >= 5)
 					{
 						score += 1000 * player->GetLv(i);
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
 					}
-					if (player->GetBomPos(i).z + 2 - 16 >= pos[enemyNo].z &&
-						player->GetBomPos(i).z - 2 - 16 <= pos[enemyNo].z &&
-						player->GetBomPos(i).x - 2 <= pos[enemyNo].x &&
-						player->GetBomPos(i).x + 2 >= pos[enemyNo].x && player->GetLv(i) >= 5)
+					if (player->GetBomPos(i).x + 3 + 20 >= pos[enemyNo].x &&
+						player->GetBomPos(i).x - 3 + 20 <= pos[enemyNo].x &&
+						player->GetBomPos(i).z - 3 <= pos[enemyNo].z &&
+						player->GetBomPos(i).z + 3 >= pos[enemyNo].z && player->GetLv(i) >= 6)
 					{
 						score += 1000 * player->GetLv(i);
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
 					}
-					if (player->GetBomPos(i).z + 2 - 20 >= pos[enemyNo].z &&
-						player->GetBomPos(i).z - 2 - 20 <= pos[enemyNo].z &&
-						player->GetBomPos(i).x - 2 <= pos[enemyNo].x &&
-						player->GetBomPos(i).x + 2 >= pos[enemyNo].x && player->GetLv(i) >= 6)
+					if (player->GetBomPos(i).x + 3 + 24 >= pos[enemyNo].x &&
+						player->GetBomPos(i).x - 3 + 24 <= pos[enemyNo].x &&
+						player->GetBomPos(i).z - 3 <= pos[enemyNo].z &&
+						player->GetBomPos(i).z + 3 >= pos[enemyNo].z && player->GetLv(i) >= 7)
 					{
 						score += 1000 * player->GetLv(i);
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
 					}
-					if (player->GetBomPos(i).z + 2 - 24 >= pos[enemyNo].z &&
-						player->GetBomPos(i).z - 2 - 24 <= pos[enemyNo].z &&
-						player->GetBomPos(i).x - 2 <= pos[enemyNo].x &&
-						player->GetBomPos(i).x + 2 >= pos[enemyNo].x && player->GetLv(i) >= 7)
+					if (player->GetBomPos(i).x + 3 + 28 >= pos[enemyNo].x &&
+						player->GetBomPos(i).x - 3 + 28 <= pos[enemyNo].x &&
+						player->GetBomPos(i).z - 3 <= pos[enemyNo].z &&
+						player->GetBomPos(i).z + 3 >= pos[enemyNo].z && player->GetLv(i) >= 8)
 					{
 						score += 1000 * player->GetLv(i);
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
 					}
-					if (player->GetBomPos(i).z + 2 - 28 >= pos[enemyNo].z &&
-						player->GetBomPos(i).z - 2 - 28 <= pos[enemyNo].z &&
-						player->GetBomPos(i).x - 2 <= pos[enemyNo].x &&
-						player->GetBomPos(i).x + 2 >= pos[enemyNo].x && player->GetLv(i) >= 8)
+
+
+					if (player->GetBomPos(i).z - 3 <= pos[enemyNo].z &&
+						player->GetBomPos(i).z + 3 >= pos[enemyNo].z &&
+						player->GetBomPos(i).x - 3 <= pos[enemyNo].x &&
+						player->GetBomPos(i).x + 3 >= pos[enemyNo].x)
+					{
+						score += 1000 * player->GetLv(i);
+						player->SetPlayCount();
+						killCount++;
+						enemyDead[enemyNo] = true;
+					}
+					if (player->GetBomPos(i).z + 3 - 4 >= pos[enemyNo].z &&
+						player->GetBomPos(i).z - 3 - 4 <= pos[enemyNo].z &&
+						player->GetBomPos(i).x - 3 <= pos[enemyNo].x &&
+						player->GetBomPos(i).x + 3 >= pos[enemyNo].x && player->GetLv(i) >= 2)
+					{
+						score += 1000 * player->GetLv(i);
+						player->SetPlayCount();
+						killCount++;
+						enemyDead[enemyNo] = true;
+					}
+					if (player->GetBomPos(i).z + 3 - 8 >= pos[enemyNo].z &&
+						player->GetBomPos(i).z - 3 - 8 <= pos[enemyNo].z &&
+						player->GetBomPos(i).x - 3 <= pos[enemyNo].x &&
+						player->GetBomPos(i).x + 3 >= pos[enemyNo].x && player->GetLv(i) >= 3)
+					{
+						score += 1000 * player->GetLv(i);
+						player->SetPlayCount();
+						killCount++;
+						enemyDead[enemyNo] = true;
+					}
+					if (player->GetBomPos(i).z + 3 - 12 >= pos[enemyNo].z &&
+						player->GetBomPos(i).z - 3 - 12 <= pos[enemyNo].z &&
+						player->GetBomPos(i).x - 3 <= pos[enemyNo].x &&
+						player->GetBomPos(i).x + 3 >= pos[enemyNo].x && player->GetLv(i) >= 4)
+					{
+						score += 1000 * player->GetLv(i);
+						player->SetPlayCount();
+						killCount++;
+						enemyDead[enemyNo] = true;
+					}
+					if (player->GetBomPos(i).z + 3 - 16 >= pos[enemyNo].z &&
+						player->GetBomPos(i).z - 3 - 16 <= pos[enemyNo].z &&
+						player->GetBomPos(i).x - 3 <= pos[enemyNo].x &&
+						player->GetBomPos(i).x + 3 >= pos[enemyNo].x && player->GetLv(i) >= 5)
+					{
+						score += 1000 * player->GetLv(i);
+						player->SetPlayCount();
+						killCount++;
+						enemyDead[enemyNo] = true;
+					}
+					if (player->GetBomPos(i).z + 3 - 20 >= pos[enemyNo].z &&
+						player->GetBomPos(i).z - 3 - 20 <= pos[enemyNo].z &&
+						player->GetBomPos(i).x - 3 <= pos[enemyNo].x &&
+						player->GetBomPos(i).x + 3 >= pos[enemyNo].x && player->GetLv(i) >= 6)
+					{
+						score += 1000 * player->GetLv(i);
+						player->SetPlayCount();
+						killCount++;
+						enemyDead[enemyNo] = true;
+					}
+					if (player->GetBomPos(i).z + 3 - 24 >= pos[enemyNo].z &&
+						player->GetBomPos(i).z - 3 - 24 <= pos[enemyNo].z &&
+						player->GetBomPos(i).x - 3 <= pos[enemyNo].x &&
+						player->GetBomPos(i).x + 3 >= pos[enemyNo].x && player->GetLv(i) >= 7)
+					{
+						score += 1000 * player->GetLv(i);
+						player->SetPlayCount();
+						killCount++;
+						enemyDead[enemyNo] = true;
+					}
+					if (player->GetBomPos(i).z + 3 - 28 >= pos[enemyNo].z &&
+						player->GetBomPos(i).z - 3 - 28 <= pos[enemyNo].z &&
+						player->GetBomPos(i).x - 3 <= pos[enemyNo].x &&
+						player->GetBomPos(i).x + 3 >= pos[enemyNo].x && player->GetLv(i) >= 8)
 					{
 						score += 1000 * player->GetLv(i);
 						player->SetPlayCount();
@@ -634,70 +634,70 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 
 
 
-					if (player->GetBomPos(i).z + 2 + 4 >= pos[enemyNo].z &&
-						player->GetBomPos(i).z - 2 + 4 <= pos[enemyNo].z &&
-						player->GetBomPos(i).x - 2 <= pos[enemyNo].x &&
-						player->GetBomPos(i).x + 2 >= pos[enemyNo].x && player->GetLv(i) >= 2)
+					if (player->GetBomPos(i).z + 3 + 4 >= pos[enemyNo].z &&
+						player->GetBomPos(i).z - 3 + 4 <= pos[enemyNo].z &&
+						player->GetBomPos(i).x - 3 <= pos[enemyNo].x &&
+						player->GetBomPos(i).x + 3 >= pos[enemyNo].x && player->GetLv(i) >= 2)
 					{
 						score += 1000 * player->GetLv(i);
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
 					}
-					if (player->GetBomPos(i).z + 2 + 8 >= pos[enemyNo].z &&
-						player->GetBomPos(i).z - 2 + 8 <= pos[enemyNo].z &&
-						player->GetBomPos(i).x - 2 <= pos[enemyNo].x &&
-						player->GetBomPos(i).x + 2 >= pos[enemyNo].x && player->GetLv(i) >= 3)
+					if (player->GetBomPos(i).z + 3 + 8 >= pos[enemyNo].z &&
+						player->GetBomPos(i).z - 3 + 8 <= pos[enemyNo].z &&
+						player->GetBomPos(i).x - 3 <= pos[enemyNo].x &&
+						player->GetBomPos(i).x + 3 >= pos[enemyNo].x && player->GetLv(i) >= 3)
 					{
 						score += 1000 * player->GetLv(i);
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
 					}
-					if (player->GetBomPos(i).z + 2 + 12 >= pos[enemyNo].z &&
-						player->GetBomPos(i).z - 2 + 12 <= pos[enemyNo].z &&
-						player->GetBomPos(i).x - 2 <= pos[enemyNo].x &&
-						player->GetBomPos(i).x + 2 >= pos[enemyNo].x && player->GetLv(i) >= 4)
+					if (player->GetBomPos(i).z + 3 + 12 >= pos[enemyNo].z &&
+						player->GetBomPos(i).z - 3 + 12 <= pos[enemyNo].z &&
+						player->GetBomPos(i).x - 3 <= pos[enemyNo].x &&
+						player->GetBomPos(i).x + 3 >= pos[enemyNo].x && player->GetLv(i) >= 4)
 					{
 						score += 1000 * player->GetLv(i);
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
 					}
-					if (player->GetBomPos(i).z + 2 + 16 >= pos[enemyNo].z &&
-						player->GetBomPos(i).z - 2 + 16 <= pos[enemyNo].z &&
-						player->GetBomPos(i).x - 2 <= pos[enemyNo].x &&
-						player->GetBomPos(i).x + 2 >= pos[enemyNo].x && player->GetLv(i) >= 5)
+					if (player->GetBomPos(i).z + 3 + 16 >= pos[enemyNo].z &&
+						player->GetBomPos(i).z - 3 + 16 <= pos[enemyNo].z &&
+						player->GetBomPos(i).x - 3 <= pos[enemyNo].x &&
+						player->GetBomPos(i).x + 3 >= pos[enemyNo].x && player->GetLv(i) >= 5)
 					{
 						score += 1000 * player->GetLv(i);
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
 					}
-					if (player->GetBomPos(i).z + 2 + 20 >= pos[enemyNo].z &&
-						player->GetBomPos(i).z - 2 + 20 <= pos[enemyNo].z &&
-						player->GetBomPos(i).x - 2 <= pos[enemyNo].x &&
-						player->GetBomPos(i).x + 2 >= pos[enemyNo].x && player->GetLv(i) >= 6)
+					if (player->GetBomPos(i).z + 3 + 20 >= pos[enemyNo].z &&
+						player->GetBomPos(i).z - 3 + 20 <= pos[enemyNo].z &&
+						player->GetBomPos(i).x - 3 <= pos[enemyNo].x &&
+						player->GetBomPos(i).x + 3 >= pos[enemyNo].x && player->GetLv(i) >= 6)
 					{
 						score += 1000 * player->GetLv(i);
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
 					}
-					if (player->GetBomPos(i).z + 2 + 24 >= pos[enemyNo].z &&
-						player->GetBomPos(i).z - 2 + 24 <= pos[enemyNo].z &&
-						player->GetBomPos(i).x - 2 <= pos[enemyNo].x &&
-						player->GetBomPos(i).x + 2 >= pos[enemyNo].x && player->GetLv(i) >= 7)
+					if (player->GetBomPos(i).z + 3 + 24 >= pos[enemyNo].z &&
+						player->GetBomPos(i).z - 3 + 24 <= pos[enemyNo].z &&
+						player->GetBomPos(i).x - 3 <= pos[enemyNo].x &&
+						player->GetBomPos(i).x + 3 >= pos[enemyNo].x && player->GetLv(i) >= 7)
 					{
 						score += 1000 * player->GetLv(i);
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
 					}
-					if (player->GetBomPos(i).z + 2 + 28 >= pos[enemyNo].z &&
-						player->GetBomPos(i).z - 2 + 28 <= pos[enemyNo].z &&
-						player->GetBomPos(i).x - 2 <= pos[enemyNo].x &&
-						player->GetBomPos(i).x + 2 >= pos[enemyNo].x && player->GetLv(i) >= 8)
+					if (player->GetBomPos(i).z + 3 + 28 >= pos[enemyNo].z &&
+						player->GetBomPos(i).z - 3 + 28 <= pos[enemyNo].z &&
+						player->GetBomPos(i).x - 3 <= pos[enemyNo].x &&
+						player->GetBomPos(i).x + 3 >= pos[enemyNo].x && player->GetLv(i) >= 8)
 					{
 						score += 1000 * player->GetLv(i);
 						player->SetPlayCount();

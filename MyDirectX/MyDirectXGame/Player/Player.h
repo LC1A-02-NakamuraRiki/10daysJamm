@@ -38,7 +38,7 @@ public:
 	XMFLOAT3 GetBomPos(int no) { return bomPos[no]; };
 	XMFLOAT3 SetBomPos(int no) { return bomPos[no] = XMFLOAT3({ 100,100,100 }); };
 	int GetPlayCount() { return playCount; }
-	int SetPlayCount() { return playCount += 300; }
+	int SetPlayCount() { return playCount += 60; }
 	bool GetBomAlive(int No) { return bomAlive[No]; }
 	bool SetBomAlive(int No) { return bomAlive[No] = false; }
 	bool GetTurnFlag(int no) { return turnFlag[no]; }
