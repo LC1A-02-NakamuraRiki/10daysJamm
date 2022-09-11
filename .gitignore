@@ -442,3 +442,5 @@ $RECYCLE.BIN/
 MyDirectX/MyDirectXGame/MyDirectXGame.exe
 *.mp3
 *.wav
+*.obj
+*.mtl
