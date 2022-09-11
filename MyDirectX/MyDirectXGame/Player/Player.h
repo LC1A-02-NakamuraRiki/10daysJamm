@@ -48,6 +48,9 @@ public:
 	bool SetFire() { return fire = false; }
 	bool GetMove() { return move; }
 	bool SetMove() { return move = false; }
+
+	void SetBomEffectMode(int num, int mode);
+	void BomEffect(int num);
 private:
 
 	const int MapValue = 8;//マップサイズ
@@ -84,5 +87,5 @@ private:
 
 	XMFLOAT3 effectPos[3]{};//爆発エフェクト用
 	int effectTimer[3] = { 0, 0, 0 };
-	bool effectFlag[3] = { false,false,false };
+	int effectMode[3] = { 0,0,0 };
 };
