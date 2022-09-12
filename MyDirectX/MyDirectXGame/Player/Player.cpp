@@ -29,6 +29,7 @@ void Player::Initialize(MapChip* map)
 			objBom[j][i]->SetScale(XMFLOAT3({ 0.5, 0.5, 0.5 }));
 			bomPos[i] = XMFLOAT3({ 4 * 4.0f - (MapValue * 4.0f / 2) + 2, 1.0f, 4 * 4.0f - (MapValue * 4.0f / 2) + 2 });
 			objBom[j][i]->SetPosition(bomPos[i]);
+			objBom[j][i]->SetRotation({ 0,180,0 });
 		}
 	}
 }
