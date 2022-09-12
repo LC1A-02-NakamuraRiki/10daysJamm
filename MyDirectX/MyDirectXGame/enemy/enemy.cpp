@@ -381,6 +381,7 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 					killCount++;
 					enemyDead[enemyNo] = true;
 					player->SetBomEffectMode(i, 2);//花火エフェクト発生
+					player->SetBomAlive(i);
 				}
 
 				/*if (player->GetBomPos(i).z - 2 <= pos[enemyNo].z &&
