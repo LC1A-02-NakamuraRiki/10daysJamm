@@ -122,43 +122,43 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Sound* audio)
 		return;
 	}
 
-	if (!Sprite::LoadTexture(27, L"Resources/number/0.png")) {
+	if (!Sprite::LoadTexture(27, L"Resources//number2/0.png")) {
 		assert(0);
 		return;
 	}
-	if (!Sprite::LoadTexture(28, L"Resources/number/1.png")) {
+	if (!Sprite::LoadTexture(28, L"Resources/number2/1.png")) {
 		assert(0);
 		return;
 	}
-	if (!Sprite::LoadTexture(29, L"Resources/number/2.png")) {
+	if (!Sprite::LoadTexture(29, L"Resources/number2/2.png")) {
 		assert(0);
 		return;
 	}
-	if (!Sprite::LoadTexture(30, L"Resources/number/3.png")) {
+	if (!Sprite::LoadTexture(30, L"Resources/number2/3.png")) {
 		assert(0);
 		return;
 	}
-	if (!Sprite::LoadTexture(31, L"Resources/number/4.png")) {
+	if (!Sprite::LoadTexture(31, L"Resources/number2/4.png")) {
 		assert(0);
 		return;
 	}
-	if (!Sprite::LoadTexture(32, L"Resources/number/5.png")) {
+	if (!Sprite::LoadTexture(32, L"Resources/number2/5.png")) {
 		assert(0);
 		return;
 	}
-	if (!Sprite::LoadTexture(33, L"Resources/number/6.png")) {
+	if (!Sprite::LoadTexture(33, L"Resources/number2/6.png")) {
 		assert(0);
 		return;
 	}
-	if (!Sprite::LoadTexture(34, L"Resources/number/7.png")) {
+	if (!Sprite::LoadTexture(34, L"Resources/number2/7.png")) {
 		assert(0);
 		return;
 	}
-	if (!Sprite::LoadTexture(35, L"Resources/number/8.png")) {
+	if (!Sprite::LoadTexture(35, L"Resources/number2/8.png")) {
 		assert(0);
 		return;
 	}
-	if (!Sprite::LoadTexture(36, L"Resources/number/9.png")) {
+	if (!Sprite::LoadTexture(36, L"Resources/number2/9.png")) {
 		assert(0);
 		return;
 	}
@@ -182,7 +182,7 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Sound* audio)
 		assert(0);
 		return;
 	}
-	if (!Sprite::LoadTexture(42, L"Resources/Back.png")) {
+	if (!Sprite::LoadTexture(42, L"Resources/Back1.png")) {
 		assert(0);
 		return;
 	}
@@ -267,13 +267,13 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Sound* audio)
 	spriteNumber9[0]->SetPosition({ 916.0, 506 });
 
 	spriteNumber0s = Sprite::Create(27, { 0.0f,0.0f });
-	spriteNumber0s->SetSize({ 120.0f,120.0f });
+	spriteNumber0s->SetSize({ 60.0f,120.0f });
 	spriteNumber0s->SetPosition({ 1660.0, 200 });
 	spriteNumber0[0] = Sprite::Create(27, { 0.0f,0.0f });
-	spriteNumber0[0]->SetSize({ 120.0f,120.0f });
+	spriteNumber0[0]->SetSize({ 60.0f,120.0f });
 	spriteNumber0[0]->SetPosition({ 1600.0, 200 });
 	spriteNumber0[1] = Sprite::Create(27, { 0.0f,0.0f });
-	spriteNumber0[1]->SetSize({ 120.0f,120.0f });
+	spriteNumber0[1]->SetSize({ 60.0f,120.0f });
 	spriteNumber0[1]->SetPosition({ 1540.0, 200 });
 
 
@@ -487,19 +487,19 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Sound* audio)
 
 
 	spritePlayBack = Sprite::Create(42, { 0.0f,0.0f });
-	spritePlayBack->SetSize({ 1920,1080.0f });
-	spritePlayBack->SetPosition({ 0.0, 0 });
+	spritePlayBack->SetSize({ 1920 * 1.5,1920 * 1.5 });
+	spritePlayBack->SetPosition({ 960, 960 });
+	spritePlayBack->SetAnchorPoint({0.5,0.5});
 
 	spritePlayTime = Sprite::Create(43, { 0.0f,0.0f });
 	spritePlayTime->SetSize({ 344.0f,122.0f });
-	spritePlayTime->SetPosition({ 100.0, 100 });
+	spritePlayTime->SetPosition({ 80.0, 100 });
 
 	spritePlayScore = Sprite::Create(44, { 0.0f,0.0f });
 	spritePlayScore->SetSize({ 343.0f,103.0f });
 	spritePlayScore->SetPosition({ 1460.0, 100 });
 
 	// 3Dオブジェクト生成
-
 	modelSkydome = Model::CreateFromObject("skydome", false);
 	objSkydome = Object3d::Create(modelSkydome);
 	objSkydome->SetScale({ 5.0f,5.0f,5.0f });
@@ -536,11 +536,74 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Sound* audio)
 	enemy->Initialize(2, 0, 0, 10);
 	enemy->Initialize(3, 0, 0, 11);
 	audio->PlayBGM("Resources/BGM/title_bgm.wav", true);
+	
+	spriteNumber0[2]->SetSize({ 60.0f,120.0f });
+	spriteNumber1[2]->SetSize({ 60.0f,120.0f });
+	spriteNumber2[2]->SetSize({ 60.0f,120.0f });
+	spriteNumber3[2]->SetSize({ 60.0f,120.0f });
+	spriteNumber4[2]->SetSize({ 60.0f,120.0f });
+	spriteNumber5[2]->SetSize({ 60.0f,120.0f });
+	spriteNumber6[2]->SetSize({ 60.0f,120.0f });
+	spriteNumber7[2]->SetSize({ 60.0f,120.0f });
+	spriteNumber8[2]->SetSize({ 60.0f,120.0f });
+	spriteNumber9[2]->SetSize({ 60.0f,120.0f });
+	spriteNumber0[3]->SetSize({ 60.0f,120.0f });
+	spriteNumber1[3]->SetSize({ 60.0f,120.0f });
+	spriteNumber2[3]->SetSize({ 60.0f,120.0f });
+	spriteNumber3[3]->SetSize({ 60.0f,120.0f });
+	spriteNumber4[3]->SetSize({ 60.0f,120.0f });
+	spriteNumber5[3]->SetSize({ 60.0f,120.0f });
+	spriteNumber6[3]->SetSize({ 60.0f,120.0f });
+	spriteNumber7[3]->SetSize({ 60.0f,120.0f });
+	spriteNumber8[3]->SetSize({ 60.0f,120.0f });
+	spriteNumber9[3]->SetSize({ 60.0f,120.0f });
+	spriteNumber0[4]->SetSize({ 60.0f,120.0f });
+	spriteNumber1[4]->SetSize({ 60.0f,120.0f });
+	spriteNumber2[4]->SetSize({ 60.0f,120.0f });
+	spriteNumber3[4]->SetSize({ 60.0f,120.0f });
+	spriteNumber4[4]->SetSize({ 60.0f,120.0f });
+	spriteNumber5[4]->SetSize({ 60.0f,120.0f });
+	spriteNumber6[4]->SetSize({ 60.0f,120.0f });
+	spriteNumber7[4]->SetSize({ 60.0f,120.0f });
+	spriteNumber8[4]->SetSize({ 60.0f,120.0f });
+	spriteNumber9[4]->SetSize({ 60.0f,120.0f });
+	spriteNumber0[6]->SetSize({ 60.0f,120.0f });
+	spriteNumber1[6]->SetSize({ 60.0f,120.0f });
+	spriteNumber2[6]->SetSize({ 60.0f,120.0f });
+	spriteNumber3[6]->SetSize({ 60.0f,120.0f });
+	spriteNumber4[6]->SetSize({ 60.0f,120.0f });
+	spriteNumber5[6]->SetSize({ 60.0f,120.0f });
+	spriteNumber6[6]->SetSize({ 60.0f,120.0f });
+	spriteNumber7[6]->SetSize({ 60.0f,120.0f });
+	spriteNumber8[6]->SetSize({ 60.0f,120.0f });
+	spriteNumber9[6]->SetSize({ 60.0f,120.0f });
+	spriteNumber0[7]->SetSize({ 60.0f,120.0f });
+	spriteNumber1[7]->SetSize({ 60.0f,120.0f });
+	spriteNumber2[7]->SetSize({ 60.0f,120.0f });
+	spriteNumber3[7]->SetSize({ 60.0f,120.0f });
+	spriteNumber4[7]->SetSize({ 60.0f,120.0f });
+	spriteNumber5[7]->SetSize({ 60.0f,120.0f });
+	spriteNumber6[7]->SetSize({ 60.0f,120.0f });
+	spriteNumber7[7]->SetSize({ 60.0f,120.0f });
+	spriteNumber8[7]->SetSize({ 60.0f,120.0f });
+	spriteNumber9[7]->SetSize({ 60.0f,120.0f });
+	spriteNumber0[8]->SetSize({ 60.0f,120.0f });
+	spriteNumber1[8]->SetSize({ 60.0f,120.0f });
+	spriteNumber2[8]->SetSize({ 60.0f,120.0f });
+	spriteNumber3[8]->SetSize({ 60.0f,120.0f });
+	spriteNumber4[8]->SetSize({ 60.0f,120.0f });
+	spriteNumber5[8]->SetSize({ 60.0f,120.0f });
+	spriteNumber6[8]->SetSize({ 60.0f,120.0f });
+	spriteNumber7[8]->SetSize({ 60.0f,120.0f });
+	spriteNumber8[8]->SetSize({ 60.0f,120.0f });
+	spriteNumber9[8]->SetSize({ 60.0f,120.0f });
+
+	
 }
 
 void GameScene::Update()
 {
-	debugText.Print(20, 20, 2.0f, "END : ESC");
+	//debugText.Print(20, 20, 2.0f, "END : ESC");
 	if (scene == TITLE)
 	{
 		titleScroll.x -= 1920 / 100;
@@ -659,7 +722,8 @@ void GameScene::Update()
 	}
 	else if (scene == PLAY)
 	{
-
+		backRotation-= 0.1;
+		spritePlayBack->SetRotation(backRotation);
 		if (bomSceneChange2 == true)
 		{
 			sceneChangeCount2++;
@@ -718,8 +782,33 @@ void GameScene::Update()
 		}
 		int mapY = (player->GetPos().z / 4) + ((8 + 1) / 2);
 		int mapX = (player->GetPos().x / 4) + ((8 + 1) / 2);
-		score1 = enemy->GetScore() /1000;
-		time1 = player->GetPlayCount() / 60;
+		if (100000 <= enemy->GetScore())
+		{
+			score3 = enemy->GetScore() / 100000;
+		}
+		if (10000 <= enemy->GetScore())
+		{
+			score2 = enemy->GetScore() / 10000;
+		}
+		if (1000 <= enemy->GetScore())
+		{
+			score1 = enemy->GetScore() / 1000;
+		}
+
+		if (6000 <= player->GetPlayCount())
+		{
+			time3 = player->GetPlayCount() / 6000;
+		}
+		if (600 <= player->GetPlayCount())
+		{
+			time2 = player->GetPlayCount() / 600;
+		}
+		if (60 <= player->GetPlayCount())
+		{
+			time1 = player->GetPlayCount() / 60;
+		}
+		debugText.Print(20, 70, 2.0f, "sc: %d %d %d", time3 , time2 - 10 * time3, time1 - 10 * time2);
+		
 		/*debugText.Print(20, 70, 2.0f, "score :  %d", enemy->GetScore());
 		debugText.Print(20, 100, 2.0f, "faze :  %d", enemy->GetWave());
 		debugText.Print(20, 130, 2.0f, "time :  %d", player->GetPlayCount() / 60);
@@ -907,6 +996,42 @@ void GameScene::Update()
 			//enemy->EndInitialize();
 			audio->StopBGM();
 			audio->PlayBGM("Resources/BGM/title_bgm.wav", true);
+			spriteNumber0s->SetPosition({ 1660.0, 200 });
+			spriteNumber0[0]->SetPosition({ 1600.0, 200 });
+			spriteNumber0[1]->SetPosition({ 1540.0, 200 });
+
+			spriteNumber0[2]->SetPosition({ 1480.0, 200 });
+			spriteNumber1[2]->SetPosition({ 1480.0, 200 });
+			spriteNumber2[2]->SetPosition({ 1480.0, 200 });
+			spriteNumber3[2]->SetPosition({ 1480.0, 200 });
+			spriteNumber4[2]->SetPosition({ 1480.0, 200 });
+			spriteNumber5[2]->SetPosition({ 1480.0, 200 });
+			spriteNumber6[2]->SetPosition({ 1480.0, 200 });
+			spriteNumber7[2]->SetPosition({ 1480.0, 200 });
+			spriteNumber8[2]->SetPosition({ 1480.0, 200 });
+			spriteNumber9[2]->SetPosition({ 1480.0, 200 });
+
+			spriteNumber0[3]->SetPosition({ 1420.0, 200 });
+			spriteNumber1[3]->SetPosition({ 1420.0, 200 });
+			spriteNumber2[3]->SetPosition({ 1420.0, 200 });
+			spriteNumber3[3]->SetPosition({ 1420.0, 200 });
+			spriteNumber4[3]->SetPosition({ 1420.0, 200 });
+			spriteNumber5[3]->SetPosition({ 1420.0, 200 });
+			spriteNumber6[3]->SetPosition({ 1420.0, 200 });
+			spriteNumber7[3]->SetPosition({ 1420.0, 200 });
+			spriteNumber8[3]->SetPosition({ 1420.0, 200 });
+			spriteNumber9[3]->SetPosition({ 1420.0, 200 });
+
+			spriteNumber0[4]->SetPosition({ 1360.0, 200 });
+			spriteNumber1[4]->SetPosition({ 1360.0, 200 });
+			spriteNumber2[4]->SetPosition({ 1360.0, 200 });
+			spriteNumber3[4]->SetPosition({ 1360.0, 200 });
+			spriteNumber4[4]->SetPosition({ 1360.0, 200 });
+			spriteNumber5[4]->SetPosition({ 1360.0, 200 });
+			spriteNumber6[4]->SetPosition({ 1360.0, 200 });
+			spriteNumber7[4]->SetPosition({ 1360.0, 200 });
+			spriteNumber8[4]->SetPosition({ 1360.0, 200 });
+			spriteNumber9[4]->SetPosition({ 1360.0, 200 });
 		}
 
 		if (Input::GetInstance()->KeybordTrigger(DIK_SPACE) && restart == 0 && bomSceneChange == false)
@@ -1001,7 +1126,8 @@ void GameScene::Draw()
 	Sprite::PreDraw(cmdList);
 	// 背景スプライト描画
 	//-------------------------------------------------------------//
-	//spritePlayBack->Draw();
+	spritePlayBack->Draw();
+	
 	//-------------------------------------------------------------//
 	// スプライト描画後処理
 	Sprite::PostDraw();
@@ -1015,8 +1141,8 @@ void GameScene::Draw()
 	//-------------------------------------------------------------//
 	if (scene == PLAY)
 	{
-		objSkydome->Draw();
-		objGround->Draw();
+		//objSkydome->Draw();
+		//objGround->Draw();
 		map->Draw();
 		player->Draw();
 		enemy->Draw();
@@ -1058,13 +1184,93 @@ void GameScene::Draw()
 	}
 	if (scene == PLAY)
 	{
-		spriteNumber0s->Draw();
-		spriteNumber0[0]->Draw();
-		spriteNumber0[1]->Draw();
+		if (1000 <= enemy->GetScore())
+		{
+			spriteNumber0s->Draw();
+			spriteNumber0[0]->Draw();
+			spriteNumber0[1]->Draw();
+		}
+		if (1000 <= enemy->GetScore())
+		{
+			if (score1 - 10 * score2 == 0) { spriteNumber0[2]->Draw(); }
+			if (score1 - 10 * score2 == 1) { spriteNumber1[2]->Draw(); }
+			if (score1 - 10 * score2 == 2) { spriteNumber2[2]->Draw(); }
+			if (score1 - 10 * score2 == 3) { spriteNumber3[2]->Draw(); }
+			if (score1 - 10 * score2 == 4) { spriteNumber4[2]->Draw(); }
+			if (score1 - 10 * score2 == 5) { spriteNumber5[2]->Draw(); }
+			if (score1 - 10 * score2 == 6) { spriteNumber6[2]->Draw(); }
+			if (score1 - 10 * score2 == 7) { spriteNumber7[2]->Draw(); }
+			if (score1 - 10 * score2 == 8) { spriteNumber8[2]->Draw(); }
+			if (score1 - 10 * score2 == 9) { spriteNumber9[2]->Draw(); }
+		}
+		if (10000 <= enemy->GetScore())
+		{
+			if (score2 - 10 * score3 == 0) { spriteNumber0[3]->Draw(); }
+			if (score2 - 10 * score3 == 1) { spriteNumber1[3]->Draw(); }
+			if (score2 - 10 * score3 == 2) { spriteNumber2[3]->Draw(); }
+			if (score2 - 10 * score3 == 3) { spriteNumber3[3]->Draw(); }
+			if (score2 - 10 * score3 == 4) { spriteNumber4[3]->Draw(); }
+			if (score2 - 10 * score3 == 5) { spriteNumber5[3]->Draw(); }
+			if (score2 - 10 * score3 == 6) { spriteNumber6[3]->Draw(); }
+			if (score2 - 10 * score3 == 7) { spriteNumber7[3]->Draw(); }
+			if (score2 - 10 * score3 == 8) { spriteNumber8[3]->Draw(); }
+			if (score2 - 10 * score3 == 9) { spriteNumber9[3]->Draw(); }
+		}
+		if (100000 <= enemy->GetScore())
+		{
+			if (score3 == 0) { spriteNumber0[4]->Draw(); }
+			if (score3 == 1) { spriteNumber1[4]->Draw(); }
+			if (score3 == 2) { spriteNumber2[4]->Draw(); }
+			if (score3 == 3) { spriteNumber3[4]->Draw(); }
+			if (score3 == 4) { spriteNumber4[4]->Draw(); }
+			if (score3 == 5) { spriteNumber5[4]->Draw(); }
+			if (score3 == 6) { spriteNumber6[4]->Draw(); }
+			if (score3 == 7) { spriteNumber7[4]->Draw(); }
+			if (score3 == 8) { spriteNumber8[4]->Draw(); }
+			if (score3 == 9) { spriteNumber9[4]->Draw(); }
+		}
 
-		DrawScore();
-		DrawTime();
-		
+
+		if (60 <= player->GetPlayCount())
+		{
+			if (time1 - 10 * time2 == 0) { spriteNumber0[6]->Draw(); }
+			if (time1 - 10 * time2 == 1) { spriteNumber1[6]->Draw(); }
+			if (time1 - 10 * time2 == 2) { spriteNumber2[6]->Draw(); }
+			if (time1 - 10 * time2 == 3) { spriteNumber3[6]->Draw(); }
+			if (time1 - 10 * time2 == 4) { spriteNumber4[6]->Draw(); }
+			if (time1 - 10 * time2 == 5) { spriteNumber5[6]->Draw(); }
+			if (time1 - 10 * time2 == 6) { spriteNumber6[6]->Draw(); }
+			if (time1 - 10 * time2 == 7) { spriteNumber7[6]->Draw(); }
+			if (time1 - 10 * time2 == 8) { spriteNumber8[6]->Draw(); }
+			if (time1 - 10 * time2 == 9) { spriteNumber9[6]->Draw(); }
+		}
+		if (600 <= player->GetPlayCount())
+		{
+			if (time2 - 10 * time3 == 0) { spriteNumber0[7]->Draw(); }
+			if (time2 - 10 * time3 == 1) { spriteNumber1[7]->Draw(); }
+			if (time2 - 10 * time3 == 2) { spriteNumber2[7]->Draw(); }
+			if (time2 - 10 * time3 == 3) { spriteNumber3[7]->Draw(); }
+			if (time2 - 10 * time3 == 4) { spriteNumber4[7]->Draw(); }
+			if (time2 - 10 * time3 == 5) { spriteNumber5[7]->Draw(); }
+			if (time2 - 10 * time3 == 6) { spriteNumber6[7]->Draw(); }
+			if (time2 - 10 * time3 == 7) { spriteNumber7[7]->Draw(); }
+			if (time2 - 10 * time3 == 8) { spriteNumber8[7]->Draw(); }
+			if (time2 - 10 * time3 == 9) { spriteNumber9[7]->Draw(); }
+		}
+		if (6000 <= player->GetPlayCount())
+		{
+			if (time3 == 0) { spriteNumber0[8]->Draw(); }
+			if (time3 == 1) { spriteNumber1[8]->Draw(); }
+			if (time3 == 2) { spriteNumber2[8]->Draw(); }
+			if (time3 == 3) { spriteNumber3[8]->Draw(); }
+			if (time3 == 4) { spriteNumber4[8]->Draw(); }
+			if (time3 == 5) { spriteNumber5[8]->Draw(); }
+			if (time3 == 6) { spriteNumber6[8]->Draw(); }
+			if (time3 == 7) { spriteNumber7[8]->Draw(); }
+			if (time3 == 8) { spriteNumber8[8]->Draw(); }
+			if (time3 == 9) { spriteNumber9[8]->Draw(); }
+		}
+
 		spritePlayTime->Draw();
 		spritePlayScore->Draw();
 		if (bomSceneChange2 == true)
@@ -1122,7 +1328,6 @@ void GameScene::Draw()
 		spriteNumber0s->Draw();
 		spriteNumber0[0]->Draw();
 		spriteNumber0[1]->Draw();
-		DrawScore();
 		if (restart == 1)
 		{
 			spriteClearTextR2->Draw();
@@ -1145,218 +1350,6 @@ void GameScene::Draw()
 	// スプライト描画後処理
 	Sprite::PostDraw();
 #pragma endregion
-}
-
-void GameScene::DrawScore()
-{
-	if (score1 == 0) { spriteNumber0[2]->Draw(); }
-	else if (score1 == 1) { spriteNumber1[2]->Draw(); }
-	else if (score1 == 2) { spriteNumber2[2]->Draw(); }
-	else if (score1 == 3) { spriteNumber3[2]->Draw(); }
-	else if (score1 == 4) { spriteNumber4[2]->Draw(); }
-	else if (score1 == 5) { spriteNumber5[2]->Draw(); }
-	else if (score1 == 6) { spriteNumber6[2]->Draw(); }
-	else if (score1 == 7) { spriteNumber7[2]->Draw(); }
-	else if (score1 == 8) { spriteNumber8[2]->Draw(); }
-	else if (score1 == 9) { spriteNumber9[2]->Draw(); }
-	else if (score1 == 10) { spriteNumber1[3]->Draw(); spriteNumber0[2]->Draw(); }
-	else if (score1 == 11) { spriteNumber1[3]->Draw(); spriteNumber1[2]->Draw(); }
-	else if (score1 == 12) { spriteNumber1[3]->Draw(); spriteNumber2[2]->Draw(); }
-	else if (score1 == 13) { spriteNumber1[3]->Draw(); spriteNumber3[2]->Draw(); }
-	else if (score1 == 14) { spriteNumber1[3]->Draw(); spriteNumber4[2]->Draw(); }
-	else if (score1 == 15) { spriteNumber1[3]->Draw(); spriteNumber5[2]->Draw(); }
-	else if (score1 == 16) { spriteNumber1[3]->Draw(); spriteNumber6[2]->Draw(); }
-	else if (score1 == 17) { spriteNumber1[3]->Draw(); spriteNumber7[2]->Draw(); }
-	else if (score1 == 18) { spriteNumber1[3]->Draw(); spriteNumber8[2]->Draw(); }
-	else if (score1 == 19) { spriteNumber1[3]->Draw(); spriteNumber9[2]->Draw(); }
-	else if (score1 == 20) { spriteNumber2[3]->Draw(); spriteNumber0[2]->Draw(); }
-	else if (score1 == 21) { spriteNumber2[3]->Draw(); spriteNumber1[2]->Draw(); }
-	else if (score1 == 22) { spriteNumber2[3]->Draw(); spriteNumber2[2]->Draw(); }
-	else if (score1 == 23) { spriteNumber2[3]->Draw(); spriteNumber3[2]->Draw(); }
-	else if (score1 == 24) { spriteNumber2[3]->Draw(); spriteNumber4[2]->Draw(); }
-	else if (score1 == 25) { spriteNumber2[3]->Draw(); spriteNumber5[2]->Draw(); }
-	else if (score1 == 26) { spriteNumber2[3]->Draw(); spriteNumber6[2]->Draw(); }
-	else if (score1 == 27) { spriteNumber2[3]->Draw(); spriteNumber7[2]->Draw(); }
-	else if (score1 == 28) { spriteNumber2[3]->Draw(); spriteNumber8[2]->Draw(); }
-	else if (score1 == 29) { spriteNumber2[3]->Draw(); spriteNumber9[2]->Draw(); }
-	else if (score1 == 30) { spriteNumber3[3]->Draw(); spriteNumber0[2]->Draw(); }
-	else if (score1 == 31) { spriteNumber3[3]->Draw(); spriteNumber1[2]->Draw(); }
-	else if (score1 == 32) { spriteNumber3[3]->Draw(); spriteNumber2[2]->Draw(); }
-	else if (score1 == 33) { spriteNumber3[3]->Draw(); spriteNumber3[2]->Draw(); }
-	else if (score1 == 34) { spriteNumber3[3]->Draw(); spriteNumber4[2]->Draw(); }
-	else if (score1 == 35) { spriteNumber3[3]->Draw(); spriteNumber5[2]->Draw(); }
-	else if (score1 == 36) { spriteNumber3[3]->Draw(); spriteNumber6[2]->Draw(); }
-	else if (score1 == 37) { spriteNumber3[3]->Draw(); spriteNumber7[2]->Draw(); }
-	else if (score1 == 38) { spriteNumber3[3]->Draw(); spriteNumber8[2]->Draw(); }
-	else if (score1 == 39) { spriteNumber3[3]->Draw(); spriteNumber9[2]->Draw(); }
-	else if (score1 == 40) { spriteNumber4[3]->Draw(); spriteNumber0[2]->Draw(); }
-	else if (score1 == 41) { spriteNumber4[3]->Draw(); spriteNumber1[2]->Draw(); }
-	else if (score1 == 42) { spriteNumber4[3]->Draw(); spriteNumber2[2]->Draw(); }
-	else if (score1 == 43) { spriteNumber4[3]->Draw(); spriteNumber3[2]->Draw(); }
-	else if (score1 == 44) { spriteNumber4[3]->Draw(); spriteNumber4[2]->Draw(); }
-	else if (score1 == 45) { spriteNumber4[3]->Draw(); spriteNumber5[2]->Draw(); }
-	else if (score1 == 46) { spriteNumber4[3]->Draw(); spriteNumber6[2]->Draw(); }
-	else if (score1 == 47) { spriteNumber4[3]->Draw(); spriteNumber7[2]->Draw(); }
-	else if (score1 == 48) { spriteNumber4[3]->Draw(); spriteNumber8[2]->Draw(); }
-	else if (score1 == 49) { spriteNumber4[3]->Draw(); spriteNumber9[2]->Draw(); }
-	else if (score1 == 50) { spriteNumber5[3]->Draw(); spriteNumber0[2]->Draw(); }
-	else if (score1 == 51) { spriteNumber5[3]->Draw(); spriteNumber1[2]->Draw(); }
-	else if (score1 == 52) { spriteNumber5[3]->Draw(); spriteNumber2[2]->Draw(); }
-	else if (score1 == 53) { spriteNumber5[3]->Draw(); spriteNumber3[2]->Draw(); }
-	else if (score1 == 54) { spriteNumber5[3]->Draw(); spriteNumber4[2]->Draw(); }
-	else if (score1 == 55) { spriteNumber5[3]->Draw(); spriteNumber5[2]->Draw(); }
-	else if (score1 == 56) { spriteNumber5[3]->Draw(); spriteNumber6[2]->Draw(); }
-	else if (score1 == 57) { spriteNumber5[3]->Draw(); spriteNumber7[2]->Draw(); }
-	else if (score1 == 58) { spriteNumber5[3]->Draw(); spriteNumber8[2]->Draw(); }
-	else if (score1 == 59) { spriteNumber5[3]->Draw(); spriteNumber9[2]->Draw(); }
-	else if (score1 == 60) { spriteNumber6[3]->Draw(); spriteNumber0[2]->Draw(); }
-	else if (score1 == 61) { spriteNumber6[3]->Draw(); spriteNumber1[2]->Draw(); }
-	else if (score1 == 62) { spriteNumber6[3]->Draw(); spriteNumber2[2]->Draw(); }
-	else if (score1 == 63) { spriteNumber6[3]->Draw(); spriteNumber3[2]->Draw(); }
-	else if (score1 == 64) { spriteNumber6[3]->Draw(); spriteNumber4[2]->Draw(); }
-	else if (score1 == 65) { spriteNumber6[3]->Draw(); spriteNumber5[2]->Draw(); }
-	else if (score1 == 66) { spriteNumber6[3]->Draw(); spriteNumber6[2]->Draw(); }
-	else if (score1 == 67) { spriteNumber6[3]->Draw(); spriteNumber7[2]->Draw(); }
-	else if (score1 == 68) { spriteNumber6[3]->Draw(); spriteNumber8[2]->Draw(); }
-	else if (score1 == 69) { spriteNumber6[3]->Draw(); spriteNumber9[2]->Draw(); }
-	else if (score1 == 70) { spriteNumber7[3]->Draw(); spriteNumber0[2]->Draw(); }
-	else if (score1 == 71) { spriteNumber7[3]->Draw(); spriteNumber1[2]->Draw(); }
-	else if (score1 == 72) { spriteNumber7[3]->Draw(); spriteNumber2[2]->Draw(); }
-	else if (score1 == 73) { spriteNumber7[3]->Draw(); spriteNumber3[2]->Draw(); }
-	else if (score1 == 74) { spriteNumber7[3]->Draw(); spriteNumber4[2]->Draw(); }
-	else if (score1 == 75) { spriteNumber7[3]->Draw(); spriteNumber5[2]->Draw(); }
-	else if (score1 == 76) { spriteNumber7[3]->Draw(); spriteNumber6[2]->Draw(); }
-	else if (score1 == 77) { spriteNumber7[3]->Draw(); spriteNumber7[2]->Draw(); }
-	else if (score1 == 78) { spriteNumber7[3]->Draw(); spriteNumber8[2]->Draw(); }
-	else if (score1 == 79) { spriteNumber7[3]->Draw(); spriteNumber9[2]->Draw(); }
-	else if (score1 == 80) { spriteNumber8[3]->Draw(); spriteNumber0[2]->Draw(); }
-	else if (score1 == 81) { spriteNumber8[3]->Draw(); spriteNumber1[2]->Draw(); }
-	else if (score1 == 82) { spriteNumber8[3]->Draw(); spriteNumber2[2]->Draw(); }
-	else if (score1 == 83) { spriteNumber8[3]->Draw(); spriteNumber3[2]->Draw(); }
-	else if (score1 == 84) { spriteNumber8[3]->Draw(); spriteNumber4[2]->Draw(); }
-	else if (score1 == 85) { spriteNumber8[3]->Draw(); spriteNumber5[2]->Draw(); }
-	else if (score1 == 86) { spriteNumber8[3]->Draw(); spriteNumber6[2]->Draw(); }
-	else if (score1 == 87) { spriteNumber8[3]->Draw(); spriteNumber7[2]->Draw(); }
-	else if (score1 == 88) { spriteNumber8[3]->Draw(); spriteNumber8[2]->Draw(); }
-	else if (score1 == 89) { spriteNumber8[3]->Draw(); spriteNumber9[2]->Draw(); }
-	else if (score1 == 90) { spriteNumber9[3]->Draw(); spriteNumber0[2]->Draw(); }
-	else if (score1 == 91) { spriteNumber9[3]->Draw(); spriteNumber1[2]->Draw(); }
-	else if (score1 == 92) { spriteNumber9[3]->Draw(); spriteNumber2[2]->Draw(); }
-	else if (score1 == 93) { spriteNumber9[3]->Draw(); spriteNumber3[2]->Draw(); }
-	else if (score1 == 94) { spriteNumber9[3]->Draw(); spriteNumber4[2]->Draw(); }
-	else if (score1 == 95) { spriteNumber9[3]->Draw(); spriteNumber5[2]->Draw(); }
-	else if (score1 == 96) { spriteNumber9[3]->Draw(); spriteNumber6[2]->Draw(); }
-	else if (score1 == 97) { spriteNumber9[3]->Draw(); spriteNumber7[2]->Draw(); }
-	else if (score1 == 98) { spriteNumber9[3]->Draw(); spriteNumber8[2]->Draw(); }
-	else if (score1 == 99) { spriteNumber9[3]->Draw(); spriteNumber9[2]->Draw(); }
-	else if (score1 == 100) { spriteNumber1[4]->Draw(); spriteNumber0[3]->Draw();}
-}
-
-void GameScene::DrawTime()
-{
-	if (time1 == 0)       { spriteNumber0[6]->Draw(); }
-	else if (time1 == 1)  { spriteNumber1[6]->Draw(); }
-	else if (time1 == 2)  { spriteNumber2[6]->Draw(); }
-	else if (time1 == 3)  { spriteNumber3[6]->Draw(); }
-	else if (time1 == 4)  { spriteNumber4[6]->Draw(); }
-	else if (time1 == 5)  { spriteNumber5[6]->Draw(); }
-	else if (time1 == 6)  { spriteNumber6[6]->Draw(); }
-	else if (time1 == 7)  { spriteNumber7[6]->Draw(); }
-	else if (time1 == 8)  { spriteNumber8[6]->Draw(); }
-	else if (time1 == 9)  { spriteNumber9[6]->Draw(); }
-	else if (time1 == 10) { spriteNumber1[7]->Draw(); spriteNumber0[6]->Draw(); }
-	else if (time1 == 11) { spriteNumber1[7]->Draw(); spriteNumber1[6]->Draw(); }
-	else if (time1 == 12) { spriteNumber1[7]->Draw(); spriteNumber2[6]->Draw(); }
-	else if (time1 == 13) { spriteNumber1[7]->Draw(); spriteNumber3[6]->Draw(); }
-	else if (time1 == 14) { spriteNumber1[7]->Draw(); spriteNumber4[6]->Draw(); }
-	else if (time1 == 15) { spriteNumber1[7]->Draw(); spriteNumber5[6]->Draw(); }
-	else if (time1 == 16) { spriteNumber1[7]->Draw(); spriteNumber6[6]->Draw(); }
-	else if (time1 == 17) { spriteNumber1[7]->Draw(); spriteNumber7[6]->Draw(); }
-	else if (time1 == 18) { spriteNumber1[7]->Draw(); spriteNumber8[6]->Draw(); }
-	else if (time1 == 19) { spriteNumber1[7]->Draw(); spriteNumber9[6]->Draw(); }
-	else if (time1 == 20) { spriteNumber2[7]->Draw(); spriteNumber0[6]->Draw(); }
-	else if (time1 == 21) { spriteNumber2[7]->Draw(); spriteNumber1[6]->Draw(); }
-	else if (time1 == 22) { spriteNumber2[7]->Draw(); spriteNumber2[6]->Draw(); }
-	else if (time1 == 23) { spriteNumber2[7]->Draw(); spriteNumber3[6]->Draw(); }
-	else if (time1 == 24) { spriteNumber2[7]->Draw(); spriteNumber4[6]->Draw(); }
-	else if (time1 == 25) { spriteNumber2[7]->Draw(); spriteNumber5[6]->Draw(); }
-	else if (time1 == 26) { spriteNumber2[7]->Draw(); spriteNumber6[6]->Draw(); }
-	else if (time1 == 27) { spriteNumber2[7]->Draw(); spriteNumber7[6]->Draw(); }
-	else if (time1 == 28) { spriteNumber2[7]->Draw(); spriteNumber8[6]->Draw(); }
-	else if (time1 == 29) { spriteNumber2[7]->Draw(); spriteNumber9[6]->Draw(); }
-	else if (time1 == 30) { spriteNumber3[7]->Draw(); spriteNumber0[6]->Draw(); }
-	else if (time1 == 31) { spriteNumber3[7]->Draw(); spriteNumber1[6]->Draw(); }
-	else if (time1 == 32) { spriteNumber3[7]->Draw(); spriteNumber2[6]->Draw(); }
-	else if (time1 == 33) { spriteNumber3[7]->Draw(); spriteNumber3[6]->Draw(); }
-	else if (time1 == 34) { spriteNumber3[7]->Draw(); spriteNumber4[6]->Draw(); }
-	else if (time1 == 35) { spriteNumber3[7]->Draw(); spriteNumber5[6]->Draw(); }
-	else if (time1 == 36) { spriteNumber3[7]->Draw(); spriteNumber6[6]->Draw(); }
-	else if (time1 == 37) { spriteNumber3[7]->Draw(); spriteNumber7[6]->Draw(); }
-	else if (time1 == 38) { spriteNumber3[7]->Draw(); spriteNumber8[6]->Draw(); }
-	else if (time1 == 39) { spriteNumber3[7]->Draw(); spriteNumber9[6]->Draw(); }
-	else if (time1 == 40) { spriteNumber4[7]->Draw(); spriteNumber0[6]->Draw(); }
-	else if (time1 == 41) { spriteNumber4[7]->Draw(); spriteNumber1[6]->Draw(); }
-	else if (time1 == 42) { spriteNumber4[7]->Draw(); spriteNumber2[6]->Draw(); }
-	else if (time1 == 43) { spriteNumber4[7]->Draw(); spriteNumber3[6]->Draw(); }
-	else if (time1 == 44) { spriteNumber4[7]->Draw(); spriteNumber4[6]->Draw(); }
-	else if (time1 == 45) { spriteNumber4[7]->Draw(); spriteNumber5[6]->Draw(); }
-	else if (time1 == 46) { spriteNumber4[7]->Draw(); spriteNumber6[6]->Draw(); }
-	else if (time1 == 47) { spriteNumber4[7]->Draw(); spriteNumber7[6]->Draw(); }
-	else if (time1 == 48) { spriteNumber4[7]->Draw(); spriteNumber8[6]->Draw(); }
-	else if (time1 == 49) { spriteNumber4[7]->Draw(); spriteNumber9[6]->Draw(); }
-	else if (time1 == 50) { spriteNumber5[7]->Draw(); spriteNumber0[6]->Draw(); }
-	else if (time1 == 51) { spriteNumber5[7]->Draw(); spriteNumber1[6]->Draw(); }
-	else if (time1 == 52) { spriteNumber5[7]->Draw(); spriteNumber2[6]->Draw(); }
-	else if (time1 == 53) { spriteNumber5[7]->Draw(); spriteNumber3[6]->Draw(); }
-	else if (time1 == 54) { spriteNumber5[7]->Draw(); spriteNumber4[6]->Draw(); }
-	else if (time1 == 55) { spriteNumber5[7]->Draw(); spriteNumber5[6]->Draw(); }
-	else if (time1 == 56) { spriteNumber5[7]->Draw(); spriteNumber6[6]->Draw(); }
-	else if (time1 == 57) { spriteNumber5[7]->Draw(); spriteNumber7[6]->Draw(); }
-	else if (time1 == 58) { spriteNumber5[7]->Draw(); spriteNumber8[6]->Draw(); }
-	else if (time1 == 59) { spriteNumber5[7]->Draw(); spriteNumber9[6]->Draw(); }
-	else if (time1 == 60) { spriteNumber6[7]->Draw(); spriteNumber0[6]->Draw(); }
-	else if (time1 == 61) { spriteNumber6[7]->Draw(); spriteNumber1[6]->Draw(); }
-	else if (time1 == 62) { spriteNumber6[7]->Draw(); spriteNumber2[6]->Draw(); }
-	else if (time1 == 63) { spriteNumber6[7]->Draw(); spriteNumber3[6]->Draw(); }
-	else if (time1 == 64) { spriteNumber6[7]->Draw(); spriteNumber4[6]->Draw(); }
-	else if (time1 == 65) { spriteNumber6[7]->Draw(); spriteNumber5[6]->Draw(); }
-	else if (time1 == 66) { spriteNumber6[7]->Draw(); spriteNumber6[6]->Draw(); }
-	else if (time1 == 67) { spriteNumber6[7]->Draw(); spriteNumber7[6]->Draw(); }
-	else if (time1 == 68) { spriteNumber6[7]->Draw(); spriteNumber8[6]->Draw(); }
-	else if (time1 == 69) { spriteNumber6[7]->Draw(); spriteNumber9[6]->Draw(); }
-	else if (time1 == 70) { spriteNumber7[7]->Draw(); spriteNumber0[6]->Draw(); }
-	else if (time1 == 71) { spriteNumber7[7]->Draw(); spriteNumber1[6]->Draw(); }
-	else if (time1 == 72) { spriteNumber7[7]->Draw(); spriteNumber2[6]->Draw(); }
-	else if (time1 == 73) { spriteNumber7[7]->Draw(); spriteNumber3[6]->Draw(); }
-	else if (time1 == 74) { spriteNumber7[7]->Draw(); spriteNumber4[6]->Draw(); }
-	else if (time1 == 75) { spriteNumber7[7]->Draw(); spriteNumber5[6]->Draw(); }
-	else if (time1 == 76) { spriteNumber7[7]->Draw(); spriteNumber6[6]->Draw(); }
-	else if (time1 == 77) { spriteNumber7[7]->Draw(); spriteNumber7[6]->Draw(); }
-	else if (time1 == 78) { spriteNumber7[7]->Draw(); spriteNumber8[6]->Draw(); }
-	else if (time1 == 79) { spriteNumber7[7]->Draw(); spriteNumber9[6]->Draw(); }
-	else if (time1 == 80) { spriteNumber8[7]->Draw(); spriteNumber0[6]->Draw(); }
-	else if (time1 == 81) { spriteNumber8[7]->Draw(); spriteNumber1[6]->Draw(); }
-	else if (time1 == 82) { spriteNumber8[7]->Draw(); spriteNumber2[6]->Draw(); }
-	else if (time1 == 83) { spriteNumber8[7]->Draw(); spriteNumber3[6]->Draw(); }
-	else if (time1 == 84) { spriteNumber8[7]->Draw(); spriteNumber4[6]->Draw(); }
-	else if (time1 == 85) { spriteNumber8[7]->Draw(); spriteNumber5[6]->Draw(); }
-	else if (time1 == 86) { spriteNumber8[7]->Draw(); spriteNumber6[6]->Draw(); }
-	else if (time1 == 87) { spriteNumber8[7]->Draw(); spriteNumber7[6]->Draw(); }
-	else if (time1 == 88) { spriteNumber8[7]->Draw(); spriteNumber8[6]->Draw(); }
-	else if (time1 == 89) { spriteNumber8[7]->Draw(); spriteNumber9[6]->Draw(); }
-	else if (time1 == 90) { spriteNumber9[7]->Draw(); spriteNumber0[6]->Draw(); }
-	else if (time1 == 91) { spriteNumber9[7]->Draw(); spriteNumber1[6]->Draw(); }
-	else if (time1 == 92) { spriteNumber9[7]->Draw(); spriteNumber2[6]->Draw(); }
-	else if (time1 == 93) { spriteNumber9[7]->Draw(); spriteNumber3[6]->Draw(); }
-	else if (time1 == 94) { spriteNumber9[7]->Draw(); spriteNumber4[6]->Draw(); }
-	else if (time1 == 95) { spriteNumber9[7]->Draw(); spriteNumber5[6]->Draw(); }
-	else if (time1 == 96) { spriteNumber9[7]->Draw(); spriteNumber6[6]->Draw(); }
-	else if (time1 == 97) { spriteNumber9[7]->Draw(); spriteNumber7[6]->Draw(); }
-	else if (time1 == 98) { spriteNumber9[7]->Draw(); spriteNumber8[6]->Draw(); }
-	else if (time1 == 99) { spriteNumber9[7]->Draw(); spriteNumber9[6]->Draw(); }
-	else if (time1 == 100) { spriteNumber1[8]->Draw(); spriteNumber0[7]->Draw(); spriteNumber0[6]->Draw(); }
-
-	
 }
 
 void GameScene::ParticlesCreate(XMFLOAT3 Pos)

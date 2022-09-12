@@ -29,6 +29,7 @@ void Player::Initialize(MapChip* map)
 			objBom[j][i]->SetScale(XMFLOAT3({ 0.5, 0.5, 0.5 }));
 			bomPos[i] = XMFLOAT3({ 4 * 4.0f - (MapValue * 4.0f / 2) + 2, 1.0f, 4 * 4.0f - (MapValue * 4.0f / 2) + 2 });
 			objBom[j][i]->SetPosition(bomPos[i]);
+			objBom[j][i]->SetRotation({0,180,0});
 		}
 	}
 }
@@ -59,7 +60,7 @@ void Player::InitializeValue()
 		bomY[j] = 0;//�Ֆʂ̈ʒu
 		bomX[j] = 0;//�Ֆʂ̈ʒu
 		bomLv[j] = 0;
-		
+
 		turnFlag[j] = false;
 		nowExplosion[j] = false;
 		playCount = 2400;
@@ -74,7 +75,7 @@ void Player::InitializeValue()
 	{
 		lvCount[j] = 1;
 	}
-	
+
 
 	objPlayer->SetScale(XMFLOAT3({ 1, 1, 1 }));
 	pos = XMFLOAT3({ 5 * 4.0f - (MapValue * 4.0f / 2) + 2, 2.0f, 3 * 4.0f - (MapValue * 4.0f / 2) + 2 });
@@ -150,10 +151,10 @@ void Player::Update(MapChip* map, bool countStart, bool start)
 void Player::Draw()
 {
 	objPlayer->Draw();
-	
+
 	for (int i = 0; i < 20; i++)
 	{
-		
+
 		if (bomAlive[i] == true)
 		{
 			if (bomLv[i] <= 7)
@@ -449,7 +450,7 @@ void Player::Explosion(MapChip* map)
 		{
 			bomAlive[i] = false;
 		}
-		
+
 		if (bomAlive[i])
 		{
 			Effect::Move(bomPos[i], { 1.0f,0.0f,0.2f,1.0f });
