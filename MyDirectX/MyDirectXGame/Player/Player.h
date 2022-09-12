@@ -55,6 +55,8 @@ public:
 	int GetLv(int no) { return bomLv[no]; }
 	int SetEffectTimer(int no) { return effectTimer[no] = 10; }
 	bool SetWallFlag(int No) { return wallFlag[No] = false; }
+	void SetBomEffectMode(int num, int mode);
+	void BomEffect(int num);
 private:
 
 	const int MapValue = 12;//マップサイズ
@@ -97,4 +99,5 @@ private:
 
 	bool wallFlag[20] = { false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false };
 
+	int effectMode[20]{};
 };

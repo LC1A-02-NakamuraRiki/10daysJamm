@@ -29,6 +29,7 @@ void Player::Initialize(MapChip* map)
 			objBom[j][i]->SetScale(XMFLOAT3({ 0.5, 0.5, 0.5 }));
 			bomPos[i] = XMFLOAT3({ 4 * 4.0f - (MapValue * 4.0f / 2) + 2, 1.0f, 4 * 4.0f - (MapValue * 4.0f / 2) + 2 });
 			objBom[j][i]->SetPosition(bomPos[i]);
+			objBom[j][i]->SetRotation({0,180,0});
 		}
 	}
 }
@@ -59,14 +60,14 @@ void Player::InitializeValue()
 		bomY[j] = 0;//盤面の位置
 		bomX[j] = 0;//盤面の位置
 		bomLv[j] = 0;
-		
+
 		turnFlag[j] = false;
 		nowExplosion[j] = false;
 		playCount = 2400;
 
 		fire = false;
 		effectTimer[j] = 0;
-		effectFlag[j] = false;
+		effectMode[j] = 0;
 
 		wallFlag[j] = false;
 	}
@@ -74,7 +75,7 @@ void Player::InitializeValue()
 	{
 		lvCount[j] = 1;
 	}
-	
+
 
 	objPlayer->SetScale(XMFLOAT3({ 1, 1, 1 }));
 	pos = XMFLOAT3({ 5 * 4.0f - (MapValue * 4.0f / 2) + 2, 2.0f, 3 * 4.0f - (MapValue * 4.0f / 2) + 2 });
@@ -139,6 +140,7 @@ void Player::Update(MapChip* map, bool countStart, bool start)
 	{
 		for (int i = 0; i < 20; i++)
 		{
+			BomEffect(i);//エフェクト更新
 			objBom[j][i]->Update();
 		}
 	}
@@ -149,10 +151,10 @@ void Player::Update(MapChip* map, bool countStart, bool start)
 void Player::Draw()
 {
 	objPlayer->Draw();
-	
+
 	for (int i = 0; i < 20; i++)
 	{
-		
+
 		if (bomAlive[i] == true)
 		{
 			if (bomLv[i] <= 7)
@@ -448,55 +450,76 @@ void Player::Explosion(MapChip* map)
 		{
 			bomAlive[i] = false;
 		}
-		
+
 		if (bomAlive[i])
 		{
-			Effect::Move(bomPos[i], { 1.0f,0.0f,0.2f,0.1f });
+			Effect::Move(bomPos[i], { 1.0f,0.0f,0.2f,1.0f });
 		}
 		//エフェクト発生
-		if (effectTimer[i] == 10)
-		{
-			effectFlag[i] = true;
+		SetBomEffectMode(i, 1);
+	}
+}
 
-			effectPos[i] = bomPos[i];
-		}
-		if (effectFlag[i])
+void Player::SetBomEffectMode(int num, int mode)
+{
+	if (effectTimer[num] == 10)
+	{
+		effectMode[num] = mode;
+		effectPos[num] = bomPos[num];
+		Effect::GetRandomColor();
+	}
+}
+
+void Player::BomEffect(int num)
+{
+	switch (effectMode[num])
+	{
+	case 0:
+
+		return;
+
+	case 1:
+		//爆発
+		for (int j = 0; j < bomLv[num]; j++)
 		{
-			//爆発の中心
-			Effect::Explosion({ effectPos[i].x, effectPos[i].y, effectPos[i].z });
-			
-			//爆風
-			if (effectTimer[i] <= 8&& wallFlag[i] == true)
+			if (j == 0)
 			{
-				for (int j = 0; j < bomLv[i]; j++)
-				{
-					Effect::Explosion({ effectPos[i].x - 4 * j, effectPos[i].y, effectPos[i].z });
-					Effect::Explosion({ effectPos[i].x + 4 * j, effectPos[i].y, effectPos[i].z });
-					Effect::Explosion({ effectPos[i].x, effectPos[i].y, effectPos[i].z - 4 * j });
-					Effect::Explosion({ effectPos[i].x, effectPos[i].y, effectPos[i].z + 4 * j });
-
-					Effect::Dust({ effectPos[i].x - 4.25f * j, effectPos[i].y, effectPos[i].z });
-					Effect::Dust({ effectPos[i].x + 4.25f * j, effectPos[i].y, effectPos[i].z });
-					Effect::Dust({ effectPos[i].x, effectPos[i].y, effectPos[i].z - 4.25f * j });
-					Effect::Dust({ effectPos[i].x, effectPos[i].y, effectPos[i].z + 4.25f * j });
-
-				}
+				//爆発の中心
+				Effect::Explosion({ effectPos[num].x, effectPos[num].y, effectPos[num].z });
 			}
-			effectTimer[i]--;
-			fire = true;
-			if (wallFlag[i] == false)
+			else
 			{
-				bomAlive[i] = false;
+				//爆弾のレベルに応じて爆発の数を増やす
+				Effect::Explosion({ effectPos[num].x + 4 * j, effectPos[num].y, effectPos[num].z });
+				Effect::Explosion({ effectPos[num].x - 4 * j, effectPos[num].y, effectPos[num].z });
+				Effect::Explosion({ effectPos[num].x, effectPos[num].y, effectPos[num].z + 4 * j });
+				Effect::Explosion({ effectPos[num].x, effectPos[num].y, effectPos[num].z - 4 * j });
 			}
 		}
 
-		if (effectTimer[i] < 0)
-		{
+		effectTimer[num]--;
 
-			wallFlag[i] = false;
-			effectFlag[i] = false;
-			effectTimer[i] = -1;
+		break;
+
+	case 2:
+		//花火
+		if (effectTimer[num] >= 4)
+		{
+			effectPos[num].y++;
+			Effect::Move(effectPos[num], { 0.0f,10.0f,10.0f,1.0f });//花火打ち上げ
 		}
-		
+		if (effectTimer[num] < 4 && effectTimer[num] >= 0)
+		{
+			Effect::FireWorks(effectPos[num]);//花火爆発
+		}
+
+		effectTimer[num]--;
+
+		break;
+	}
+	if (effectTimer[num] < 0)
+	{
+		effectMode[num] = 0;
+		effectTimer[num] = -1;
 	}
 }
