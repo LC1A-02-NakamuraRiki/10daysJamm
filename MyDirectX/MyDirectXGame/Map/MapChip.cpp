@@ -23,7 +23,7 @@ void MapChip::Initialize()
 
 void MapChip::InitializeValue()
 {
-	MapValue = 8;
+	MapValue = 12;
 	MapValueX = 15;
 	MapValueZ = 15;
 	for (int x = 0; x < MapValue; x++)
@@ -53,7 +53,7 @@ void MapChip::InitializeValue()
 
 void MapChip::Update()
 {
-	
+
 	for (int x = 0; x < MapValue; x++)
 	{
 		for (int y = 0; y < MapValue; y++)
@@ -66,9 +66,9 @@ void MapChip::Update()
 
 int MapChip::ArrayValue(float x, float y)
 {
-	int mapY = (y / 4) + ((MapValue+1) / 2);
-	int mapX = (x / 4) + ((MapValue+1) / 2);
-	
+	int mapY = (y / 4) + ((MapValue + 1) / 2);
+	int mapX = (x / 4) + ((MapValue + 1) / 2);
+
 	return mapWall[mapY][mapX];
 }
 

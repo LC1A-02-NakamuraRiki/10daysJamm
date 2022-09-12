@@ -20,15 +20,15 @@ protected: // エイリアス
 	using XMVECTOR = DirectX::XMVECTOR;
 	using XMMATRIX = DirectX::XMMATRIX;
 public:
-	void Initialize(int x,int y ,int moveVector,int enemysNo);//最初の初期化
+	void Initialize(int x, int y, int moveVector, int enemysNo);//最初の初期化
 
 	void EndInitialize();
 
 	void enemyCreate();
 
-	void InitializeValue(int x, int y, int moveVector, int enemysNo);//タイトル時の初期化
+	void InitializeValue(int x, int y, int moveVector, int enemysNo,int laneNo);//タイトル時の初期化
 
-	void Update(Player* player, MapChip* mapChip);//アップデート
+	void Update(Player* player, MapChip* mapChip, bool start);//アップデート
 
 	void Draw();
 
@@ -44,22 +44,22 @@ public:
 	int GetScore() { return score; }
 	int GetWave() { return wave; }
 
-	
+
 private:
-	const int MapValue = 8;//マップサイズ
+	const int MapValue = 12;//マップサイズ
 	const int enemyMaxNo = 12;
 	Model* modelEnemy = nullptr;
 	Object3d* objEnemy[12];
 	XMFLOAT3 pos[12] = { { 0.0f,0.0f,0.0f },{ 0.0f,0.0f,0.0f },{ 0.0f,0.0f,0.0f },{ 0.0f,0.0f,0.0f },
-	{ 0.0f,0.0f,0.0f },{ 0.0f,0.0f,0.0f }, { 0.0f,0.0f,0.0f },{ 0.0f,0.0f,0.0f }, 
+	{ 0.0f,0.0f,0.0f },{ 0.0f,0.0f,0.0f }, { 0.0f,0.0f,0.0f },{ 0.0f,0.0f,0.0f },
 	{ 0.0f,0.0f,0.0f },{ 0.0f,0.0f,0.0f }, { 0.0f,0.0f,0.0f },{ 0.0f,0.0f,0.0f }, };//プレイヤーの位置
-	XMFLOAT3 angle[12] = {{ 0.0f,0.0f,0.0f }, { 0.0f,0.0f,0.0f } ,{ 0.0f,0.0f,0.0f },{ 0.0f,0.0f,0.0f }, 
-	{ 0.0f,0.0f,0.0f },{ 0.0f,0.0f,0.0f }, { 0.0f,0.0f,0.0f },{ 0.0f,0.0f,0.0f }, 
+	XMFLOAT3 angle[12] = { { 0.0f,0.0f,0.0f }, { 0.0f,0.0f,0.0f } ,{ 0.0f,0.0f,0.0f },{ 0.0f,0.0f,0.0f },
+	{ 0.0f,0.0f,0.0f },{ 0.0f,0.0f,0.0f }, { 0.0f,0.0f,0.0f },{ 0.0f,0.0f,0.0f },
 	{ 0.0f,0.0f,0.0f },{ 0.0f,0.0f,0.0f }, { 0.0f,0.0f,0.0f },{ 0.0f,0.0f,0.0f }, };
 	int enemyType[12] = { HORIZONTAL,HORIZONTAL,HORIZONTAL,HORIZONTAL,HORIZONTAL,HORIZONTAL,HORIZONTAL,HORIZONTAL,HORIZONTAL,HORIZONTAL
 	,HORIZONTAL ,HORIZONTAL };
-	int enemyY[12] = { 0,0,0,0,0,0,0,0,0,0,0,0};//盤面の位置
-	int enemyX[12] = { 0,0,0,0,0,0,0,0,0,0,0,0};//盤面の位置
+	int enemyY[12] = { 0,0,0,0,0,0,0,0,0,0,0,0 };//盤面の位置
+	int enemyX[12] = { 0,0,0,0,0,0,0,0,0,0,0,0 };//盤面の位置
 
 	bool enemyDead[12] = { true ,true,true,true,true,true
 	,true ,true ,true ,true ,true ,true };
@@ -74,6 +74,8 @@ private:
 	int wave = 1;
 	int killCount = 0;
 
-	
+	int moveCount = 0;
+
+	int lane[12] = { 0,0,0,0,0,0,0,0,0,0,0,0 };
 };
 
