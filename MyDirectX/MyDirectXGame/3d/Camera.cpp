@@ -3,13 +3,13 @@
 using namespace DirectX;
 
 // 視点座標
-XMFLOAT3 Camera::eye = { 0, 40, -25 };
+XMFLOAT3 Camera::eye = { 0, 40, -35 };
 // 注視点座標
 XMFLOAT3 Camera::target = { 0, 0, 0 };
 // 上方向ベクトル
 XMFLOAT3 Camera::up = { 0, 1, 0 };
 
-void Camera::CameraMoveEyeVector(const XMFLOAT3 &move)
+void Camera::CameraMoveEyeVector(const XMFLOAT3& move)
 {
 	// 視点座標を移動し、反映
 	XMFLOAT3 eye_moved = GetEye();
@@ -21,7 +21,7 @@ void Camera::CameraMoveEyeVector(const XMFLOAT3 &move)
 	SetEye(eye_moved);
 }
 
-void Camera::CameraMoveVector(const XMFLOAT3 &move)
+void Camera::CameraMoveVector(const XMFLOAT3& move)
 {
 	// 視点と注視点座標を移動し、反映
 	XMFLOAT3 eye_moved = GetEye();

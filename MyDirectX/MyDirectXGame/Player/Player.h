@@ -19,7 +19,7 @@ public:
 	void InitializeValue();//タイトル時の初期化
 	void BomInitialize(int i);//タイトル時の初期化
 
-	void Update(MapChip* map);//アップデート
+	void Update(MapChip* map, bool countStart, bool start);//アップデート
 
 	void Draw();
 
@@ -32,35 +32,42 @@ public:
 	void PutBom(MapChip* map);
 
 	void Explosion(MapChip* map);
-	void enemyExplosion(int no, MapChip* map);
-	
+
+
 	XMFLOAT3 GetPos() { return pos; }
 	XMFLOAT3 GetBomPos(int no) { return bomPos[no]; };
 	XMFLOAT3 SetBomPos(int no) { return bomPos[no] = XMFLOAT3({ 100,100,100 }); };
 	int GetPlayCount() { return playCount; }
-	int SetPlayCount() { return playCount += 600; }
+	int SetPlayCount() { return playCount += 60; }
 	bool GetBomAlive(int No) { return bomAlive[No]; }
+	bool SetBomAlive(int No) { return bomAlive[No] = false; }
 	bool GetTurnFlag(int no) { return turnFlag[no]; }
-	bool SetTurnFlag(bool turn,int no) { return turnFlag[no] = turn; }
+	bool SetTurnFlag(bool turn, int no) { return turnFlag[no] = turn; }
 	bool GetExplosion(int No) { return nowExplosion[No]; }
-	bool SetExplosion(int No) { return nowExplosion[No] = false; }
+	bool SetExplosionF(int No) { return nowExplosion[No] = false; }
+	bool SetExplosionT(int No) { return nowExplosion[No] = true; }
 	bool GetFire() { return fire; }
 	bool SetFire() { return fire = false; }
 	bool GetMove() { return move; }
 	bool SetMove() { return move = false; }
+	int GetPlayCount(int no) { return explosionCount[no]; }
+	int SetPlayCount(int no, int turn) { return explosionCount[no] = turn; }
+	int GetLv(int no) { return bomLv[no]; }
+	int SetEffectTimer(int no) { return effectTimer[no] = 10; }
+	bool SetWallFlag(int No) { return wallFlag[No] = false; }
 
 	void SetBomEffectMode(int num, int mode);
 	void BomEffect(int num);
 private:
 
-	const int MapValue = 8;//マップサイズ
-	int mapY = (pos.z / 4) + ((8 + 1) / 2);//盤面の位置
-	int mapX = (pos.x / 4) + ((8 + 1) / 2);//盤面の位置
+	const int MapValue = 12;//マップサイズ
+	int mapY = (pos.z / 4) + ((12 + 1) / 2);//盤面の位置
+	int mapX = (pos.x / 4) + ((12 + 1) / 2);//盤面の位置
 
 	Model* modelPlayer = nullptr;
 	Object3d* objPlayer;
 
-	XMFLOAT3 pos = { -8.0f,0.0f,-40.0f };//プレイヤーの位置a
+	XMFLOAT3 pos = { 4.0f,0.0f,-40.0f };//プレイヤーの位置a
 	XMFLOAT3 angle = { 0,0,0 };
 
 	float moveSpeed = 4.0f;//歩きの速度
@@ -69,23 +76,27 @@ private:
 
 	int bomNo = 0;
 
-	Model* modelBom = nullptr;
-	Object3d* objBom[3];
+	Model* modelBom[8] = { false, false,false ,false , false , false , false , false  };
+	Object3d* objBom[8][20];
 
-	XMFLOAT3 bomPos[3] = { {0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f} };//プレイヤーの位置
-	bool bomAlive[3] = { false, false, false };
-	int explosionCount[3] = { 1,1,1 };
+	XMFLOAT3 bomPos[20] = { {0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f} };//プレイヤーの位置
+	int bomAngle[20] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
+	bool bomAlive[20] = { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
+	int explosionCount[20] = { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 };
 	bool putFlag = false;
-	int bomY[3] = { 0,0,0 };//盤面の位置
-	int bomX[3] = { 0,0,0 };//盤面の位置
-
-	bool turnFlag[12] ={ false, false,false ,false , false , false , false , false , false , false , false , false };
-	bool nowExplosion[3] = { false, false, false };
+	int bomY[20] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };//盤面の位置
+	int bomX[20] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };//盤面の位置
+	int bomLv[20] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
+	int lvCount[20] = { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 };
+	bool turnFlag[12] = { false, false,false ,false , false , false , false , false , false , false , false , false };
+	bool nowExplosion[20] = { false, false, false,false,false, false, false,false,false, false, false,false,false, false, false,false,false, false, false,false };
 	int playCount = 2400;
 
 	bool fire = false;
 
-	XMFLOAT3 effectPos[3]{};//爆発エフェクト用
-	int effectTimer[3] = { 0, 0, 0 };
-	int effectMode[3] = { 0,0,0 };
+	XMFLOAT3 effectPos[20]{};//爆発エフェクト用
+	int effectTimer[20]{};
+	int effectMode[20]{};
+
+	bool wallFlag[20]{};
 };
