@@ -807,7 +807,7 @@ void GameScene::Update()
 		{
 			time1 = player->GetPlayCount() / 60;
 		}
-		debugText.Print(20, 70, 2.0f, "sc: %d %d %d", time3 , time2 - 10 * time3, time1 - 10 * time2);
+		
 		
 		/*debugText.Print(20, 70, 2.0f, "score :  %d", enemy->GetScore());
 		debugText.Print(20, 100, 2.0f, "faze :  %d", enemy->GetWave());
@@ -857,42 +857,42 @@ void GameScene::Update()
 	}
 	else if (scene == CLEAR)
 	{
-	spriteNumber0s->SetPosition({ 1360.0, 400 });
-	spriteNumber0[0]->SetPosition({ 1300.0, 400 });
-	spriteNumber0[1]->SetPosition({ 1240.0, 400 });
+		spriteNumber0s->SetPosition({ 1360.0, 400 });
+		spriteNumber0[0]->SetPosition({ 1300.0, 400 });
+		spriteNumber0[1]->SetPosition({ 1240.0, 400 });
 
-	spriteNumber0[2]->SetPosition({ 1180.0, 400 });
-	spriteNumber1[2]->SetPosition({ 1180.0, 400 });
-	spriteNumber2[2]->SetPosition({ 1180.0, 400 });
-	spriteNumber3[2]->SetPosition({ 1180.0, 400 });
-	spriteNumber4[2]->SetPosition({ 1180.0, 400 });
-	spriteNumber5[2]->SetPosition({ 1180.0, 400 });
-	spriteNumber6[2]->SetPosition({ 1180.0, 400 });
-	spriteNumber7[2]->SetPosition({ 1180.0, 400 });
-	spriteNumber8[2]->SetPosition({ 1180.0, 400 });
-	spriteNumber9[2]->SetPosition({ 1180.0, 400 });
+		spriteNumber0[2]->SetPosition({ 1180.0, 400 });
+		spriteNumber1[2]->SetPosition({ 1180.0, 400 });
+		spriteNumber2[2]->SetPosition({ 1180.0, 400 });
+		spriteNumber3[2]->SetPosition({ 1180.0, 400 });
+		spriteNumber4[2]->SetPosition({ 1180.0, 400 });
+		spriteNumber5[2]->SetPosition({ 1180.0, 400 });
+		spriteNumber6[2]->SetPosition({ 1180.0, 400 });
+		spriteNumber7[2]->SetPosition({ 1180.0, 400 });
+		spriteNumber8[2]->SetPosition({ 1180.0, 400 });
+		spriteNumber9[2]->SetPosition({ 1180.0, 400 });
 
-	spriteNumber0[3]->SetPosition({ 1120.0, 400 });
-	spriteNumber1[3]->SetPosition({ 1120.0, 400 });
-	spriteNumber2[3]->SetPosition({ 1120.0, 400 });
-	spriteNumber3[3]->SetPosition({ 1120.0, 400 });
-	spriteNumber4[3]->SetPosition({ 1120.0, 400 });
-	spriteNumber5[3]->SetPosition({ 1120.0, 400 });
-	spriteNumber6[3]->SetPosition({ 1120.0, 400 });
-	spriteNumber7[3]->SetPosition({ 1120.0, 400 });
-	spriteNumber8[3]->SetPosition({ 1120.0, 400 });
-	spriteNumber9[3]->SetPosition({ 1120.0, 400 });
+		spriteNumber0[3]->SetPosition({ 1120.0, 400 });
+		spriteNumber1[3]->SetPosition({ 1120.0, 400 });
+		spriteNumber2[3]->SetPosition({ 1120.0, 400 });
+		spriteNumber3[3]->SetPosition({ 1120.0, 400 });
+		spriteNumber4[3]->SetPosition({ 1120.0, 400 });
+		spriteNumber5[3]->SetPosition({ 1120.0, 400 });
+		spriteNumber6[3]->SetPosition({ 1120.0, 400 });
+		spriteNumber7[3]->SetPosition({ 1120.0, 400 });
+		spriteNumber8[3]->SetPosition({ 1120.0, 400 });
+		spriteNumber9[3]->SetPosition({ 1120.0, 400 });
 
-	spriteNumber0[4]->SetPosition({ 1060.0, 400 });
-	spriteNumber1[4]->SetPosition({ 1060.0, 400 });
-	spriteNumber2[4]->SetPosition({ 1060.0, 400 });
-	spriteNumber3[4]->SetPosition({ 1060.0, 400 });
-	spriteNumber4[4]->SetPosition({ 1060.0, 400 });
-	spriteNumber5[4]->SetPosition({ 1060.0, 400 });
-	spriteNumber6[4]->SetPosition({ 1060.0, 400 });
-	spriteNumber7[4]->SetPosition({ 1060.0, 400 });
-	spriteNumber8[4]->SetPosition({ 1060.0, 400 });
-	spriteNumber9[4]->SetPosition({ 1060.0, 400 });
+		spriteNumber0[4]->SetPosition({ 1060.0, 400 });
+		spriteNumber1[4]->SetPosition({ 1060.0, 400 });
+		spriteNumber2[4]->SetPosition({ 1060.0, 400 });
+		spriteNumber3[4]->SetPosition({ 1060.0, 400 });
+		spriteNumber4[4]->SetPosition({ 1060.0, 400 });
+		spriteNumber5[4]->SetPosition({ 1060.0, 400 });
+		spriteNumber6[4]->SetPosition({ 1060.0, 400 });
+		spriteNumber7[4]->SetPosition({ 1060.0, 400 });
+		spriteNumber8[4]->SetPosition({ 1060.0, 400 });
+		spriteNumber9[4]->SetPosition({ 1060.0, 400 });
 
 		titleScroll.x -= 1920 / 100;
 		titleScroll.y += 1080 / 100;
@@ -1184,9 +1184,9 @@ void GameScene::Draw()
 	}
 	if (scene == PLAY)
 	{
-		if (1000 <= enemy->GetScore())
+		spriteNumber0s->Draw();
+		if (enemy->GetScore() != 0)
 		{
-			spriteNumber0s->Draw();
 			spriteNumber0[0]->Draw();
 			spriteNumber0[1]->Draw();
 		}
@@ -1231,7 +1231,20 @@ void GameScene::Draw()
 		}
 
 
-		if (60 <= player->GetPlayCount())
+		if (0 <= player->GetPlayCount() && 600 >= player->GetPlayCount())
+		{
+			if (time1 == 0) { spriteNumber0[6]->Draw(); }
+			if (time1 == 1) { spriteNumber1[6]->Draw(); }
+			if (time1 == 2) { spriteNumber2[6]->Draw(); }
+			if (time1 == 3) { spriteNumber3[6]->Draw(); }
+			if (time1 == 4) { spriteNumber4[6]->Draw(); }
+			if (time1 == 5) { spriteNumber5[6]->Draw(); }
+			if (time1 == 6) { spriteNumber6[6]->Draw(); }
+			if (time1 == 7) { spriteNumber7[6]->Draw(); }
+			if (time1 == 8) { spriteNumber8[6]->Draw(); }
+			if (time1 == 9) { spriteNumber9[6]->Draw(); }
+		}
+		if (600 <= player->GetPlayCount())
 		{
 			if (time1 - 10 * time2 == 0) { spriteNumber0[6]->Draw(); }
 			if (time1 - 10 * time2 == 1) { spriteNumber1[6]->Draw(); }

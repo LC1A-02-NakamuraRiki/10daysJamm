@@ -5,12 +5,21 @@
 
 void MapChip::Initialize()
 {
-	modelMapWall = Model::CreateFromObject("jimen", false);
+	modelMapWall = Model::CreateFromObject("jimen2", false);
+	modelMapWall2 = Model::CreateFromObject("jimen", false);
 	for (int x = 0; x < MapValue; x++)
 	{
 		for (int y = 0; y < MapValue; y++)
 		{
-			objMapWall[y][x] = Object3d::Create(modelMapWall);
+			if (y == 0|| y == 1 || y == 2 || y == 9 || y == 10 || y == 11||
+				x == 0 || x == 1 || x == 2 || x == 9 || x == 10 || x == 11)
+			{
+				objMapWall[y][x] = Object3d::Create(modelMapWall);
+			}
+			else
+			{
+				objMapWall[y][x] = Object3d::Create(modelMapWall2);
+			}
 			objMapWall[y][x]->SetScale(XMFLOAT3({ 2, 1, 2 }));
 			objMapWall[y][x]->SetPosition(XMFLOAT3({ x * 4.0f - (MapValue * 4.0f / 2) + 2, 0.0f, y * 4.0f - (MapValue * 4.0f / 2) + 2 }));
 
@@ -39,7 +48,15 @@ void MapChip::InitializeValue()
 	{
 		for (int y = 0; y < MapValue; y++)
 		{
-			objMapWall[y][x] = Object3d::Create(modelMapWall);
+			if (y == 0 || y == 1 || y == 2 || y == 9 || y == 10 || y == 11 ||
+				x == 0 || x == 1 || x == 2 || x == 9 || x == 10 || x == 11)
+			{
+				objMapWall[y][x] = Object3d::Create(modelMapWall);
+			}
+			else
+			{
+				objMapWall[y][x] = Object3d::Create(modelMapWall2);
+			}
 			objMapWall[y][x]->SetScale(XMFLOAT3({ 2, 1, 2 }));
 			objMapWall[y][x]->SetPosition(XMFLOAT3({ x * 4.0f - (MapValue * 4.0f / 2) + 2, 0.0f, y * 4.0f - (MapValue * 4.0f / 2) + 2 }));
 
