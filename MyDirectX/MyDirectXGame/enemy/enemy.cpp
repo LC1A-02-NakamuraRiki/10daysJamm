@@ -36,7 +36,7 @@ void Enemy::EndInitialize()
 		spawnNum = 2;
 
 		wave = 1;
-		killCount = 40;
+		killCount = 0;
 
 		moveCount = 0;
 

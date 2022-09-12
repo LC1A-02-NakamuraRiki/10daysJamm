@@ -69,6 +69,9 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 
+	void DrawScore();
+
+	void DrawTime();
 	/// <summary>
 	/// パーティクル生成
 	/// </summary>
@@ -196,12 +199,6 @@ private: // メンバ変数
 	int restart = 1;
 
 	int score1 = 0;
-	int score2 = 0;
-	int score3 = 0;
 
 	int time1 = 0;
-	int time2 = 0;
-	int time3 = 0;
-
-	float backRotation = 0;
 };
