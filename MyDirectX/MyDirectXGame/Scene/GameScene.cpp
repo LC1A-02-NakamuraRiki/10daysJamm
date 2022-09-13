@@ -644,7 +644,7 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Sound* audio)
 
 void GameScene::Update()
 {
-	debugText.Print(20, 60, 2.0f, "epos : %d %d %d %d", enemy->GetScore(),enemy->GetScore() / 10000, enemy->GetScore() / 1000, enemy->GetScore() / 100);
+	//debugText.Print(20, 60, 2.0f, "epos : %d %d %d %d", enemy->GetScore(),enemy->GetScore() / 10000, enemy->GetScore() / 1000, enemy->GetScore() / 100);
 	//debugText.Print(20, 20, 2.0f, "END : ESC");
 	if (scene == TITLE)
 	{
@@ -1453,7 +1453,7 @@ void GameScene::Draw()
 			spriteClearTextR1->Draw();
 			spriteClearTextL2->Draw();
 		}
-		debugText.Print(20, 60, 2.0f, "epos :  %d %d %d", enemy->GetScore() / 10000, enemy->GetScore() / 1000, enemy->GetScore() / 100);
+		//debugText.Print(20, 60, 2.0f, "epos :  %d %d %d", enemy->GetScore() / 10000, enemy->GetScore() / 1000, enemy->GetScore() / 100);
 		spriteNumber0s->Draw();
 		if (enemy->GetScore() != 0)
 		{
