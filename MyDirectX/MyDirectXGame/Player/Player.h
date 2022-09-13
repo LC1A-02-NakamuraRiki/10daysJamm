@@ -56,7 +56,7 @@ public:
 	int SetEffectTimer(int no) { return effectTimer[no] = 10; }
 	bool SetWallFlag(int No) { return wallFlag[No] = false; }
 	void SetBomEffectMode(int num, int mode);
-	void BomEffect(int num);
+	void BomEffect(int num,MapChip* map);
 private:
 
 	const int MapValue = 12;//マップサイズ
@@ -100,4 +100,7 @@ private:
 	bool wallFlag[20] = { false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false };
 
 	int effectMode[20]{};
+
+	bool delayFlag = false;
+	int delayCount = 0;
 };

@@ -40,6 +40,8 @@ public:
 
 	void EnemyExplosion(Player* player, MapChip* mapChip);
 
+	void EnemyFire(MapChip* mapChip);
+
 	XMFLOAT3 GetPos(int no) { return pos[no]; }
 	int GetScore() { return score; }
 	int GetWave() { return wave; }

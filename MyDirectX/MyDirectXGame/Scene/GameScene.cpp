@@ -371,6 +371,37 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Sound* audio)
 	spriteNumber9[4]->SetSize({ 120.0f,120.0f });
 	spriteNumber9[4]->SetPosition({ 1360.0, 200 });
 
+	spriteNumber0[5] = Sprite::Create(27, { 0.0f,0.0f });
+	spriteNumber0[5]->SetSize({ 120.0f,120.0f });
+	spriteNumber0[5]->SetPosition({ 1300.0, 200 });
+	spriteNumber1[5] = Sprite::Create(28, { 0.0f,0.0f });
+	spriteNumber1[5]->SetSize({ 120.0f,120.0f });
+	spriteNumber1[5]->SetPosition({ 1300, 200 });
+	spriteNumber2[5] = Sprite::Create(29, { 0.0f,0.0f });
+	spriteNumber2[5]->SetSize({ 120.0f,120.0f });
+	spriteNumber2[5]->SetPosition({ 1300, 200 });
+	spriteNumber3[5] = Sprite::Create(30, { 0.0f,0.0f });
+	spriteNumber3[5]->SetSize({ 120.0f,120.0f });
+	spriteNumber3[5]->SetPosition({ 1300, 200 });
+	spriteNumber4[5] = Sprite::Create(31, { 0.0f,0.0f });
+	spriteNumber4[5]->SetSize({ 120.0f,120.0f });
+	spriteNumber4[5]->SetPosition({ 1300, 200 });
+	spriteNumber5[5] = Sprite::Create(32, { 0.0f,0.0f });
+	spriteNumber5[5]->SetSize({ 120.0f,120.0f });
+	spriteNumber5[5]->SetPosition({ 1300, 200 });
+	spriteNumber6[5] = Sprite::Create(33, { 0.0f,0.0f });
+	spriteNumber6[5]->SetSize({ 120.0f,120.0f });
+	spriteNumber6[5]->SetPosition({ 1300, 200 });
+	spriteNumber7[5] = Sprite::Create(34, { 0.0f,0.0f });
+	spriteNumber7[5]->SetSize({ 120.0f,120.0f });
+	spriteNumber7[5]->SetPosition({ 1300, 200 });
+	spriteNumber8[5] = Sprite::Create(35, { 0.0f,0.0f });
+	spriteNumber8[5]->SetSize({ 120.0f,120.0f });
+	spriteNumber8[5]->SetPosition({ 1300, 200 });
+	spriteNumber9[5] = Sprite::Create(36, { 0.0f,0.0f });
+	spriteNumber9[5]->SetSize({ 120.0f,120.0f });
+	spriteNumber9[5]->SetPosition({ 1300, 200 });
+
 
 	spriteNumber0[6] = Sprite::Create(27, { 0.0f,0.0f });
 	spriteNumber0[6]->SetSize({ 120.0f,120.0f });
@@ -567,6 +598,16 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Sound* audio)
 	spriteNumber7[4]->SetSize({ 60.0f,120.0f });
 	spriteNumber8[4]->SetSize({ 60.0f,120.0f });
 	spriteNumber9[4]->SetSize({ 60.0f,120.0f });
+	spriteNumber0[5]->SetSize({ 60.0f,120.0f });
+	spriteNumber1[5]->SetSize({ 60.0f,120.0f });
+	spriteNumber2[5]->SetSize({ 60.0f,120.0f });
+	spriteNumber3[5]->SetSize({ 60.0f,120.0f });
+	spriteNumber4[5]->SetSize({ 60.0f,120.0f });
+	spriteNumber5[5]->SetSize({ 60.0f,120.0f });
+	spriteNumber6[5]->SetSize({ 60.0f,120.0f });
+	spriteNumber7[5]->SetSize({ 60.0f,120.0f });
+	spriteNumber8[5]->SetSize({ 60.0f,120.0f });
+	spriteNumber9[5]->SetSize({ 60.0f,120.0f });
 	spriteNumber0[6]->SetSize({ 60.0f,120.0f });
 	spriteNumber1[6]->SetSize({ 60.0f,120.0f });
 	spriteNumber2[6]->SetSize({ 60.0f,120.0f });
@@ -603,7 +644,7 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Sound* audio)
 
 void GameScene::Update()
 {
-	debugText.Print(20, 60, 2.0f, "epos :  %d %d %d", enemy->GetScore() / 100000, enemy->GetScore() / 10000, enemy->GetScore() / 1000);
+	debugText.Print(20, 60, 2.0f, "epos : %d %d %d %d", enemy->GetScore(),enemy->GetScore() / 10000, enemy->GetScore() / 1000, enemy->GetScore() / 100);
 	//debugText.Print(20, 20, 2.0f, "END : ESC");
 	if (scene == TITLE)
 	{
@@ -792,6 +833,17 @@ void GameScene::Update()
 	spriteNumber8[4]->SetPosition({ 1360.0, 200 });
 	spriteNumber9[4]->SetPosition({ 1360.0, 200 });
 
+	spriteNumber0[5]->SetPosition({ 1300.0, 200 });
+	spriteNumber1[5]->SetPosition({ 1300.0, 200 });
+	spriteNumber2[5]->SetPosition({ 1300.0, 200 });
+	spriteNumber3[5]->SetPosition({ 1300.0, 200 });
+	spriteNumber4[5]->SetPosition({ 1300.0, 200 });
+	spriteNumber5[5]->SetPosition({ 1300.0, 200 });
+	spriteNumber6[5]->SetPosition({ 1300.0, 200 });
+	spriteNumber7[5]->SetPosition({ 1300.0, 200 });
+	spriteNumber8[5]->SetPosition({ 1300.0, 200 });
+	spriteNumber9[5]->SetPosition({ 1300.0, 200 });
+
 		backRotation-= 0.1;
 		spritePlayBack->SetRotation(backRotation);
 		if (bomSceneChange2 == true)
@@ -889,21 +941,36 @@ void GameScene::Update()
 			spriteNumber7[4]->SetPosition({ 1060.0, 400 });
 			spriteNumber8[4]->SetPosition({ 1060.0, 400 });
 			spriteNumber9[4]->SetPosition({ 1060.0, 400 });
+
+			spriteNumber0[5]->SetPosition({ 1000.0, 400 });
+			spriteNumber1[5]->SetPosition({ 1000.0, 400 });
+			spriteNumber2[5]->SetPosition({ 1000.0, 400 });
+			spriteNumber3[5]->SetPosition({ 1000.0, 400 });
+			spriteNumber4[5]->SetPosition({ 1000.0, 400 });
+			spriteNumber5[5]->SetPosition({ 1000.0, 400 });
+			spriteNumber6[5]->SetPosition({ 1000.0, 400 });
+			spriteNumber7[5]->SetPosition({ 1000.0, 400 });
+			spriteNumber8[5]->SetPosition({ 1000.0, 400 });
+			spriteNumber9[5]->SetPosition({ 1000.0, 400 });
 			scene = CLEAR;
 		}
 		int mapY = (player->GetPos().z / 4) + ((8 + 1) / 2);
 		int mapX = (player->GetPos().x / 4) + ((8 + 1) / 2);
 		if (100000 <= enemy->GetScore())
 		{
-			score3 = enemy->GetScore() / 100000;
+			score4 = enemy->GetScore() / 10000;
 		}
 		if (10000 <= enemy->GetScore())
 		{
-			score2 = enemy->GetScore() / 10000;
+			score3 = enemy->GetScore() / 10000;
 		}
 		if (1000 <= enemy->GetScore())
 		{
-			score1 = enemy->GetScore() / 1000;
+			score2 = enemy->GetScore() / 1000;
+		}
+		if (100 <= enemy->GetScore())
+		{
+			score1 = enemy->GetScore() / 100;
 		}
 
 		if (6000 <= player->GetPlayCount())
@@ -1218,13 +1285,13 @@ void GameScene::Draw()
 	}
 	if (scene == PLAY)
 	{
-		spriteNumber0s->Draw();
+
+		spriteNumber0[0]->Draw();
 		if (enemy->GetScore() != 0)
 		{
-			spriteNumber0[0]->Draw();
 			spriteNumber0[1]->Draw();
 		}
-		if (1000 <= enemy->GetScore())
+		if (100 <= enemy->GetScore())
 		{
 			if (score1 - 10 * score2 == 0) { spriteNumber0[2]->Draw(); }
 			if (score1 - 10 * score2 == 1) { spriteNumber1[2]->Draw(); }
@@ -1237,7 +1304,7 @@ void GameScene::Draw()
 			if (score1 - 10 * score2 == 8) { spriteNumber8[2]->Draw(); }
 			if (score1 - 10 * score2 == 9) { spriteNumber9[2]->Draw(); }
 		}
-		if (10000 <= enemy->GetScore())
+		if (1000 <= enemy->GetScore())
 		{
 			if (score2 - 10 * score3 == 0) { spriteNumber0[3]->Draw(); }
 			if (score2 - 10 * score3 == 1) { spriteNumber1[3]->Draw(); }
@@ -1250,18 +1317,31 @@ void GameScene::Draw()
 			if (score2 - 10 * score3 == 8) { spriteNumber8[3]->Draw(); }
 			if (score2 - 10 * score3 == 9) { spriteNumber9[3]->Draw(); }
 		}
+		if (10000 <= enemy->GetScore())
+		{
+			if (score3 - 10 * score4 == 0) { spriteNumber0[4]->Draw(); }
+			if (score3 - 10 * score4 == 1) { spriteNumber1[4]->Draw(); }
+			if (score3 - 10 * score4 == 2) { spriteNumber2[4]->Draw(); }
+			if (score3 - 10 * score4 == 3) { spriteNumber3[4]->Draw(); }
+			if (score3 - 10 * score4 == 4) { spriteNumber4[4]->Draw(); }
+			if (score3 - 10 * score4 == 5) { spriteNumber5[4]->Draw(); }
+			if (score3 - 10 * score4 == 6) { spriteNumber6[4]->Draw(); }
+			if (score3 - 10 * score4 == 7) { spriteNumber7[4]->Draw(); }
+			if (score3 - 10 * score4 == 8) { spriteNumber8[4]->Draw(); }
+			if (score3 - 10 * score4 == 9) { spriteNumber9[4]->Draw(); }
+		}
 		if (100000 <= enemy->GetScore())
 		{
-			if (score3 == 0) { spriteNumber0[4]->Draw(); }
-			if (score3 == 1) { spriteNumber1[4]->Draw(); }
-			if (score3 == 2) { spriteNumber2[4]->Draw(); }
-			if (score3 == 3) { spriteNumber3[4]->Draw(); }
-			if (score3 == 4) { spriteNumber4[4]->Draw(); }
-			if (score3 == 5) { spriteNumber5[4]->Draw(); }
-			if (score3 == 6) { spriteNumber6[4]->Draw(); }
-			if (score3 == 7) { spriteNumber7[4]->Draw(); }
-			if (score3 == 8) { spriteNumber8[4]->Draw(); }
-			if (score3 == 9) { spriteNumber9[4]->Draw(); }
+			if (score4 == 0) { spriteNumber0[5]->Draw(); }
+			if (score4 == 1) { spriteNumber1[5]->Draw(); }
+			if (score4 == 2) { spriteNumber2[5]->Draw(); }
+			if (score4 == 3) { spriteNumber3[5]->Draw(); }
+			if (score4 == 4) { spriteNumber4[5]->Draw(); }
+			if (score4 == 5) { spriteNumber5[5]->Draw(); }
+			if (score4 == 6) { spriteNumber6[5]->Draw(); }
+			if (score4 == 7) { spriteNumber7[5]->Draw(); }
+			if (score4 == 8) { spriteNumber8[5]->Draw(); }
+			if (score4 == 9) { spriteNumber9[5]->Draw(); }
 		}
 
 
@@ -1373,14 +1453,14 @@ void GameScene::Draw()
 			spriteClearTextR1->Draw();
 			spriteClearTextL2->Draw();
 		}
-		debugText.Print(20, 60, 2.0f, "epos :  %d %d %d", enemy->GetScore() / 100000, enemy->GetScore() / 10000, enemy->GetScore() / 1000);
+		debugText.Print(20, 60, 2.0f, "epos :  %d %d %d", enemy->GetScore() / 10000, enemy->GetScore() / 1000, enemy->GetScore() / 100);
 		spriteNumber0s->Draw();
 		if (enemy->GetScore() != 0)
 		{
 			spriteNumber0[0]->Draw();
 			spriteNumber0[1]->Draw();
 		}
-		if (1000 <= enemy->GetScore())
+		if (100 <= enemy->GetScore())
 		{
 			if (score1 - 10 * score2 == 0) { spriteNumber0[2]->Draw(); }
 			if (score1 - 10 * score2 == 1) { spriteNumber1[2]->Draw(); }
@@ -1393,7 +1473,7 @@ void GameScene::Draw()
 			if (score1 - 10 * score2 == 8) { spriteNumber8[2]->Draw(); }
 			if (score1 - 10 * score2 == 9) { spriteNumber9[2]->Draw(); }
 		}
-		if (10000 <= enemy->GetScore())
+		if (1000 <= enemy->GetScore())
 		{
 			if (score2 - 10 * score3 == 0) { spriteNumber0[3]->Draw(); }
 			if (score2 - 10 * score3 == 1) { spriteNumber1[3]->Draw(); }
@@ -1406,18 +1486,31 @@ void GameScene::Draw()
 			if (score2 - 10 * score3 == 8) { spriteNumber8[3]->Draw(); }
 			if (score2 - 10 * score3 == 9) { spriteNumber9[3]->Draw(); }
 		}
+		if (10000 <= enemy->GetScore())
+		{
+			if (score3 - 10 * score4 == 0) { spriteNumber0[4]->Draw(); }
+			if (score3 - 10 * score4 == 1) { spriteNumber1[4]->Draw(); }
+			if (score3 - 10 * score4 == 2) { spriteNumber2[4]->Draw(); }
+			if (score3 - 10 * score4 == 3) { spriteNumber3[4]->Draw(); }
+			if (score3 - 10 * score4 == 4) { spriteNumber4[4]->Draw(); }
+			if (score3 - 10 * score4 == 5) { spriteNumber5[4]->Draw(); }
+			if (score3 - 10 * score4 == 6) { spriteNumber6[4]->Draw(); }
+			if (score3 - 10 * score4 == 7) { spriteNumber7[4]->Draw(); }
+			if (score3 - 10 * score4 == 8) { spriteNumber8[4]->Draw(); }
+			if (score3 - 10 * score4 == 9) { spriteNumber9[4]->Draw(); }
+		}
 		if (100000 <= enemy->GetScore())
 		{
-			if (score3 == 0) { spriteNumber0[4]->Draw(); }
-			if (score3 == 1) { spriteNumber1[4]->Draw(); }
-			if (score3 == 2) { spriteNumber2[4]->Draw(); }
-			if (score3 == 3) { spriteNumber3[4]->Draw(); }
-			if (score3 == 4) { spriteNumber4[4]->Draw(); }
-			if (score3 == 5) { spriteNumber5[4]->Draw(); }
-			if (score3 == 6) { spriteNumber6[4]->Draw(); }
-			if (score3 == 7) { spriteNumber7[4]->Draw(); }
-			if (score3 == 8) { spriteNumber8[4]->Draw(); }
-			if (score3 == 9) { spriteNumber9[4]->Draw(); }
+			if (score4 == 0) { spriteNumber0[5]->Draw(); }
+			if (score4 == 1) { spriteNumber1[5]->Draw(); }
+			if (score4 == 2) { spriteNumber2[5]->Draw(); }
+			if (score4 == 3) { spriteNumber3[5]->Draw(); }
+			if (score4 == 4) { spriteNumber4[5]->Draw(); }
+			if (score4 == 5) { spriteNumber5[5]->Draw(); }
+			if (score4 == 6) { spriteNumber6[5]->Draw(); }
+			if (score4 == 7) { spriteNumber7[5]->Draw(); }
+			if (score4 == 8) { spriteNumber8[5]->Draw(); }
+			if (score4 == 9) { spriteNumber9[5]->Draw(); }
 		}
 		if (restart == 1)
 		{

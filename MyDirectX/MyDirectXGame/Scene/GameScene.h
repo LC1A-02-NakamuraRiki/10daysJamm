@@ -204,7 +204,7 @@ private: // ƒƒ“ƒo•Ï”
 	int score1 = 0;
 	int score2 = 0;
 	int score3 = 0;
-
+	int score4 = 0;
 	int time1 = 0;
 	int time2 = 0;
 	int time3 = 0;

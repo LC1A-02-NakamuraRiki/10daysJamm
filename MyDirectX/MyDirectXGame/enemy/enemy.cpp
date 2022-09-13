@@ -107,7 +107,7 @@ void Enemy::InitializeValue(int x, int y, int moveVector, int enemysNo,int laneN
 
 void Enemy::Update(Player* player, MapChip* mapChip, bool strat)
 {
-	
+	EnemyFire(mapChip);
 
 	for (int enemyNo = 0; enemyNo < enemyMaxNo; enemyNo++)
 	{
@@ -774,6 +774,27 @@ void Enemy::EnemyExplosion(Player* player, MapChip* mapChip)
 
 					player->SetBomPos(i);
 				}
+			}
+		}
+	}
+}
+
+void Enemy::EnemyFire(MapChip* mapChip)
+{
+
+	for (int i = 0; i < 12; i++)
+	{
+		int mapY = 0;
+		int mapX = 0;
+
+		if (enemyDead[i] == false)
+		{
+  			mapY = (pos[i].z / 4) + ((12 + 1) / 2);
+			mapX = (pos[i].x / 4) + ((12 + 1) / 2);
+			if (mapChip->GetWallFlag(mapX, mapY) == 2)
+			{
+				enemyDead[i] = true;
+				score += 100;
 			}
 		}
 	}

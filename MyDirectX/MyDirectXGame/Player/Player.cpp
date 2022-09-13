@@ -63,7 +63,7 @@ void Player::InitializeValue()
 
 		turnFlag[j] = false;
 		nowExplosion[j] = false;
-		playCount = 300;
+		playCount = 2400;
 
 		fire = false;
 		effectTimer[j] = 0;
@@ -140,7 +140,7 @@ void Player::Update(MapChip* map, bool countStart, bool start)
 	{
 		for (int i = 0; i < 20; i++)
 		{
-			BomEffect(i);//エフェクト更新
+			BomEffect(i,map);//エフェクト更新
 			objBom[j][i]->Update();
 		}
 	}
@@ -175,7 +175,7 @@ void Player::Move(MapChip* map)
 	mapY = (pos.z / 4) + ((12 + 1) / 2);
 	mapX = (pos.x / 4) + ((12 + 1) / 2);
 
-	if (Input::GetInstance()->KeybordTrigger(DIK_W) && mapY != 8 && map->GetWallFlag(mapX, mapY + 1) == 0)
+	if (Input::GetInstance()->KeybordTrigger(DIK_W) && mapY != 8 && map->GetWallFlag(mapX, mapY + 1) != 1 )
 	{
 		pos.z += moveSpeed;// z座標を更新
 		angle.y = 180;
@@ -186,7 +186,7 @@ void Player::Move(MapChip* map)
 
 		move = true;
 	}
-	if (Input::GetInstance()->KeybordTrigger(DIK_A) && mapX != 3 && map->GetWallFlag(mapX - 1, mapY) == 0)
+	if (Input::GetInstance()->KeybordTrigger(DIK_A) && mapX != 3 && map->GetWallFlag(mapX - 1, mapY) != 1)
 	{
 		pos.x -= moveSpeed;// x座標を更新
 		angle.y = 90;
@@ -196,7 +196,7 @@ void Player::Move(MapChip* map)
 		}
 		move = true;
 	}
-	if (Input::GetInstance()->KeybordTrigger(DIK_S) && mapY != 3 && map->GetWallFlag(mapX, mapY - 1) == 0)
+	if (Input::GetInstance()->KeybordTrigger(DIK_S) && mapY != 3 && map->GetWallFlag(mapX, mapY - 1) != 1)
 	{
 		pos.z -= moveSpeed;// z座標を更新
 		angle.y = 0;
@@ -206,7 +206,7 @@ void Player::Move(MapChip* map)
 		}
 		move = true;
 	}
-	if (Input::GetInstance()->KeybordTrigger(DIK_D) && mapX != 8 && map->GetWallFlag(mapX + 1, mapY) == 0)
+	if (Input::GetInstance()->KeybordTrigger(DIK_D) && mapX != 8 && map->GetWallFlag(mapX + 1, mapY) != 1)
 	{
 		pos.x += moveSpeed;// x座標を更新
 		angle.y = 270;
@@ -215,6 +215,20 @@ void Player::Move(MapChip* map)
 			turnFlag[i] = true;
 		}
 		move = true;
+	}
+	if (delayFlag)
+	{
+		delayCount++;
+	}
+	if (delayCount > 120)
+	{
+		delayFlag = false;
+	}
+	if (map->GetWallFlag(mapX, mapY) == 2 && delayFlag == false)
+	{
+		playCount -= 300;
+		delayCount = 0;
+		delayFlag =true;
 	}
 	objPlayer->SetPosition(pos);
 	objPlayer->SetRotation(angle);
@@ -246,7 +260,7 @@ void Player::PutBom(MapChip* map)
 
 	if (Input::GetInstance()->KeybordTrigger(DIK_SPACE))
 	{
-		if (angle.y == 180 && map->GetWallFlag(mapX, mapY + 1) == 0)
+		if (angle.y == 180 && map->GetWallFlag(mapX, mapY + 1) != 1)
 		{
 
 			bomPos[bomNo] = XMFLOAT3({ pos.x, 1.0f,pos.z + 4 });
@@ -259,7 +273,7 @@ void Player::PutBom(MapChip* map)
 			bomAngle[bomNo] = 0;
 		}
 
-		else if (angle.y == 90 && map->GetWallFlag(mapX - 1, mapY) == 0)
+		else if (angle.y == 90 && map->GetWallFlag(mapX - 1, mapY) != 1)
 		{
 			bomPos[bomNo] = XMFLOAT3({ pos.x - 4, 1.0f,pos.z });
 			for (int j = 0; j < 8; j++)
@@ -270,7 +284,7 @@ void Player::PutBom(MapChip* map)
 			putFlag = true;
 			bomAngle[bomNo] = 3;
 		}
-		else if (angle.y == 0 && map->GetWallFlag(mapX, mapY - 1) == 0)
+		else if (angle.y == 0 && map->GetWallFlag(mapX, mapY - 1) != 1)
 		{
 			bomPos[bomNo] = XMFLOAT3({ pos.x, 1.0f,pos.z - 4 });
 			for (int j = 0; j < 8; j++)
@@ -281,7 +295,7 @@ void Player::PutBom(MapChip* map)
 			putFlag = true;
 			bomAngle[bomNo] = 1;
 		}
-		else if (angle.y == 270 && map->GetWallFlag(mapX + 1, mapY) == 0)
+		else if (angle.y == 270 && map->GetWallFlag(mapX + 1, mapY) != 1)
 		{
 			bomPos[bomNo] = XMFLOAT3({ pos.x + 4, 1.0f,pos.z });
 			for (int j = 0; j < 8; j++)
@@ -470,7 +484,7 @@ void Player::SetBomEffectMode(int num, int mode)
 	}
 }
 
-void Player::BomEffect(int num)
+void Player::BomEffect(int num, MapChip* map)
 {
 	switch (effectMode[num])
 	{
@@ -489,11 +503,39 @@ void Player::BomEffect(int num)
 			}
 			else
 			{
+				
+				int effectY = (effectPos[num].z / 4) + ((12 + 1) / 2);//盤面の位置
+				int effectX = (effectPos[num].x / 4) + ((12 + 1) / 2);//盤面の位置
+				map->SetWallFlag(effectX, effectY, 2);
 				//爆弾のレベルに応じて爆発の数を増やす
 				Effect::Explosion({ effectPos[num].x + 4 * j, effectPos[num].y, effectPos[num].z });
+				int effectY1 = (effectPos[num].z / 4) + ((12 + 1) / 2);//盤面の位置
+				int effectX1 = ((effectPos[num].x + 4 * j) / 4) + ((12 + 1) / 2);//盤面の位置
+				if (effectY1 >= 0 && effectY1 <= 11 && effectX1 >= 0 && effectX1 <= 11)
+				{
+					map->SetWallFlag(effectX1, effectY1, 2);
+				}
 				Effect::Explosion({ effectPos[num].x - 4 * j, effectPos[num].y, effectPos[num].z });
+				int effectY2 = (effectPos[num].z / 4) + ((12 + 1) / 2);//盤面の位置
+				int effectX2 = ((effectPos[num].x - 4 * j) / 4) + ((12 + 1) / 2);//盤面の位置
+				if (effectY2 >= 0 && effectY2 <= 11 && effectX2 >= 0 && effectX2 <= 11)
+				{
+					map->SetWallFlag(effectX2, effectY2, 2);
+				}
 				Effect::Explosion({ effectPos[num].x, effectPos[num].y, effectPos[num].z + 4 * j });
+				int effectY3 = ((effectPos[num].z + 4 * j) / 4) + ((12 + 1) / 2);//盤面の位置
+				int effectX3 = (effectPos[num].x / 4) + ((12 + 1) / 2);//盤面の位置
+				if (effectY3 >= 0 && effectY3 <= 11 && effectX3 >= 0 && effectX3 <= 11)
+				{
+					map->SetWallFlag(effectX3, effectY3, 2);
+				}
 				Effect::Explosion({ effectPos[num].x, effectPos[num].y, effectPos[num].z - 4 * j });
+				int effectY4 = ((effectPos[num].z - 4 * j) / 4) + ((12 + 1) / 2);//盤面の位置
+				int effectX4 = (effectPos[num].x / 4) + ((12 + 1) / 2);//盤面の位置
+				if (effectY4 >= 0 && effectY4 <= 11 && effectX4 >= 0 && effectX4 <= 11)
+				{
+					map->SetWallFlag(effectX4, effectY4, 2);
+				}
 			}
 		}
 

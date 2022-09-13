@@ -63,6 +63,7 @@ void MapChip::InitializeValue()
 			objMapWall2[y][x] = Object3d::Create(modelMapWall);
 			objMapWall2[y][x]->SetScale(XMFLOAT3({ 2, 2, 2 }));
 			objMapWall2[y][x]->SetPosition(XMFLOAT3({ x * 4.0f - (MapValue * 4.0f / 2) + 2, 2.0f, y * 4.0f - (MapValue * 4.0f / 2) + 2 }));
+			returnCount[y][x] = 0;
 		}
 	}
 }
@@ -75,6 +76,20 @@ void MapChip::Update()
 	{
 		for (int y = 0; y < MapValue; y++)
 		{
+			if (returnCount[y][x] > 600)
+			{
+				mapWall[y][x] = 0;
+				returnCount[y][x] = 0;
+			}
+			if (mapWall[y][x] == 0)
+			{
+				objMapWall[y][x]->SetScale(XMFLOAT3({ 2, 1, 2 }));
+			}
+			else if (mapWall[y][x] == 2)
+			{
+				returnCount[y][x]++;
+				objMapWall[y][x]->SetScale(XMFLOAT3({ 2, 2, 2 }));
+			}
 			objMapWall[y][x]->Update();
 			objMapWall2[y][x]->Update();
 		}
