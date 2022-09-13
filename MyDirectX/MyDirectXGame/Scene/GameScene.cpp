@@ -530,6 +530,10 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Sound* audio)
 	spritePlayScore->SetSize({ 343.0f,103.0f });
 	spritePlayScore->SetPosition({ 1460.0, 100 });
 
+	spriteScorePluse = Sprite::Create(26, { 0.0f,0.0f });
+	spriteScorePluse->SetSize({ 343.0f,103.0f });
+	spriteScorePluse->SetPosition({ 1260.0, 300 });
+
 	// 3Dオブジェクト生成
 	modelSkydome = Model::CreateFromObject("skydome", false);
 	objSkydome = Object3d::Create(modelSkydome);
@@ -846,6 +850,29 @@ void GameScene::Update()
 
 		backRotation-= 0.1;
 		spritePlayBack->SetRotation(backRotation);
+
+		if (enemy->GetScorePluse())
+		{
+			scorePluse = true;
+			scorePlusePos = { 1160.0, 250 };
+			enemy->SetScorePluse();
+
+		}
+		if (scorePluse == 1)
+		{
+			scorePlusePos.y --;
+			spriteScorePluse->SetPosition(scorePlusePos);
+			if (scorePlusePos.y < 100)
+			{
+				scorePluse = false;
+			}
+		}
+		if (scorePluse == 0)
+		{
+			scorePlusePos = { 1460.0, 100 };
+			spriteScorePluse->SetPosition(scorePlusePos);
+		}
+
 		if (bomSceneChange2 == true)
 		{
 			sceneChangeCount2++;
@@ -905,53 +932,61 @@ void GameScene::Update()
 		{
 			audio->StopBGM();
 			audio->PlayBGM("Resources/BGM/result_bgm.wav", true);
-			spriteNumber0s->SetPosition({ 1360.0, 400 });
-			spriteNumber0[0]->SetPosition({ 1300.0, 400 });
-			spriteNumber0[1]->SetPosition({ 1240.0, 400 });
+			  spriteNumber0s->SetPosition({ 1100.0,300 });
+			spriteNumber0[0]->SetPosition({ 1040.0,300 });
+			spriteNumber0[1]->SetPosition({ 980.0, 300 });
 
-			spriteNumber0[2]->SetPosition({ 1180.0, 400 });
-			spriteNumber1[2]->SetPosition({ 1180.0, 400 });
-			spriteNumber2[2]->SetPosition({ 1180.0, 400 });
-			spriteNumber3[2]->SetPosition({ 1180.0, 400 });
-			spriteNumber4[2]->SetPosition({ 1180.0, 400 });
-			spriteNumber5[2]->SetPosition({ 1180.0, 400 });
-			spriteNumber6[2]->SetPosition({ 1180.0, 400 });
-			spriteNumber7[2]->SetPosition({ 1180.0, 400 });
-			spriteNumber8[2]->SetPosition({ 1180.0, 400 });
-			spriteNumber9[2]->SetPosition({ 1180.0, 400 });
+			spriteNumber0[2]->SetPosition({ 920.0, 300 });
+			spriteNumber1[2]->SetPosition({ 920.0, 300 });
+			spriteNumber2[2]->SetPosition({ 920.0, 300 });
+			spriteNumber3[2]->SetPosition({ 920.0, 300 });
+			spriteNumber4[2]->SetPosition({ 920.0, 300 });
+			spriteNumber5[2]->SetPosition({ 920.0, 300 });
+			spriteNumber6[2]->SetPosition({ 920.0, 300 });
+			spriteNumber7[2]->SetPosition({ 920.0, 300 });
+			spriteNumber8[2]->SetPosition({ 920.0, 300 });
+			spriteNumber9[2]->SetPosition({ 920.0, 300 });
 
-			spriteNumber0[3]->SetPosition({ 1120.0, 400 });
-			spriteNumber1[3]->SetPosition({ 1120.0, 400 });
-			spriteNumber2[3]->SetPosition({ 1120.0, 400 });
-			spriteNumber3[3]->SetPosition({ 1120.0, 400 });
-			spriteNumber4[3]->SetPosition({ 1120.0, 400 });
-			spriteNumber5[3]->SetPosition({ 1120.0, 400 });
-			spriteNumber6[3]->SetPosition({ 1120.0, 400 });
-			spriteNumber7[3]->SetPosition({ 1120.0, 400 });
-			spriteNumber8[3]->SetPosition({ 1120.0, 400 });
-			spriteNumber9[3]->SetPosition({ 1120.0, 400 });
+			spriteNumber0[3]->SetPosition({ 860.0, 300 });
+			spriteNumber1[3]->SetPosition({ 860.0, 300 });
+			spriteNumber2[3]->SetPosition({ 860.0, 300 });
+			spriteNumber3[3]->SetPosition({ 860.0, 300 });
+			spriteNumber4[3]->SetPosition({ 860.0, 300 });
+			spriteNumber5[3]->SetPosition({ 860.0, 300 });
+			spriteNumber6[3]->SetPosition({ 860.0, 300 });
+			spriteNumber7[3]->SetPosition({ 860.0, 300 });
+			spriteNumber8[3]->SetPosition({ 860.0, 300 });
+			spriteNumber9[3]->SetPosition({ 860.0, 300 });
 
-			spriteNumber0[4]->SetPosition({ 1060.0, 400 });
-			spriteNumber1[4]->SetPosition({ 1060.0, 400 });
-			spriteNumber2[4]->SetPosition({ 1060.0, 400 });
-			spriteNumber3[4]->SetPosition({ 1060.0, 400 });
-			spriteNumber4[4]->SetPosition({ 1060.0, 400 });
-			spriteNumber5[4]->SetPosition({ 1060.0, 400 });
-			spriteNumber6[4]->SetPosition({ 1060.0, 400 });
-			spriteNumber7[4]->SetPosition({ 1060.0, 400 });
-			spriteNumber8[4]->SetPosition({ 1060.0, 400 });
-			spriteNumber9[4]->SetPosition({ 1060.0, 400 });
+			spriteNumber0[4]->SetPosition({ 800.0, 300 });
+			spriteNumber1[4]->SetPosition({ 800.0, 300 });
+			spriteNumber2[4]->SetPosition({ 800.0, 300 });
+			spriteNumber3[4]->SetPosition({ 800.0, 300 });
+			spriteNumber4[4]->SetPosition({ 800.0, 300 });
+			spriteNumber5[4]->SetPosition({ 800.0, 300 });
+			spriteNumber6[4]->SetPosition({ 800.0, 300 });
+			spriteNumber7[4]->SetPosition({ 800.0, 300 });
+			spriteNumber8[4]->SetPosition({ 800.0, 300 });
+			spriteNumber9[4]->SetPosition({ 800.0, 300 });
 
-			spriteNumber0[5]->SetPosition({ 1000.0, 400 });
-			spriteNumber1[5]->SetPosition({ 1000.0, 400 });
-			spriteNumber2[5]->SetPosition({ 1000.0, 400 });
-			spriteNumber3[5]->SetPosition({ 1000.0, 400 });
-			spriteNumber4[5]->SetPosition({ 1000.0, 400 });
-			spriteNumber5[5]->SetPosition({ 1000.0, 400 });
-			spriteNumber6[5]->SetPosition({ 1000.0, 400 });
-			spriteNumber7[5]->SetPosition({ 1000.0, 400 });
-			spriteNumber8[5]->SetPosition({ 1000.0, 400 });
-			spriteNumber9[5]->SetPosition({ 1000.0, 400 });
+			spriteNumber0[5]->SetPosition({ 740.0, 300 });
+			spriteNumber1[5]->SetPosition({ 740.0, 300 });
+			spriteNumber2[5]->SetPosition({ 740.0, 300 });
+			spriteNumber3[5]->SetPosition({ 740.0, 300 });
+			spriteNumber4[5]->SetPosition({ 740.0, 300 });
+			spriteNumber5[5]->SetPosition({ 740.0, 300 });
+			spriteNumber6[5]->SetPosition({ 740.0, 300 });
+			spriteNumber7[5]->SetPosition({ 740.0, 300 });
+			spriteNumber8[5]->SetPosition({ 740.0, 300 });
+			spriteNumber9[5]->SetPosition({ 740.0, 300 });
+			bomSceneChange = false;
+			sceneChangeCount = 0;
+
+			bomSceneChange3 = false;
+			sceneChangeCount3 = 0;
+
+			bomSceneChange4 = false;
+			sceneChangeCount4 = 0;
 			scene = CLEAR;
 		}
 		int mapY = (player->GetPos().z / 4) + ((8 + 1) / 2);
@@ -1145,8 +1180,6 @@ void GameScene::Update()
 			player->InitializeValue();
 			enemy->EndInitialize();
 			enemy->Update(player, map, startCountFlag);
-			audio->StopBGM();
-			audio->PlayBGM("Resources/BGM/title_bgm.wav", true);
 			bomSceneChange3 = true;
 		}
 
@@ -1156,7 +1189,7 @@ void GameScene::Update()
 			size = { 8.47,10.3 };
 			pos2 = { -800,-1625 };
 			size2 = { 3560,4330 };
-			bomSceneChange = false;
+			bomSceneChange = true;
 			sceneChangeCount = 0;
 			bomSceneChange2 = true;
 			sceneChangeCount2 = 0;
@@ -1191,16 +1224,19 @@ void GameScene::Update()
 
 			if (sceneChangeCount3 > 60)
 			{
-				audio->StopBGM();
-				audio->PlayBGM("Resources/BGM/game_bgm.wav", true);
+				
 				
 				if (restart == 1)
 				{
 					bomSceneChange4 = true;
+					audio->StopBGM();
+					audio->PlayBGM("Resources/BGM/title_bgm.wav", true);
 					scene = TITLE;
 				}
 				if (restart == 0)
 				{
+					audio->StopBGM();
+					audio->PlayBGM("Resources/BGM/game_bgm.wav", true);
 					scene = PLAY;
 				}
 			}
@@ -1437,6 +1473,10 @@ void GameScene::Draw()
 				spriteNumber1[0]->Draw();
 	
 			}
+		}
+		if (scorePluse == 1)
+		{
+			spriteScorePluse->Draw();
 		}
 	}
 	if (scene == CLEAR)

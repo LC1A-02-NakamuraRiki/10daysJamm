@@ -20,7 +20,7 @@ void Enemy::EndInitialize()
 {
 	for (int i = 0; i < 11; i++)
 	{
-		pos[i] = { 0.0f,0.0f,0.0f };//プレイヤーの位置
+		pos[i] = { 500.0f,0.0f,0.0f };//プレイヤーの位置
 		angle[i] = { 0.0f,0.0f,0.0f };
 
 		enemyY[i] = 0;//盤面の位置
@@ -41,6 +41,7 @@ void Enemy::EndInitialize()
 		moveCount = 0;
 
 		lane[i] = 0;
+		objEnemy[i]->SetPosition(pos[i]);
 	}
 	
 	/*InitializeValue(1, 1, 0, 1, 1);
@@ -142,6 +143,7 @@ void Enemy::Draw()
 		{
 			objEnemy[enemyNo]->Draw();
 		}
+		
 	}
 }
 
@@ -377,8 +379,10 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 					player->SetEffectTimer(i);
 					player->SetWallFlag(i);
 					score += 1000;
+					scorePluse = true;
 					//player->SetPlayCount();
 					killCount++;
+					pos[enemyNo] = { 500.0f,0.0f,0.0f };//プレイヤーの位置
 					enemyDead[enemyNo] = true;
 					player->SetBomEffectMode(i, 2);//花火エフェクト発生
 					player->SetBomAlive(i);
@@ -418,6 +422,8 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
+						pos[enemyNo] = { 500.0f,0.0f,0.0f };//プレイヤーの位置
+						scorePluse = true;
 					}
 					if (player->GetBomPos(i).x - 3 - 8 <= pos[enemyNo].x &&
 						player->GetBomPos(i).x + 3 - 8 >= pos[enemyNo].x &&
@@ -428,6 +434,8 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
+						pos[enemyNo] = { 500.0f,0.0f,0.0f };//プレイヤーの位置
+						scorePluse = true;
 					}
 					if (player->GetBomPos(i).x - 3 - 12 <= pos[enemyNo].x &&
 						player->GetBomPos(i).x + 3 - 12 >= pos[enemyNo].x &&
@@ -438,6 +446,8 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
+						pos[enemyNo] = { 500.0f,0.0f,0.0f };//プレイヤーの位置
+						scorePluse = true;
 					}
 					if (player->GetBomPos(i).x - 3 - 16 <= pos[enemyNo].x &&
 						player->GetBomPos(i).x + 3 - 16 >= pos[enemyNo].x &&
@@ -448,6 +458,8 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
+						pos[enemyNo] = { 500.0f,0.0f,0.0f };//プレイヤーの位置
+						scorePluse = true;
 					}
 					if (player->GetBomPos(i).x - 3 - 20 <= pos[enemyNo].x &&
 						player->GetBomPos(i).x + 3 - 20 >= pos[enemyNo].x &&
@@ -458,6 +470,8 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
+						pos[enemyNo] = { 500.0f,0.0f,0.0f };//プレイヤーの位置
+						scorePluse = true;
 					}
 					if (player->GetBomPos(i).x - 3 - 24 <= pos[enemyNo].x &&
 						player->GetBomPos(i).x + 3 - 24 >= pos[enemyNo].x &&
@@ -468,6 +482,8 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
+						pos[enemyNo] = { 500.0f,0.0f,0.0f };//プレイヤーの位置
+						scorePluse = true;
 					}
 					if (player->GetBomPos(i).x - 3 - 28 <= pos[enemyNo].x &&
 						player->GetBomPos(i).x + 3 - 28 >= pos[enemyNo].x &&
@@ -478,6 +494,8 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
+						pos[enemyNo] = { 500.0f,0.0f,0.0f };//プレイヤーの位置
+						scorePluse = true;
 					}
 
 
@@ -490,6 +508,8 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
+						pos[enemyNo] = { 500.0f,0.0f,0.0f };//プレイヤーの位置
+						scorePluse = true;
 					}
 					if (player->GetBomPos(i).x + 3 + 8 >= pos[enemyNo].x &&
 						player->GetBomPos(i).x - 3 + 8 <= pos[enemyNo].x &&
@@ -500,6 +520,8 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
+						pos[enemyNo] = { 500.0f,0.0f,0.0f };//プレイヤーの位置
+						scorePluse = true;
 					}
 					if (player->GetBomPos(i).x + 3 + 12 >= pos[enemyNo].x &&
 						player->GetBomPos(i).x - 3 + 12 <= pos[enemyNo].x &&
@@ -510,6 +532,8 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
+						pos[enemyNo] = { 500.0f,0.0f,0.0f };//プレイヤーの位置
+						scorePluse = true;
 					}
 					if (player->GetBomPos(i).x + 3 + 16 >= pos[enemyNo].x &&
 						player->GetBomPos(i).x - 3 + 16 <= pos[enemyNo].x &&
@@ -520,6 +544,8 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
+						pos[enemyNo] = { 500.0f,0.0f,0.0f };//プレイヤーの位置
+						scorePluse = true;
 					}
 					if (player->GetBomPos(i).x + 3 + 20 >= pos[enemyNo].x &&
 						player->GetBomPos(i).x - 3 + 20 <= pos[enemyNo].x &&
@@ -530,6 +556,8 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
+						pos[enemyNo] = { 500.0f,0.0f,0.0f };//プレイヤーの位置
+						scorePluse = true;
 					}
 					if (player->GetBomPos(i).x + 3 + 24 >= pos[enemyNo].x &&
 						player->GetBomPos(i).x - 3 + 24 <= pos[enemyNo].x &&
@@ -540,6 +568,8 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
+						pos[enemyNo] = { 500.0f,0.0f,0.0f };//プレイヤーの位置
+						scorePluse = true;
 					}
 					if (player->GetBomPos(i).x + 3 + 28 >= pos[enemyNo].x &&
 						player->GetBomPos(i).x - 3 + 28 <= pos[enemyNo].x &&
@@ -550,6 +580,8 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
+						pos[enemyNo] = { 500.0f,0.0f,0.0f };//プレイヤーの位置
+						scorePluse = true;
 					}
 
 
@@ -562,6 +594,8 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
+						pos[enemyNo] = { 500.0f,0.0f,0.0f };//プレイヤーの位置
+						scorePluse = true;
 					}
 					if (player->GetBomPos(i).z + 3 - 4 >= pos[enemyNo].z &&
 						player->GetBomPos(i).z - 3 - 4 <= pos[enemyNo].z &&
@@ -572,6 +606,8 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
+						pos[enemyNo] = { 500.0f,0.0f,0.0f };//プレイヤーの位置
+						scorePluse = true;
 					}
 					if (player->GetBomPos(i).z + 3 - 8 >= pos[enemyNo].z &&
 						player->GetBomPos(i).z - 3 - 8 <= pos[enemyNo].z &&
@@ -582,6 +618,8 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
+						pos[enemyNo] = { 500.0f,0.0f,0.0f };//プレイヤーの位置
+						scorePluse = true;
 					}
 					if (player->GetBomPos(i).z + 3 - 12 >= pos[enemyNo].z &&
 						player->GetBomPos(i).z - 3 - 12 <= pos[enemyNo].z &&
@@ -592,6 +630,8 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
+						pos[enemyNo] = { 500.0f,0.0f,0.0f };//プレイヤーの位置
+						scorePluse = true;
 					}
 					if (player->GetBomPos(i).z + 3 - 16 >= pos[enemyNo].z &&
 						player->GetBomPos(i).z - 3 - 16 <= pos[enemyNo].z &&
@@ -602,6 +642,8 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
+						pos[enemyNo] = { 500.0f,0.0f,0.0f };//プレイヤーの位置
+						scorePluse = true;
 					}
 					if (player->GetBomPos(i).z + 3 - 20 >= pos[enemyNo].z &&
 						player->GetBomPos(i).z - 3 - 20 <= pos[enemyNo].z &&
@@ -612,6 +654,8 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
+						pos[enemyNo] = { 500.0f,0.0f,0.0f };//プレイヤーの位置
+						scorePluse = true;
 					}
 					if (player->GetBomPos(i).z + 3 - 24 >= pos[enemyNo].z &&
 						player->GetBomPos(i).z - 3 - 24 <= pos[enemyNo].z &&
@@ -622,6 +666,8 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
+						pos[enemyNo] = { 500.0f,0.0f,0.0f };//プレイヤーの位置
+						scorePluse = true;
 					}
 					if (player->GetBomPos(i).z + 3 - 28 >= pos[enemyNo].z &&
 						player->GetBomPos(i).z - 3 - 28 <= pos[enemyNo].z &&
@@ -632,6 +678,8 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
+						pos[enemyNo] = { 500.0f,0.0f,0.0f };//プレイヤーの位置
+						scorePluse = true;
 					}
 
 
@@ -645,6 +693,8 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
+						pos[enemyNo] = { 500.0f,0.0f,0.0f };//プレイヤーの位置
+						scorePluse = true;
 					}
 					if (player->GetBomPos(i).z + 3 + 8 >= pos[enemyNo].z &&
 						player->GetBomPos(i).z - 3 + 8 <= pos[enemyNo].z &&
@@ -655,6 +705,8 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
+						pos[enemyNo] = { 500.0f,0.0f,0.0f };//プレイヤーの位置
+						scorePluse = true;
 					}
 					if (player->GetBomPos(i).z + 3 + 12 >= pos[enemyNo].z &&
 						player->GetBomPos(i).z - 3 + 12 <= pos[enemyNo].z &&
@@ -665,6 +717,8 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
+						pos[enemyNo] = { 500.0f,0.0f,0.0f };//プレイヤーの位置
+						scorePluse = true;
 					}
 					if (player->GetBomPos(i).z + 3 + 16 >= pos[enemyNo].z &&
 						player->GetBomPos(i).z - 3 + 16 <= pos[enemyNo].z &&
@@ -675,6 +729,8 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
+						pos[enemyNo] = { 500.0f,0.0f,0.0f };//プレイヤーの位置
+						scorePluse = true;
 					}
 					if (player->GetBomPos(i).z + 3 + 20 >= pos[enemyNo].z &&
 						player->GetBomPos(i).z - 3 + 20 <= pos[enemyNo].z &&
@@ -685,6 +741,8 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
+						pos[enemyNo] = { 500.0f,0.0f,0.0f };//プレイヤーの位置
+						scorePluse = true;
 					}
 					if (player->GetBomPos(i).z + 3 + 24 >= pos[enemyNo].z &&
 						player->GetBomPos(i).z - 3 + 24 <= pos[enemyNo].z &&
@@ -695,6 +753,8 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
+						pos[enemyNo] = { 500.0f,0.0f,0.0f };//プレイヤーの位置
+						scorePluse = true;
 					}
 					if (player->GetBomPos(i).z + 3 + 28 >= pos[enemyNo].z &&
 						player->GetBomPos(i).z - 3 + 28 <= pos[enemyNo].z &&
@@ -705,8 +765,12 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 						player->SetPlayCount();
 						killCount++;
 						enemyDead[enemyNo] = true;
+						pos[enemyNo] = { 500.0f,0.0f,0.0f };//プレイヤーの位置
+						scorePluse = true;
 					}
+					
 				}
+				objEnemy[enemyNo]->SetPosition(pos[enemyNo]);
 			}
 		}
 	}
@@ -793,8 +857,11 @@ void Enemy::EnemyFire(MapChip* mapChip)
 			mapX = (pos[i].x / 4) + ((12 + 1) / 2);
 			if (mapChip->GetWallFlag(mapX, mapY) == 2)
 			{
+				pos[i] = { 500.0f,0.0f,0.0f };//プレイヤーの位置
+				objEnemy[i]->SetPosition(pos[i]);
 				enemyDead[i] = true;
 				score += 100;
+				scorePluse = true;
 			}
 		}
 	}

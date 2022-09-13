@@ -46,6 +46,8 @@ public:
 	int GetScore() { return score; }
 	int GetWave() { return wave; }
 
+	bool GetScorePluse() { return scorePluse; }
+	bool SetScorePluse() { return scorePluse = false; }
 
 private:
 	const int MapValue = 12;//マップサイズ
@@ -79,5 +81,7 @@ private:
 	int moveCount = 0;
 
 	int lane[12] = { 0,0,0,0,0,0,0,0,0,0,0,0 };
+	
+	bool scorePluse = false;
 };
 

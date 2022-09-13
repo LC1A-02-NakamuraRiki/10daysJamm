@@ -28,8 +28,10 @@ private:
 
 	Model* modelMapWall = nullptr;
 	Model* modelMapWall2 = nullptr;
+	Model* modelMapWall3 = nullptr;
 	Object3d* objMapWall[12][12];
 	Object3d* objMapWall2[12][12];
+	Object3d* objMapWall3[12][12];
 
 
 	int MapValue = 12;

@@ -125,6 +125,8 @@ private: // ƒƒ“ƒo•Ï”
 
 	Sprite* spritePlayScore = nullptr;
 
+	Sprite* spriteScorePluse = nullptr;
+
 	Model* modelSkydome = nullptr;
 	Object3d* objSkydome = nullptr;
 
@@ -164,6 +166,8 @@ private: // ƒƒ“ƒo•Ï”
 
 	XMFLOAT2 titleSize = { 1920,1080 };
 
+	XMFLOAT2 scorePlusePos = { 1160.0, 250 };
+	bool scorePluse = 0;
 	int titleTextPatern1 = 0;
 	int titleTextCount1 = 0;
 
