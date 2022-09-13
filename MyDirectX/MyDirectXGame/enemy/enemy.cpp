@@ -18,7 +18,7 @@ void Enemy::Initialize(int x, int y, int moveVector, int enemysNo)
 
 void Enemy::EndInitialize()
 {
-	for (int i = 0; i < spawnNum; i++)
+	for (int i = 0; i < 11; i++)
 	{
 		pos[i] = { 0.0f,0.0f,0.0f };//プレイヤーの位置
 		angle[i] = { 0.0f,0.0f,0.0f };
@@ -96,13 +96,13 @@ void Enemy::InitializeValue(int x, int y, int moveVector, int enemysNo,int laneN
 	enemyLv[enemysNo] = 1;
 	pos[enemysNo] = XMFLOAT3({ x * 4.0f - (MapValue * 4.0f / 2) + 2 + 1, 1.0f, y * 4.0f - (MapValue * 4.0f / 2) + 2 + 1 });
 	objEnemy[enemysNo]->SetPosition(pos[enemysNo]);
-	enemyDead[enemysNo] = false;
 	if (moveVector == 0) { angle[enemysNo].y = 270; }
 	if (moveVector == 1) { angle[enemysNo].y = 90; }
 	if (moveVector == 2) { angle[enemysNo].y = 0; }
 	if (moveVector == 3) { angle[enemysNo].y = 180; }
 	objEnemy[enemysNo]->SetRotation(angle[enemysNo]);
 	lane[enemysNo] = laneNo;
+	enemyDead[enemysNo] = false;
 }
 
 void Enemy::Update(Player* player, MapChip* mapChip, bool strat)

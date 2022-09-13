@@ -63,7 +63,7 @@ void Player::InitializeValue()
 
 		turnFlag[j] = false;
 		nowExplosion[j] = false;
-		playCount = 2400;
+		playCount = 300;
 
 		fire = false;
 		effectTimer[j] = 0;

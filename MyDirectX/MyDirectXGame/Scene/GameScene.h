@@ -187,11 +187,17 @@ private: // ƒƒ“ƒo•Ï”
 	bool bomSceneChange2 = true;
 	int sceneChangeCount2 = 0;
 
+	bool bomSceneChange3 = false;
+	int sceneChangeCount3 = 0;
+
+	bool bomSceneChange4 = false;
+	int sceneChangeCount4 = 0;
+
 	bool startCountFlag = true;
 	int startCount = 0;
 	bool startCountFlag2 = false;
 
-	int startCount2 = 0;
+	bool endCountFlag = 0;
 
 	int restart = 1;
 

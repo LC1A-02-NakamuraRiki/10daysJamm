@@ -603,9 +603,36 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Sound* audio)
 
 void GameScene::Update()
 {
+	debugText.Print(20, 60, 2.0f, "epos :  %d %d %d", enemy->GetScore() / 100000, enemy->GetScore() / 10000, enemy->GetScore() / 1000);
 	//debugText.Print(20, 20, 2.0f, "END : ESC");
 	if (scene == TITLE)
 	{
+		if (bomSceneChange4 == true)
+		{
+			sceneChangeCount4++;
+			if (sceneChangeCount4 > 150)
+			{
+				bomSceneChange3 = false;
+				for (int i = 0; i < 12; i++)
+				{
+					size2.x -= size2.x / 100;
+					size2.y -= size2.y / 100;
+					pos2.x += (size2.x / 100) / 2;
+					pos2.y += (size2.y / 100) / 2;
+				}
+
+				spriteBom2->SetPosition(pos2);
+				spriteBom2->SetSize(size2);
+			}
+			if (sceneChangeCount4 > 220)
+			{
+				pos = { 954.03,532.74 };
+				size = { 8.47,10.3 };
+				pos2 = { -800,-1625 };
+				size2 = { 3560,4330 };
+				bomSceneChange4 = false;
+			}
+		}
 		titleScroll.x -= 1920 / 100;
 		titleScroll.y += 1080 / 100;
 		if (titleScroll.x <= -1920)
@@ -665,8 +692,11 @@ void GameScene::Update()
 
 		spriteTitle2->SetPosition({ titleTextPos.x + titleTextValue.x, titleTextPos.y + titleTextValue.y });
 
-		if (Input::GetInstance()->KeybordTrigger(DIK_SPACE))
+		if (Input::GetInstance()->KeybordTrigger(DIK_SPACE)&& bomSceneChange4 == false)
 		{
+			
+			sceneChangeCount3 = 0;
+
 			audio->PlaySE("Resources/SE/title_dicided.wav", false);
 			map->InitializeValue();
 			player->InitializeValue();
@@ -716,12 +746,52 @@ void GameScene::Update()
 			{
 				audio->StopBGM();
 				audio->PlayBGM("Resources/BGM/game_bgm.wav", true);
+				text1Draw = false;
+				textShake = false;
+				shakeCount = 0;
 				scene = PLAY;
 			}
 		}
 	}
 	else if (scene == PLAY)
 	{
+	spriteNumber0s->SetPosition({ 1660.0, 200 });
+	spriteNumber0[0]->SetPosition({ 1600.0, 200 });
+	spriteNumber0[1]->SetPosition({ 1540.0, 200 });
+
+	spriteNumber0[2]->SetPosition({ 1480.0, 200 });
+	spriteNumber1[2]->SetPosition({ 1480.0, 200 });
+	spriteNumber2[2]->SetPosition({ 1480.0, 200 });
+	spriteNumber3[2]->SetPosition({ 1480.0, 200 });
+	spriteNumber4[2]->SetPosition({ 1480.0, 200 });
+	spriteNumber5[2]->SetPosition({ 1480.0, 200 });
+	spriteNumber6[2]->SetPosition({ 1480.0, 200 });
+	spriteNumber7[2]->SetPosition({ 1480.0, 200 });
+	spriteNumber8[2]->SetPosition({ 1480.0, 200 });
+	spriteNumber9[2]->SetPosition({ 1480.0, 200 });
+
+	spriteNumber0[3]->SetPosition({ 1420.0, 200 });
+	spriteNumber1[3]->SetPosition({ 1420.0, 200 });
+	spriteNumber2[3]->SetPosition({ 1420.0, 200 });
+	spriteNumber3[3]->SetPosition({ 1420.0, 200 });
+	spriteNumber4[3]->SetPosition({ 1420.0, 200 });
+	spriteNumber5[3]->SetPosition({ 1420.0, 200 });
+	spriteNumber6[3]->SetPosition({ 1420.0, 200 });
+	spriteNumber7[3]->SetPosition({ 1420.0, 200 });
+	spriteNumber8[3]->SetPosition({ 1420.0, 200 });
+	spriteNumber9[3]->SetPosition({ 1420.0, 200 });
+
+	spriteNumber0[4]->SetPosition({ 1360.0, 200 });
+	spriteNumber1[4]->SetPosition({ 1360.0, 200 });
+	spriteNumber2[4]->SetPosition({ 1360.0, 200 });
+	spriteNumber3[4]->SetPosition({ 1360.0, 200 });
+	spriteNumber4[4]->SetPosition({ 1360.0, 200 });
+	spriteNumber5[4]->SetPosition({ 1360.0, 200 });
+	spriteNumber6[4]->SetPosition({ 1360.0, 200 });
+	spriteNumber7[4]->SetPosition({ 1360.0, 200 });
+	spriteNumber8[4]->SetPosition({ 1360.0, 200 });
+	spriteNumber9[4]->SetPosition({ 1360.0, 200 });
+
 		backRotation-= 0.1;
 		spritePlayBack->SetRotation(backRotation);
 		if (bomSceneChange2 == true)
@@ -744,10 +814,11 @@ void GameScene::Update()
 			if (sceneChangeCount2 > 220)
 			{
 				startCountFlag = true;
-				bomSceneChange = false;
+ 				bomSceneChange = false;
 				startCountFlag2 = true;
 			}
 		}
+
 
 		if (startCountFlag2)
 		{
@@ -758,9 +829,13 @@ void GameScene::Update()
 			startCountFlag = false;
 		}
 
-		if (player->GetPlayCount() < 240 && startCount2 < 190)
+		if (player->GetPlayCount() < 180)
 		{
-			startCount2++;
+			endCountFlag = true;
+		}
+		else
+		{
+			endCountFlag = true;
 		}
 
 		if (player->GetFire())
@@ -778,6 +853,42 @@ void GameScene::Update()
 		{
 			audio->StopBGM();
 			audio->PlayBGM("Resources/BGM/result_bgm.wav", true);
+			spriteNumber0s->SetPosition({ 1360.0, 400 });
+			spriteNumber0[0]->SetPosition({ 1300.0, 400 });
+			spriteNumber0[1]->SetPosition({ 1240.0, 400 });
+
+			spriteNumber0[2]->SetPosition({ 1180.0, 400 });
+			spriteNumber1[2]->SetPosition({ 1180.0, 400 });
+			spriteNumber2[2]->SetPosition({ 1180.0, 400 });
+			spriteNumber3[2]->SetPosition({ 1180.0, 400 });
+			spriteNumber4[2]->SetPosition({ 1180.0, 400 });
+			spriteNumber5[2]->SetPosition({ 1180.0, 400 });
+			spriteNumber6[2]->SetPosition({ 1180.0, 400 });
+			spriteNumber7[2]->SetPosition({ 1180.0, 400 });
+			spriteNumber8[2]->SetPosition({ 1180.0, 400 });
+			spriteNumber9[2]->SetPosition({ 1180.0, 400 });
+
+			spriteNumber0[3]->SetPosition({ 1120.0, 400 });
+			spriteNumber1[3]->SetPosition({ 1120.0, 400 });
+			spriteNumber2[3]->SetPosition({ 1120.0, 400 });
+			spriteNumber3[3]->SetPosition({ 1120.0, 400 });
+			spriteNumber4[3]->SetPosition({ 1120.0, 400 });
+			spriteNumber5[3]->SetPosition({ 1120.0, 400 });
+			spriteNumber6[3]->SetPosition({ 1120.0, 400 });
+			spriteNumber7[3]->SetPosition({ 1120.0, 400 });
+			spriteNumber8[3]->SetPosition({ 1120.0, 400 });
+			spriteNumber9[3]->SetPosition({ 1120.0, 400 });
+
+			spriteNumber0[4]->SetPosition({ 1060.0, 400 });
+			spriteNumber1[4]->SetPosition({ 1060.0, 400 });
+			spriteNumber2[4]->SetPosition({ 1060.0, 400 });
+			spriteNumber3[4]->SetPosition({ 1060.0, 400 });
+			spriteNumber4[4]->SetPosition({ 1060.0, 400 });
+			spriteNumber5[4]->SetPosition({ 1060.0, 400 });
+			spriteNumber6[4]->SetPosition({ 1060.0, 400 });
+			spriteNumber7[4]->SetPosition({ 1060.0, 400 });
+			spriteNumber8[4]->SetPosition({ 1060.0, 400 });
+			spriteNumber9[4]->SetPosition({ 1060.0, 400 });
 			scene = CLEAR;
 		}
 		int mapY = (player->GetPos().z / 4) + ((8 + 1) / 2);
@@ -857,42 +968,10 @@ void GameScene::Update()
 	}
 	else if (scene == CLEAR)
 	{
-		spriteNumber0s->SetPosition({ 1360.0, 400 });
-		spriteNumber0[0]->SetPosition({ 1300.0, 400 });
-		spriteNumber0[1]->SetPosition({ 1240.0, 400 });
-
-		spriteNumber0[2]->SetPosition({ 1180.0, 400 });
-		spriteNumber1[2]->SetPosition({ 1180.0, 400 });
-		spriteNumber2[2]->SetPosition({ 1180.0, 400 });
-		spriteNumber3[2]->SetPosition({ 1180.0, 400 });
-		spriteNumber4[2]->SetPosition({ 1180.0, 400 });
-		spriteNumber5[2]->SetPosition({ 1180.0, 400 });
-		spriteNumber6[2]->SetPosition({ 1180.0, 400 });
-		spriteNumber7[2]->SetPosition({ 1180.0, 400 });
-		spriteNumber8[2]->SetPosition({ 1180.0, 400 });
-		spriteNumber9[2]->SetPosition({ 1180.0, 400 });
-
-		spriteNumber0[3]->SetPosition({ 1120.0, 400 });
-		spriteNumber1[3]->SetPosition({ 1120.0, 400 });
-		spriteNumber2[3]->SetPosition({ 1120.0, 400 });
-		spriteNumber3[3]->SetPosition({ 1120.0, 400 });
-		spriteNumber4[3]->SetPosition({ 1120.0, 400 });
-		spriteNumber5[3]->SetPosition({ 1120.0, 400 });
-		spriteNumber6[3]->SetPosition({ 1120.0, 400 });
-		spriteNumber7[3]->SetPosition({ 1120.0, 400 });
-		spriteNumber8[3]->SetPosition({ 1120.0, 400 });
-		spriteNumber9[3]->SetPosition({ 1120.0, 400 });
-
-		spriteNumber0[4]->SetPosition({ 1060.0, 400 });
-		spriteNumber1[4]->SetPosition({ 1060.0, 400 });
-		spriteNumber2[4]->SetPosition({ 1060.0, 400 });
-		spriteNumber3[4]->SetPosition({ 1060.0, 400 });
-		spriteNumber4[4]->SetPosition({ 1060.0, 400 });
-		spriteNumber5[4]->SetPosition({ 1060.0, 400 });
-		spriteNumber6[4]->SetPosition({ 1060.0, 400 });
-		spriteNumber7[4]->SetPosition({ 1060.0, 400 });
-		spriteNumber8[4]->SetPosition({ 1060.0, 400 });
-		spriteNumber9[4]->SetPosition({ 1060.0, 400 });
+		startCountFlag = true;
+		startCount = 0;
+		startCountFlag2 = false;
+		endCountFlag = false;
 
 		titleScroll.x -= 1920 / 100;
 		titleScroll.y += 1080 / 100;
@@ -908,14 +987,14 @@ void GameScene::Update()
 		spriteTitleScroll2->SetPosition({ titlePos2.x + titleScroll.x,titlePos2.y + titleScroll.y });
 		spriteTitleScroll3->SetPosition({ titlePos3.x + titleScroll.x,titlePos3.y + titleScroll.y });
 		spriteTitleScroll4->SetPosition({ titlePos4.x + titleScroll.x,titlePos4.y + titleScroll.y });
-		if (Input::GetInstance()->KeybordTrigger(DIK_LEFT) && bomSceneChange == false)
+		if (Input::GetInstance()->KeybordTrigger(DIK_LEFT) && bomSceneChange3 == false)
 		{
 			audio->PlaySE("Resources/SE/result_select.wav", false);
 			shakeCount = 0;
 			restart = 0;
 			textShake = true;
 		}
-		else if (Input::GetInstance()->KeybordTrigger(DIK_RIGHT ) &&bomSceneChange == false)
+		else if (Input::GetInstance()->KeybordTrigger(DIK_RIGHT ) &&bomSceneChange3 == false)
 		{
 			audio->PlaySE("Resources/SE/result_select.wav", false);
 			shakeCount = 0;
@@ -949,6 +1028,7 @@ void GameScene::Update()
 		}
 		if (restart == 1)
 		{
+			
 			if (textShake)
 			{
 				XMFLOAT2 shakeValue;
@@ -975,7 +1055,7 @@ void GameScene::Update()
 
 		if (Input::GetInstance()->KeybordTrigger(DIK_SPACE) && restart == 1 && bomSceneChange == false)
 		{
-			scene = TITLE;
+			//scene = TITLE;
 			audio->PlaySE("Resources/SE/title_dicided.wav", false);
 			pos = { 954.03,532.74 };
 			size = { 8.47,10.3 };
@@ -986,101 +1066,9 @@ void GameScene::Update()
 			sceneChangeCount = 0;
 			bomSceneChange2 = true;
 			sceneChangeCount2 = 0;
-			spriteBom->SetPosition(pos);
-			spriteBom->SetSize(size);
-			spriteBom2->SetPosition(pos2);
-			spriteBom2->SetSize(size2);
+			bomSceneChange4 = false;
+			sceneChangeCount4 = 0;
 
-			map->InitializeValue();
-			player->InitializeValue();
-			//enemy->EndInitialize();
-			audio->StopBGM();
-			audio->PlayBGM("Resources/BGM/title_bgm.wav", true);
-			spriteNumber0s->SetPosition({ 1660.0, 200 });
-			spriteNumber0[0]->SetPosition({ 1600.0, 200 });
-			spriteNumber0[1]->SetPosition({ 1540.0, 200 });
-
-			spriteNumber0[2]->SetPosition({ 1480.0, 200 });
-			spriteNumber1[2]->SetPosition({ 1480.0, 200 });
-			spriteNumber2[2]->SetPosition({ 1480.0, 200 });
-			spriteNumber3[2]->SetPosition({ 1480.0, 200 });
-			spriteNumber4[2]->SetPosition({ 1480.0, 200 });
-			spriteNumber5[2]->SetPosition({ 1480.0, 200 });
-			spriteNumber6[2]->SetPosition({ 1480.0, 200 });
-			spriteNumber7[2]->SetPosition({ 1480.0, 200 });
-			spriteNumber8[2]->SetPosition({ 1480.0, 200 });
-			spriteNumber9[2]->SetPosition({ 1480.0, 200 });
-
-			spriteNumber0[3]->SetPosition({ 1420.0, 200 });
-			spriteNumber1[3]->SetPosition({ 1420.0, 200 });
-			spriteNumber2[3]->SetPosition({ 1420.0, 200 });
-			spriteNumber3[3]->SetPosition({ 1420.0, 200 });
-			spriteNumber4[3]->SetPosition({ 1420.0, 200 });
-			spriteNumber5[3]->SetPosition({ 1420.0, 200 });
-			spriteNumber6[3]->SetPosition({ 1420.0, 200 });
-			spriteNumber7[3]->SetPosition({ 1420.0, 200 });
-			spriteNumber8[3]->SetPosition({ 1420.0, 200 });
-			spriteNumber9[3]->SetPosition({ 1420.0, 200 });
-
-			spriteNumber0[4]->SetPosition({ 1360.0, 200 });
-			spriteNumber1[4]->SetPosition({ 1360.0, 200 });
-			spriteNumber2[4]->SetPosition({ 1360.0, 200 });
-			spriteNumber3[4]->SetPosition({ 1360.0, 200 });
-			spriteNumber4[4]->SetPosition({ 1360.0, 200 });
-			spriteNumber5[4]->SetPosition({ 1360.0, 200 });
-			spriteNumber6[4]->SetPosition({ 1360.0, 200 });
-			spriteNumber7[4]->SetPosition({ 1360.0, 200 });
-			spriteNumber8[4]->SetPosition({ 1360.0, 200 });
-			spriteNumber9[4]->SetPosition({ 1360.0, 200 });
-		}
-
-		if (Input::GetInstance()->KeybordTrigger(DIK_SPACE) && restart == 0 && bomSceneChange == false)
-		{
-			spriteNumber0s->SetPosition({ 1660.0, 200 });
-			spriteNumber0[0]->SetPosition({ 1600.0, 200 });
-			spriteNumber0[1]->SetPosition({ 1540.0, 200 });
-	
-			spriteNumber0[2]->SetPosition({ 1480.0, 200 });
-			spriteNumber1[2]->SetPosition({ 1480.0, 200 });
-			spriteNumber2[2]->SetPosition({ 1480.0, 200 });
-			spriteNumber3[2]->SetPosition({ 1480.0, 200 });
-			spriteNumber4[2]->SetPosition({ 1480.0, 200 });
-			spriteNumber5[2]->SetPosition({ 1480.0, 200 });
-			spriteNumber6[2]->SetPosition({ 1480.0, 200 });
-			spriteNumber7[2]->SetPosition({ 1480.0, 200 });
-			spriteNumber8[2]->SetPosition({ 1480.0, 200 });
-			spriteNumber9[2]->SetPosition({ 1480.0, 200 });
-
-			spriteNumber0[3]->SetPosition({ 1420.0, 200 });
-			spriteNumber1[3]->SetPosition({ 1420.0, 200 });
-			spriteNumber2[3]->SetPosition({ 1420.0, 200 });
-			spriteNumber3[3]->SetPosition({ 1420.0, 200 });
-			spriteNumber4[3]->SetPosition({ 1420.0, 200 });
-			spriteNumber5[3]->SetPosition({ 1420.0, 200 });
-			spriteNumber6[3]->SetPosition({ 1420.0, 200 });
-			spriteNumber7[3]->SetPosition({ 1420.0, 200 });
-			spriteNumber8[3]->SetPosition({ 1420.0, 200 });
-			spriteNumber9[3]->SetPosition({ 1420.0, 200 });
-
-			spriteNumber0[4]->SetPosition({ 1360.0, 200 });
-		    spriteNumber1[4]->SetPosition({ 1360.0, 200 });
-		    spriteNumber2[4]->SetPosition({ 1360.0, 200 });
-		    spriteNumber3[4]->SetPosition({ 1360.0, 200 });
-		    spriteNumber4[4]->SetPosition({ 1360.0, 200 });
-		    spriteNumber5[4]->SetPosition({ 1360.0, 200 });
-		    spriteNumber6[4]->SetPosition({ 1360.0, 200 });
-		    spriteNumber7[4]->SetPosition({ 1360.0, 200 });
-		    spriteNumber8[4]->SetPosition({ 1360.0, 200 });
-		    spriteNumber9[4]->SetPosition({ 1360.0, 200 });
-
-			pos = { 954.03,532.74 };
-			size = { 8.47,10.3 };
-			pos2 = { -800,-1625 };
-			size2 = { 3560,4330 };
-			bomSceneChange = false;
-			sceneChangeCount = 0;
-			bomSceneChange2 = true;
-			sceneChangeCount2 = 0;
 			spriteBom->SetPosition(pos);
 			spriteBom->SetSize(size);
 			spriteBom2->SetPosition(pos2);
@@ -1089,12 +1077,40 @@ void GameScene::Update()
 			map->InitializeValue();
 			player->InitializeValue();
 			enemy->EndInitialize();
-			bomSceneChange = true;
+			enemy->Update(player, map, startCountFlag);
+			audio->StopBGM();
+			audio->PlayBGM("Resources/BGM/title_bgm.wav", true);
+			bomSceneChange3 = true;
+		}
+
+		if (Input::GetInstance()->KeybordTrigger(DIK_SPACE) && restart == 0 && bomSceneChange3 == false)
+		{
+			pos = { 954.03,532.74 };
+			size = { 8.47,10.3 };
+			pos2 = { -800,-1625 };
+			size2 = { 3560,4330 };
+			bomSceneChange = false;
+			sceneChangeCount = 0;
+			bomSceneChange2 = true;
+			sceneChangeCount2 = 0;
+			bomSceneChange4 = false;
+			sceneChangeCount4 = 0;
+
+			spriteBom->SetPosition(pos);
+			spriteBom->SetSize(size);
+			spriteBom2->SetPosition(pos2);
+			spriteBom2->SetSize(size2);
+
+			map->InitializeValue();
+			player->InitializeValue();
+			enemy->EndInitialize();
+			enemy->Update(player, map, startCountFlag);
+			bomSceneChange3 = true;
 			
 		}
-		if (bomSceneChange == true)
+		if (bomSceneChange3 == true)
 		{
-			sceneChangeCount++;
+			sceneChangeCount3++;
 			for (int i = 0; i < 12; i++)
 			{
 				size.x += size.x / 100;
@@ -1106,11 +1122,20 @@ void GameScene::Update()
 			spriteBom->SetPosition(pos);
 			spriteBom->SetSize(size);
 
-			if (sceneChangeCount > 60)
+			if (sceneChangeCount3 > 60)
 			{
 				audio->StopBGM();
 				audio->PlayBGM("Resources/BGM/game_bgm.wav", true);
-				scene = PLAY;
+				
+				if (restart == 1)
+				{
+					bomSceneChange4 = true;
+					scene = TITLE;
+				}
+				if (restart == 0)
+				{
+					scene = PLAY;
+				}
 			}
 		}
 	}
@@ -1178,6 +1203,15 @@ void GameScene::Draw()
 			spriteText2->Draw();
 		}
 		if (bomSceneChange == true)
+		{
+			spriteBom->Draw();
+		}
+		
+		if (bomSceneChange4 == true)
+		{
+			spriteBom2->Draw();
+		}
+		if (bomSceneChange3 == true)
 		{
 			spriteBom->Draw();
 		}
@@ -1308,21 +1342,22 @@ void GameScene::Draw()
 			spriteNumber3[0]->Draw();
 		}
 
-		if (startCount2 < 180 && startCount2 > 120)
+		if(endCountFlag==true)
 		{
-			spriteNumber1[0]->Draw();
+			if (player->GetPlayCount() / 60 == 3)
+			{
+				spriteNumber3[0]->Draw();
+			}
+			else if (player->GetPlayCount() / 60 == 2)
+			{
+				spriteNumber2[0]->Draw();
+			}
+			else if (player->GetPlayCount() / 60 == 1)
+			{
+				spriteNumber1[0]->Draw();
+	
+			}
 		}
-		else if (startCount2 < 120 && startCount2 > 60)
-		{
-			spriteNumber2[0]->Draw();
-		}
-		else if (startCount2 < 60 && startCount2 > 0)
-		{
-			spriteNumber3[0]->Draw();
-		
-		
-		}
-		
 	}
 	if (scene == CLEAR)
 	{
@@ -1338,15 +1373,58 @@ void GameScene::Draw()
 			spriteClearTextR1->Draw();
 			spriteClearTextL2->Draw();
 		}
+		debugText.Print(20, 60, 2.0f, "epos :  %d %d %d", enemy->GetScore() / 100000, enemy->GetScore() / 10000, enemy->GetScore() / 1000);
 		spriteNumber0s->Draw();
-		spriteNumber0[0]->Draw();
-		spriteNumber0[1]->Draw();
+		if (enemy->GetScore() != 0)
+		{
+			spriteNumber0[0]->Draw();
+			spriteNumber0[1]->Draw();
+		}
+		if (1000 <= enemy->GetScore())
+		{
+			if (score1 - 10 * score2 == 0) { spriteNumber0[2]->Draw(); }
+			if (score1 - 10 * score2 == 1) { spriteNumber1[2]->Draw(); }
+			if (score1 - 10 * score2 == 2) { spriteNumber2[2]->Draw(); }
+			if (score1 - 10 * score2 == 3) { spriteNumber3[2]->Draw(); }
+			if (score1 - 10 * score2 == 4) { spriteNumber4[2]->Draw(); }
+			if (score1 - 10 * score2 == 5) { spriteNumber5[2]->Draw(); }
+			if (score1 - 10 * score2 == 6) { spriteNumber6[2]->Draw(); }
+			if (score1 - 10 * score2 == 7) { spriteNumber7[2]->Draw(); }
+			if (score1 - 10 * score2 == 8) { spriteNumber8[2]->Draw(); }
+			if (score1 - 10 * score2 == 9) { spriteNumber9[2]->Draw(); }
+		}
+		if (10000 <= enemy->GetScore())
+		{
+			if (score2 - 10 * score3 == 0) { spriteNumber0[3]->Draw(); }
+			if (score2 - 10 * score3 == 1) { spriteNumber1[3]->Draw(); }
+			if (score2 - 10 * score3 == 2) { spriteNumber2[3]->Draw(); }
+			if (score2 - 10 * score3 == 3) { spriteNumber3[3]->Draw(); }
+			if (score2 - 10 * score3 == 4) { spriteNumber4[3]->Draw(); }
+			if (score2 - 10 * score3 == 5) { spriteNumber5[3]->Draw(); }
+			if (score2 - 10 * score3 == 6) { spriteNumber6[3]->Draw(); }
+			if (score2 - 10 * score3 == 7) { spriteNumber7[3]->Draw(); }
+			if (score2 - 10 * score3 == 8) { spriteNumber8[3]->Draw(); }
+			if (score2 - 10 * score3 == 9) { spriteNumber9[3]->Draw(); }
+		}
+		if (100000 <= enemy->GetScore())
+		{
+			if (score3 == 0) { spriteNumber0[4]->Draw(); }
+			if (score3 == 1) { spriteNumber1[4]->Draw(); }
+			if (score3 == 2) { spriteNumber2[4]->Draw(); }
+			if (score3 == 3) { spriteNumber3[4]->Draw(); }
+			if (score3 == 4) { spriteNumber4[4]->Draw(); }
+			if (score3 == 5) { spriteNumber5[4]->Draw(); }
+			if (score3 == 6) { spriteNumber6[4]->Draw(); }
+			if (score3 == 7) { spriteNumber7[4]->Draw(); }
+			if (score3 == 8) { spriteNumber8[4]->Draw(); }
+			if (score3 == 9) { spriteNumber9[4]->Draw(); }
+		}
 		if (restart == 1)
 		{
 			spriteClearTextR2->Draw();
 			spriteClearTextL1->Draw();
 		}
-		if (bomSceneChange == true)
+		if (bomSceneChange3 == true)
 		{
 			spriteBom->Draw();
 		}
