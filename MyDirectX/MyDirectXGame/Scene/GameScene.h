@@ -183,14 +183,15 @@ private: // ÉÅÉìÉoïœêî
 	XMFLOAT2 pos2 = { -800,-1625 };
 	XMFLOAT2 size2 = { 3560,4330 };
 
-	int rogoTimer = 120;
+	int rogoTimer = 240;
 	XMFLOAT2 rogoSize{};
+	float rogoRot{};
 
 	bool text1Draw = false;
 	int  textCount = 0;
 
-	bool bomSceneChangeRogo = false;
-	int sceneChangeCountRogo = 0;
+	bool rogoSceneChange = false;
+	int rogoSceneChangeCount = 30;
 	bool bomSceneChange = false;
 	int sceneChangeCount = 0;
 	bool bomSceneChange2 = true;
