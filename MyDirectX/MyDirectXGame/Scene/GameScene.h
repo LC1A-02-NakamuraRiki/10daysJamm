@@ -126,6 +126,8 @@ private: // ƒƒ“ƒo•Ï”
 
 	Sprite* spritePlayScore = nullptr;
 
+	Sprite* spriteScorePluse = nullptr;
+
 	Sprite* spriteRogo = nullptr;
 	Sprite* spriteRogoBG = nullptr;
 
@@ -168,6 +170,8 @@ private: // ƒƒ“ƒo•Ï”
 
 	XMFLOAT2 titleSize = { 1920,1080 };
 
+	XMFLOAT2 scorePlusePos = { 1160.0, 250 };
+	bool scorePluse = 0;
 	int titleTextPatern1 = 0;
 	int titleTextCount1 = 0;
 
@@ -197,18 +201,24 @@ private: // ƒƒ“ƒo•Ï”
 	bool bomSceneChange2 = true;
 	int sceneChangeCount2 = 0;
 
+	bool bomSceneChange3 = false;
+	int sceneChangeCount3 = 0;
+
+	bool bomSceneChange4 = false;
+	int sceneChangeCount4 = 0;
+
 	bool startCountFlag = true;
 	int startCount = 0;
 	bool startCountFlag2 = false;
 
-	int startCount2 = 0;
+	bool endCountFlag = 0;
 
 	int restart = 1;
 
 	int score1 = 0;
 	int score2 = 0;
 	int score3 = 0;
-
+	int score4 = 0;
 	int time1 = 0;
 	int time2 = 0;
 	int time3 = 0;
