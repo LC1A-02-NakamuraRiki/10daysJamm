@@ -46,9 +46,14 @@ public:
 	int GetScore() { return score; }
 	int GetWave() { return wave; }
 
-	bool GetScorePluse() { return scorePluse; }
-	bool SetScorePluse() { return scorePluse = false; }
+	bool GetScorePluse(int i) { return scorePluse[i]; }
+	bool SetScorePluse(int i) { return scorePluse[i] = false; }
 
+	bool GetFireScorePluse() { return scoreFirePluse; }
+	bool SetFireScorePluse() { return scoreFirePluse = false; }
+
+	bool GetTimePluse() { return timePluse; }
+	bool SetTimePluse() { return timePluse = false; }
 private:
 	const int MapValue = 12;//マップサイズ
 	const int enemyMaxNo = 12;
@@ -82,6 +87,10 @@ private:
 
 	int lane[12] = { 0,0,0,0,0,0,0,0,0,0,0,0 };
 	
-	bool scorePluse = false;
+	bool scorePluse[8] = { false,false,false,false,false,false,false,false };
+
+	bool scoreFirePluse = false;
+
+	bool timePluse = false;
 };
 
