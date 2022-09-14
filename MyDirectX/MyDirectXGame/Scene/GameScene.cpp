@@ -255,6 +255,16 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Sound* audio)
 		assert(0);
 		return;
 	}
+
+	if (!Sprite::LoadTexture(65, L"Resources/rogo.png")) {
+		assert(0);
+		return;
+	}
+	if (!Sprite::LoadTexture(66, L"Resources/black1x1.png")) {
+		assert(0);
+		return;
+	}
+
 	//// 背景スプライト生成
 	spriteBom = Sprite::Create(21, { 0.0f,0.0f });
 	spriteBom2 = Sprite::Create(21, { 0.0f,0.0f });
@@ -609,6 +619,15 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Sound* audio)
 	spriteTimeMinus->SetSize({ 150.0f,103.0f });
 	spriteTimeMinus->SetPosition({ 1260.0, 300 });
 
+	spriteRogo = Sprite::Create(65, { 0.0f,0.0f });
+	spriteRogo->SetAnchorPoint({ 0.5f, 0.5f });
+	spriteRogo->SetSize({ 1920.0f,1080.0f });
+	spriteRogo->SetPosition({ 1920.0f / 2,1080.0f / 2 });
+
+	spriteRogoBG = Sprite::Create(66, { 0.0f,0.0f });
+	spriteRogoBG->SetAnchorPoint({ 0.5f, 0.5f });
+	spriteRogoBG->SetSize({ 1920.0f,1080.0f });
+	spriteRogoBG->SetPosition({ 1920.0f / 2,1080.0f / 2 });
 	// 3Dオブジェクト生成
 	modelSkydome = Model::CreateFromObject("skydome", false);
 	objSkydome = Object3d::Create(modelSkydome);
@@ -725,8 +744,49 @@ void GameScene::Update()
 {
 	//debugText.Print(20, 60, 2.0f, "epos : %d %d %d %d", enemy->GetScore(),enemy->GetScore() / 10000, enemy->GetScore() / 1000, enemy->GetScore() / 100);
 	//debugText.Print(20, 20, 2.0f, "END : ESC");
-	if (scene == TITLE)
+	if (scene == ROGO)
 	{
+		spriteRogo->SetSize(rogoSize);
+		spriteRogo->SetRotation(rogoRot);
+
+		rogoSize.x += 1920 / 30;
+		rogoSize.y += 1080 / 30;
+		rogoRot += 72;
+
+		if (rogoSize.x >= 1920 || rogoSize.y >= 1080)
+		{
+			rogoSize.x = 1920;
+			rogoSize.y = 1080;
+			rogoRot = 0;
+		}
+
+		audio->StopBGM();
+		rogoTimer--;
+
+		if (rogoTimer <= 0)
+		{
+			scene = TITLE;
+			audio->PlayBGM("Resources/BGM/title_bgm.wav", true);
+			rogoSceneChange = true;
+		}
+	}
+else if (scene == TITLE)
+	{
+		if (rogoSceneChange == true)
+		{
+			spriteRogo->SetSize(rogoSize);
+			spriteRogoBG->SetSize(rogoSize);
+
+			rogoSize.x -= 1920 / 30;
+			rogoSize.y -= 1080 / 30;
+			rogoSceneChangeCount--;
+
+			if (rogoSceneChangeCount <= 0)
+			{
+				rogoSceneChange = false;
+			}
+		}
+
 		if (bomSceneChange4 == true)
 		{
 			sceneChangeCount4++;
@@ -1439,7 +1499,11 @@ void GameScene::Draw()
 	//// 前景スプライト描画前処理
 	Sprite::PreDraw(cmdList);
 	//-------------------------------------------------------------//
-
+	if (scene == ROGO)
+	{
+		spriteRogoBG->Draw();
+		spriteRogo->Draw();
+	}
 	if (scene == TITLE)
 	{
 
@@ -1461,7 +1525,11 @@ void GameScene::Draw()
 		{
 			spriteBom->Draw();
 		}
-		
+		if (rogoSceneChange == true)
+		{
+			spriteRogoBG->Draw();
+			spriteRogo->Draw();
+		}
 		if (bomSceneChange4 == true)
 		{
 			spriteBom2->Draw();
