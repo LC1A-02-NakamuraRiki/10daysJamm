@@ -126,7 +126,12 @@ private: // ÉÅÉìÉoïœêî
 
 	Sprite* spritePlayScore = nullptr;
 
-	Sprite* spriteScorePluse = nullptr;
+	Sprite* spriteFireScorePluse = nullptr;
+
+	Sprite* spriteScorePluse[8] = { nullptr,nullptr,nullptr,nullptr,nullptr,nullptr,nullptr,nullptr };
+
+	Sprite* spriteTimePluse = nullptr;
+	Sprite* spriteTimeMinus = nullptr;
 
 	Sprite* spriteRogo = nullptr;
 	Sprite* spriteRogoBG = nullptr;
@@ -170,8 +175,18 @@ private: // ÉÅÉìÉoïœêî
 
 	XMFLOAT2 titleSize = { 1920,1080 };
 
-	XMFLOAT2 scorePlusePos = { 1160.0, 250 };
-	bool scorePluse = 0;
+	XMFLOAT2 scorePlusePos[8] = { {1160.0, 250},{1160.0, 250},{1160.0, 250},{1160.0, 250},{1160.0, 250},{1160.0, 250},{1160.0, 250},{1160.0, 250} };
+	bool scorePluse[8] = { false,false,false,false,false,false,false,false };
+
+	XMFLOAT2 scoreFirePlusePos = { 1160.0, 250 };
+	bool scoreFirePluse = false;
+
+	XMFLOAT2 timePlusePos = { 1160.0, 250 };
+	bool timePluse = false;
+
+	XMFLOAT2 timeMinusPos = { 1160.0, 250 };
+	bool timeMinus = false;
+
 	int titleTextPatern1 = 0;
 	int titleTextCount1 = 0;
 
@@ -190,12 +205,12 @@ private: // ÉÅÉìÉoïœêî
 	int rogoTimer = 240;
 	XMFLOAT2 rogoSize{};
 	float rogoRot{};
+	bool rogoSceneChange = false;
+	int rogoSceneChangeCount = 30;
 
 	bool text1Draw = false;
 	int  textCount = 0;
 
-	bool rogoSceneChange = false;
-	int rogoSceneChangeCount = 30;
 	bool bomSceneChange = false;
 	int sceneChangeCount = 0;
 	bool bomSceneChange2 = true;

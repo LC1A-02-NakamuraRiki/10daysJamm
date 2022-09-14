@@ -5,7 +5,7 @@ using namespace DirectX;
 
 void Player::Initialize(MapChip* map)
 {
-	modelPlayer = Model::CreateFromObject("attacker1", false);
+	modelPlayer = Model::CreateFromObject("player", false);
 
 	objPlayer = Object3d::Create(modelPlayer);
 	objPlayer->SetScale(XMFLOAT3({ 1, 1, 1 }));
@@ -178,7 +178,7 @@ void Player::Move(MapChip* map)
 	if (Input::GetInstance()->KeybordTrigger(DIK_W) && mapY != 8 && map->GetWallFlag(mapX, mapY + 1) != 1 )
 	{
 		pos.z += moveSpeed;// z座標を更新
-		angle.y = 180;
+		angle.y = 180 + 180;
 		for (int i = 0; i < 12; i++)
 		{
 			turnFlag[i] = true;
@@ -189,7 +189,7 @@ void Player::Move(MapChip* map)
 	if (Input::GetInstance()->KeybordTrigger(DIK_A) && mapX != 3 && map->GetWallFlag(mapX - 1, mapY) != 1)
 	{
 		pos.x -= moveSpeed;// x座標を更新
-		angle.y = 90;
+		angle.y = 90 + 180;
 		for (int i = 0; i < 12; i++)
 		{
 			turnFlag[i] = true;
@@ -199,7 +199,7 @@ void Player::Move(MapChip* map)
 	if (Input::GetInstance()->KeybordTrigger(DIK_S) && mapY != 3 && map->GetWallFlag(mapX, mapY - 1) != 1)
 	{
 		pos.z -= moveSpeed;// z座標を更新
-		angle.y = 0;
+		angle.y = 0 + 180;
 		for (int i = 0; i < 12; i++)
 		{
 			turnFlag[i] = true;
@@ -209,7 +209,7 @@ void Player::Move(MapChip* map)
 	if (Input::GetInstance()->KeybordTrigger(DIK_D) && mapX != 8 && map->GetWallFlag(mapX + 1, mapY) != 1)
 	{
 		pos.x += moveSpeed;// x座標を更新
-		angle.y = 270;
+		angle.y = 270 +180;
 		for (int i = 0; i < 12; i++)
 		{
 			turnFlag[i] = true;
@@ -228,6 +228,7 @@ void Player::Move(MapChip* map)
 	if (map->GetWallFlag(mapX, mapY) == 2 && delayFlag == false)
 	{
 		playCount -= 300;
+		timeMinus = true;
 		delayCount = 0;
 		delayFlag =true;
 	}
@@ -239,19 +240,19 @@ void Player::playerAngle()
 {
 	if (Input::GetInstance()->KeybordTrigger(DIK_UP))
 	{
-		angle.y = 180;
+		angle.y = 180 + 180;
 	}
 	else if (Input::GetInstance()->KeybordTrigger(DIK_DOWN))
 	{
-		angle.y = 0;
+		angle.y = 0 + 180;
 	}
 	else if (Input::GetInstance()->KeybordTrigger(DIK_RIGHT))
 	{
-		angle.y = 270;
+		angle.y = 270 + 180;
 	}
 	else if (Input::GetInstance()->KeybordTrigger(DIK_LEFT))
 	{
-		angle.y = 90;
+		angle.y = 90 + 180;
 	}
 	objPlayer->SetRotation(angle);
 }
@@ -261,7 +262,7 @@ void Player::PutBom(MapChip* map)
 
 	if (Input::GetInstance()->KeybordTrigger(DIK_SPACE))
 	{
-		if (angle.y == 180 && map->GetWallFlag(mapX, mapY + 1) != 1)
+		if (angle.y == 180 + 180 && map->GetWallFlag(mapX, mapY + 1) != 1)
 		{
 
 			bomPos[bomNo] = XMFLOAT3({ pos.x, 1.0f,pos.z + 4 });
@@ -274,7 +275,7 @@ void Player::PutBom(MapChip* map)
 			bomAngle[bomNo] = 0;
 		}
 
-		else if (angle.y == 90 && map->GetWallFlag(mapX - 1, mapY) != 1)
+		else if (angle.y == 90 + 180 && map->GetWallFlag(mapX - 1, mapY) != 1)
 		{
 			bomPos[bomNo] = XMFLOAT3({ pos.x - 4, 1.0f,pos.z });
 			for (int j = 0; j < 8; j++)
@@ -285,7 +286,7 @@ void Player::PutBom(MapChip* map)
 			putFlag = true;
 			bomAngle[bomNo] = 3;
 		}
-		else if (angle.y == 0 && map->GetWallFlag(mapX, mapY - 1) != 1)
+		else if (angle.y == +180 && map->GetWallFlag(mapX, mapY - 1) != 1)
 		{
 			bomPos[bomNo] = XMFLOAT3({ pos.x, 1.0f,pos.z - 4 });
 			for (int j = 0; j < 8; j++)
@@ -296,7 +297,7 @@ void Player::PutBom(MapChip* map)
 			putFlag = true;
 			bomAngle[bomNo] = 1;
 		}
-		else if (angle.y == 270 && map->GetWallFlag(mapX + 1, mapY) != 1)
+		else if (angle.y == 270 + 180 && map->GetWallFlag(mapX + 1, mapY) != 1)
 		{
 			bomPos[bomNo] = XMFLOAT3({ pos.x + 4, 1.0f,pos.z });
 			for (int j = 0; j < 8; j++)
@@ -463,6 +464,7 @@ void Player::Explosion(MapChip* map)
 	{
 		if (nowExplosion[i] == true)
 		{
+			fire = true;
 			bomAlive[i] = false;
 		}
 
