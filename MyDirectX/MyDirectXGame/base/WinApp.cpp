@@ -1,7 +1,7 @@
 #include "WinApp.h"
 #include"../resource.h"
 
-const wchar_t WinApp::windowClassName[] = L"ボムバウンド";
+const wchar_t WinApp::windowClassName[] = L"3030_ボムバウンド";
 
 LRESULT WinApp::WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
