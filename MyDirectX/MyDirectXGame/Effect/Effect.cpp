@@ -85,42 +85,45 @@ void Effect::Move(const XMFLOAT3& position, const XMFLOAT4& color)
 	particle->Add(life, pos, vel, acc, start_scale, end_scale, col);
 }
 
-void Effect::Dust(const XMFLOAT3& position)
+void Effect::Burning(const XMFLOAT3& position)
 {
 	//表示される長さ
-	int life = 5;
+	int life = 16;
 
-	//初期位置
-	float rand_range = 8;
-	XMFLOAT3 pos{};
-	pos.x = position.x + (float)((rand() % (int)rand_range) - (int)rand_range / 2) / 5;
-	pos.y = position.y + abs((float)((rand() % (int)rand_range) - (int)rand_range / 2) / 5);
-	pos.z = position.z + (float)((rand() % (int)rand_range) - (int)rand_range / 2) / 5;
+	for (int i = 0; i < 5; i++)
+	{
+		//初期位置
+		float rand_range = 8;
+		XMFLOAT3 pos{};
+		pos.x = position.x + (float)((rand() % (int)rand_range) - (int)rand_range / 2) / 8;
+		pos.y = position.y + abs((float)((rand() % (int)rand_range) - (int)rand_range / 2) / 8);
+		pos.z = position.z + (float)((rand() % (int)rand_range) - (int)rand_range / 2) / 8;
 
-	//速度
-	XMFLOAT3 vel{};
-	vel.x = (float)((rand() % (int)rand_range) - (int)rand_range / 2) / 40;
-	vel.y = abs((float)((rand() % (int)rand_range) - (int)rand_range / 2) / 40);
-	vel.z = (float)((rand() % (int)rand_range) - (int)rand_range / 2) / 40;
+		//速度
+		XMFLOAT3 vel{};
+		vel.x = 0;
+		vel.y = abs((float)((rand() % (int)rand_range) - (int)rand_range / 2) / 10);
+		vel.z = 0;
 
-	//加速度
-	XMFLOAT3 acc{};
-	acc.x = (float)((rand() % (int)rand_range) - (int)rand_range / 2) / 400;
-	acc.y = abs((float)((rand() % (int)rand_range) - (int)rand_range / 2) / 400);
-	acc.z = (float)((rand() % (int)rand_range) - (int)rand_range / 2) / 400;
+		//加速度
+		XMFLOAT3 acc{};
+		acc.x = (float)((rand() % (int)rand_range) - (int)rand_range / 2) / 400;
+		acc.y = abs((float)((rand() % (int)rand_range) - (int)rand_range / 2) / 400);
+		acc.z = (float)((rand() % (int)rand_range) - (int)rand_range / 2) / 400;
 
-	//大きさ
-	float start_scale = 2.5f;
-	float end_scale = 0.0f;
+		//大きさ
+		float start_scale = 2.5f;
+		float end_scale = 0.0f;
 
-	//色
-	XMFLOAT4 col{};
-	col.x = 0.0f;//B
-	col.y = 1.0f;//R
-	col.z = 1.0f;//G
-	col.w = 1.0f;
+		//色
+		XMFLOAT4 col{};
+		col.x = 0.0f;//B
+		col.y = 16.0f;//R
+		col.z = 0.3f;//G
+		col.w = 0.2f;
 
-	particle->Add(life, pos, vel, acc, start_scale, end_scale, col);
+		particle->Add(life, pos, vel, acc, start_scale, end_scale, col);
+	}
 }
 
 void Effect::FireWorks(const XMFLOAT3& position)

@@ -24,7 +24,7 @@ public:
 	static void Explosion(const XMFLOAT3& position);
 
 	//爆風エフェクト
-	static void Dust(const XMFLOAT3& position);
+	static void Burning(const XMFLOAT3& position);
 
 	//移動エフェクト
 	static void Move(const XMFLOAT3& position, const XMFLOAT4& color);

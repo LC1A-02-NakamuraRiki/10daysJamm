@@ -218,6 +218,7 @@ void Player::Move(MapChip* map)
 	}
 	if (delayFlag)
 	{
+		if(map->GetWallFlag(mapX, mapY) == 2) Effect::Burning(pos);//燃えるエフェクト
 		delayCount++;
 	}
 	if (delayCount > 120)

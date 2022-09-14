@@ -83,5 +83,8 @@ private:
 	int lane[12] = { 0,0,0,0,0,0,0,0,0,0,0,0 };
 	
 	bool scorePluse = false;
+
+	int effectTimer[12]{};
+	XMFLOAT3 effectPos[12]{};
 };
 

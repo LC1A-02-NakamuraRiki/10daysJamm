@@ -121,6 +121,17 @@ void Enemy::Update(Player* player, MapChip* mapChip, bool strat)
 		}
 		Explosion(player, mapChip);
 		objEnemy[enemyNo]->SetRotation(angle[enemyNo]);
+
+		//燃えるエフェクト
+		if (effectTimer[enemyNo] > 0)
+		{
+			Effect::Burning(effectPos[enemyNo]);
+			effectTimer[enemyNo]--;
+		}
+		if (effectTimer[enemyNo] < 0)
+		{
+			effectTimer[enemyNo] = 0;
+		}
 	}
 
 	if (killCount > 25) 
@@ -857,6 +868,10 @@ void Enemy::EnemyFire(MapChip* mapChip)
 			mapX = (pos[i].x / 4) + ((12 + 1) / 2);
 			if (mapChip->GetWallFlag(mapX, mapY) == 2)
 			{
+				//エフェクト用変数設定
+				effectTimer[i] = 10;
+				effectPos[i] = pos[i];
+
 				pos[i] = { 500.0f,0.0f,0.0f };//プレイヤーの位置
 				objEnemy[i]->SetPosition(pos[i]);
 				enemyDead[i] = true;
