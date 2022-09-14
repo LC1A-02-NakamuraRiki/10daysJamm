@@ -710,10 +710,6 @@ void GameScene::Update()
 			}
 		}
 
-	//debugText.Print(20, 60, 2.0f, "epos : %d %d %d %d", enemy->GetScore(),enemy->GetScore() / 10000, enemy->GetScore() / 1000, enemy->GetScore() / 100);
-	//debugText.Print(20, 20, 2.0f, "END : ESC");
-	if (scene == TITLE)
-	{
 		if (bomSceneChange4 == true)
 		{
 			sceneChangeCount4++;
@@ -1382,7 +1378,6 @@ void GameScene::Draw()
 			spriteRogoBG->Draw();
 			spriteRogo->Draw();
 		}
-	}
 		
 		if (bomSceneChange4 == true)
 		{
