@@ -55,7 +55,6 @@ public:
 	int GetLv(int no) { return bomLv[no]; }
 	int SetEffectTimer(int no) { return effectTimer[no] = 10; }
 	bool SetWallFlag(int No) { return wallFlag[No] = false; }
-
 	void SetBomEffectMode(int num, int mode);
 	void BomEffect(int num);
 private:
@@ -95,8 +94,10 @@ private:
 	bool fire = false;
 
 	XMFLOAT3 effectPos[20]{};//爆発エフェクト用
-	int effectTimer[20]{};
-	int effectMode[20]{};
+	int effectTimer[20] = { 0, 0, 0 ,0,0, 0, 0 ,0, 0, 0, 0 ,0, 0, 0, 0 ,0, 0, 0, 0 ,0};
+	bool effectFlag[20] = { false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false };
 
-	bool wallFlag[20]{};
+	bool wallFlag[20] = { false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false };
+
+	int effectMode[20]{};
 };
