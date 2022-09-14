@@ -391,6 +391,7 @@ void Enemy::Explosion(Player* player, MapChip* mapChip)
 					player->SetWallFlag(i);
 					score += 1000;
 					scorePluse[0] = true;
+					direct = true;
 					//player->SetPlayCount();
 					killCount++;
 					pos[enemyNo] = { 500.0f,0.0f,0.0f };//プレイヤーの位置

@@ -1,4 +1,5 @@
 #include "WinApp.h"
+#include"../resource.h"
 
 const wchar_t WinApp::windowClassName[] = L"ボムバウンド";
 
@@ -23,6 +24,9 @@ void WinApp::Initialize()
 	w.lpszClassName = windowClassName; // ウィンドウクラス名
 	w.hInstance = GetModuleHandle(nullptr); // ウィンドウハンドル
 	w.hCursor = LoadCursor(NULL, IDC_ARROW); // カーソル指定
+
+	w.hIcon = LoadIcon(w.hInstance, MAKEINTRESOURCE(IDI_ICON1));
+	w.hIconSm = LoadIcon(w.hInstance, MAKEINTRESOURCE(IDI_ICON1));
 
 	// ウィンドウクラスをOSに登録
 	RegisterClassEx(&w);

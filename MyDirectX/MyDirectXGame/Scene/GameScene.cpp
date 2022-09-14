@@ -664,7 +664,7 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Sound* audio)
 	enemy->Initialize(1, 0, 0, 9);
 	enemy->Initialize(2, 0, 0, 10);
 	enemy->Initialize(3, 0, 0, 11);
-	audio->PlayBGM("Resources/BGM/title_bgm.wav", true);
+	//audio->PlayBGM("Resources/BGM/title_bgm.wav", true);
 	
 	spriteNumber0[2]->SetSize({ 60.0f,120.0f });
 	spriteNumber1[2]->SetSize({ 60.0f,120.0f });
@@ -736,8 +736,8 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Sound* audio)
 	spriteNumber7[8]->SetSize({ 60.0f,120.0f });
 	spriteNumber8[8]->SetSize({ 60.0f,120.0f });
 	spriteNumber9[8]->SetSize({ 60.0f,120.0f });
-
 	
+	audio->PlaySE("Resources/SE/rogo_scene.wav", false);
 }
 
 void GameScene::Update()
@@ -759,8 +759,8 @@ void GameScene::Update()
 			rogoSize.y = 1080;
 			rogoRot = 0;
 		}
-
-		audio->StopBGM();
+		
+		//audio->StopBGM();
 		rogoTimer--;
 
 		if (rogoTimer <= 0)
@@ -1020,8 +1020,18 @@ else if (scene == TITLE)
 				
 			}
 		}
+		if (enemy->GetDirect() == true)
+		{
+			audio->PlaySE("Resources/SE/game_fire2.wav", false);
+			enemy->SetDirect();
+		}
 
-		
+		if (player->GetthrowFlag() == true)
+		{
+			audio->PlaySE("Resources/SE/game_throw.wav", false);
+			player->SetthrowFlag();
+		}
+
 		if (enemy->GetFireScorePluse())
 		{
 			scoreFirePluse = true;
@@ -1199,6 +1209,20 @@ else if (scene == TITLE)
 			spriteNumber7[5]->SetPosition({ 740.0, 300 });
 			spriteNumber8[5]->SetPosition({ 740.0, 300 });
 			spriteNumber9[5]->SetPosition({ 740.0, 300 });
+			for (int i = 0; i < 8; i++)
+			{
+				scorePlusePos[i] = { 1160.0, 250 };
+				scorePluse[i] = false;
+			}
+			scoreFirePlusePos = { 1160.0, 250 };
+			scoreFirePluse = false;
+
+			timePlusePos = { 1160.0, 250 };
+			timePluse = false;
+
+			timeMinusPos = { 1160.0, 250 };
+			timeMinus = false;
+
 			bomSceneChange = false;
 			sceneChangeCount = 0;
 

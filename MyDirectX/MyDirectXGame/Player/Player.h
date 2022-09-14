@@ -48,6 +48,8 @@ public:
 	bool SetExplosionT(int No) { return nowExplosion[No] = true; }
 	bool GetFire() { return fire; }
 	bool SetFire() { return fire = false; }
+	bool GetthrowFlag() { return throwFlag; }
+	bool SetthrowFlag() { return throwFlag = false; }
 	bool GetMove() { return move; }
 	bool SetMove() { return move = false; }
 	bool GetTimeMinus() { return timeMinus; }
@@ -107,4 +109,6 @@ private:
 	int delayCount = 0;
 
 	bool timeMinus = false;
+
+	bool throwFlag = false;
 };

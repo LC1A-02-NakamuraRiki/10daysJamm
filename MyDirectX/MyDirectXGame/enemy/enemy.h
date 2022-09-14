@@ -54,6 +54,9 @@ public:
 
 	bool GetTimePluse() { return timePluse; }
 	bool SetTimePluse() { return timePluse = false; }
+
+	bool GetDirect() { return direct; }
+	bool SetDirect() { return direct = false; }
 private:
 	const int MapValue = 12;//マップサイズ
 	const int enemyMaxNo = 12;
@@ -95,5 +98,7 @@ private:
 
 	int effectTimer[12]{};
 	XMFLOAT3 effectPos[12]{};
+
+	bool direct = false;
 };
 

@@ -80,7 +80,7 @@ void Player::InitializeValue()
 	objPlayer->SetScale(XMFLOAT3({ 1, 1, 1 }));
 	pos = XMFLOAT3({ 5 * 4.0f - (MapValue * 4.0f / 2) + 2, 2.0f, 3 * 4.0f - (MapValue * 4.0f / 2) + 2 });
 	objPlayer->SetPosition(pos);
-
+	objPlayer->SetRotation({angle.x,angle.y+180,angle.z});
 
 	for (int j = 0; j < 8; j++)
 	{
@@ -179,6 +179,7 @@ void Player::Move(MapChip* map)
 	{
 		pos.z += moveSpeed;// z座標を更新
 		angle.y = 180 + 180;
+		objPlayer->SetRotation(angle);
 		for (int i = 0; i < 12; i++)
 		{
 			turnFlag[i] = true;
@@ -190,6 +191,7 @@ void Player::Move(MapChip* map)
 	{
 		pos.x -= moveSpeed;// x座標を更新
 		angle.y = 90 + 180;
+		objPlayer->SetRotation(angle);
 		for (int i = 0; i < 12; i++)
 		{
 			turnFlag[i] = true;
@@ -200,6 +202,7 @@ void Player::Move(MapChip* map)
 	{
 		pos.z -= moveSpeed;// z座標を更新
 		angle.y = 0 + 180;
+		objPlayer->SetRotation(angle);
 		for (int i = 0; i < 12; i++)
 		{
 			turnFlag[i] = true;
@@ -210,6 +213,7 @@ void Player::Move(MapChip* map)
 	{
 		pos.x += moveSpeed;// x座標を更新
 		angle.y = 270 +180;
+		objPlayer->SetRotation(angle);
 		for (int i = 0; i < 12; i++)
 		{
 			turnFlag[i] = true;
@@ -233,7 +237,7 @@ void Player::Move(MapChip* map)
 		delayFlag =true;
 	}
 	objPlayer->SetPosition(pos);
-	objPlayer->SetRotation(angle);
+	
 }
 
 void Player::playerAngle()
@@ -241,20 +245,24 @@ void Player::playerAngle()
 	if (Input::GetInstance()->KeybordTrigger(DIK_UP))
 	{
 		angle.y = 180 + 180;
+		objPlayer->SetRotation(angle);
 	}
 	else if (Input::GetInstance()->KeybordTrigger(DIK_DOWN))
 	{
 		angle.y = 0 + 180;
+		objPlayer->SetRotation(angle);
 	}
 	else if (Input::GetInstance()->KeybordTrigger(DIK_RIGHT))
 	{
 		angle.y = 270 + 180;
+		objPlayer->SetRotation(angle);
 	}
 	else if (Input::GetInstance()->KeybordTrigger(DIK_LEFT))
 	{
 		angle.y = 90 + 180;
+		objPlayer->SetRotation(angle);
 	}
-	objPlayer->SetRotation(angle);
+	
 }
 
 void Player::PutBom(MapChip* map)
@@ -311,6 +319,7 @@ void Player::PutBom(MapChip* map)
 
 		if (putFlag == true)
 		{
+			throwFlag = true;
 			if (bomNo != 19)
 			{
 				bomNo++;

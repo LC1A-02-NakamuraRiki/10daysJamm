@@ -292,8 +292,15 @@
     <ClInclude Include="input\Mouse.h" />
     <ClInclude Include="Map\MapChip.h" />
     <ClInclude Include="Player\Player.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Scene\GameScene.h" />
     <ClInclude Include="Sound\Sound.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MyDirectXGame.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
