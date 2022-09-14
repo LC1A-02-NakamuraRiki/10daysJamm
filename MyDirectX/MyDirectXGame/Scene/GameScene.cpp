@@ -194,6 +194,14 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Sound* audio)
 		assert(0);
 		return;
 	}
+	if (!Sprite::LoadTexture(45, L"Resources/rogo.png")) {
+		assert(0);
+		return;
+	}
+	if (!Sprite::LoadTexture(46, L"Resources/black1x1.png")) {
+		assert(0);
+		return;
+	}
 	//// 背景スプライト生成
 	spriteBom = Sprite::Create(21, { 0.0f,0.0f });
 	spriteBom2 = Sprite::Create(21, { 0.0f,0.0f });
@@ -498,6 +506,15 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Sound* audio)
 	spritePlayScore->SetSize({ 343.0f,103.0f });
 	spritePlayScore->SetPosition({ 1460.0, 100 });
 
+	spriteRogo = Sprite::Create(45, { 0.0f,0.0f });
+	spriteRogo->SetAnchorPoint({ 0.5f, 0.5f });
+	spriteRogo->SetSize({ 1920.0f,1080.0f });
+	spriteRogo->SetPosition({ 1920.0f / 2,1080.0f / 2 });
+
+	spriteRogoBG = Sprite::Create(46, { 0.0f,0.0f });
+	spriteRogoBG->SetSize({ 1920.0f,1080.0f });
+	spriteRogoBG->SetPosition({ 0.0f, 0.0f });
+
 	// 3Dオブジェクト生成
 
 	modelSkydome = Model::CreateFromObject("skydome", false);
@@ -541,7 +558,51 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Sound* audio)
 void GameScene::Update()
 {
 	debugText.Print(20, 20, 2.0f, "END : ESC");
-	if (scene == TITLE)
+	if (scene == ROGO)
+	{
+		spriteRogo->SetSize(rogoSize);
+
+		rogoSize.x += 1920 / 30;
+		rogoSize.y += 1080 / 30;
+
+		if(rogoSize.x >= 1920 || rogoSize.y >= 1080)
+		{
+			rogoSize.x = 1920;
+			rogoSize.y = 1080;
+		}
+
+		audio->StopBGM();
+		rogoTimer--;
+
+		if (rogoTimer <= 0)
+		{
+			scene = TITLE;
+			audio->PlayBGM("Resources/BGM/title_bgm.wav", true);
+
+			//bomSceneChangeRogo = true;
+		}
+		//if (bomSceneChangeRogo == true)
+		//{
+		//	sceneChangeCountRogo++;
+		//	for (int i = 0; i < 12; i++)
+		//	{
+		//		size.x += size.x / 100;
+		//		size.y += size.y / 100;
+		//		pos.x -= (size.x / 100) / 2;
+		//		pos.y -= (size.y / 100) / 2;
+		//	}
+
+		//	spriteBom->SetPosition(pos);
+		//	spriteBom->SetSize(size);
+
+		//	if (sceneChangeCountRogo > 60)
+		//	{
+		//		scene = TITLE;
+		//		audio->PlayBGM("Resources/BGM/title_bgm.wav", true);
+		//	}
+		//}
+	}
+	else if (scene == TITLE)
 	{
 		titleScroll.x -= 1920 / 100;
 		titleScroll.y += 1080 / 100;
@@ -1034,6 +1095,16 @@ void GameScene::Draw()
 	Sprite::PreDraw(cmdList);
 	//-------------------------------------------------------------//
 
+	if (scene == ROGO)
+	{
+		spriteRogoBG->Draw();
+		spriteRogo->Draw();
+
+		if (bomSceneChangeRogo == true)
+		{
+			spriteBom->Draw();
+		}
+	}
 	if (scene == TITLE)
 	{
 

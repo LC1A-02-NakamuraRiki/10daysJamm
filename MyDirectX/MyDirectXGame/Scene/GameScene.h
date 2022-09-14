@@ -22,6 +22,7 @@
 /// </summary>
 enum Mode
 {
+	ROGO,
 	TITLE,
 	PLAY,
 	CLEAR,
@@ -128,6 +129,9 @@ private: // ƒƒ“ƒo•Ï”
 
 	Sprite* spritePlayScore = nullptr;
 
+	Sprite* spriteRogo = nullptr;
+	Sprite* spriteRogoBG = nullptr;
+
 	Model* modelSkydome = nullptr;
 	Object3d* objSkydome = nullptr;
 
@@ -182,9 +186,14 @@ private: // ƒƒ“ƒo•Ï”
 	XMFLOAT2 pos2 = { -800,-1625 };
 	XMFLOAT2 size2 = { 3560,4330 };
 
+	int rogoTimer = 120;
+	XMFLOAT2 rogoSize{};
+
 	bool text1Draw = false;
 	int  textCount = 0;
 
+	bool bomSceneChangeRogo = false;
+	int sceneChangeCountRogo = 0;
 	bool bomSceneChange = false;
 	int sceneChangeCount = 0;
 	bool bomSceneChange2 = true;
