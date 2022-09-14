@@ -52,7 +52,13 @@ GameScene::~GameScene()
 		safe_delete(spriteNumber8[i]);
 		safe_delete(spriteNumber9[i]);
 	}
-	
+	for (int i = 0; i < 8; i++)
+	{
+		safe_delete(spriteScorePluse[i]);
+	}
+	safe_delete(spriteTimePluse);
+	safe_delete(spriteTimeMinus);
+	safe_delete(spriteFireScorePluse);
 	safe_delete(spriteClearScore);
 	safe_delete(spriteClearTextL1);
 	safe_delete(spriteClearTextL2);
@@ -191,6 +197,61 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Sound* audio)
 		return;
 	}
 	if (!Sprite::LoadTexture(44, L"Resources/game_02.png")) {
+		assert(0);
+		return;
+	}
+
+	if (!Sprite::LoadTexture(45, L"Resources/+1000.png")) {
+		assert(0);
+		return;
+	}
+
+	if (!Sprite::LoadTexture(46, L"Resources/+2000.png")) {
+		assert(0);
+		return;
+	}
+
+	if (!Sprite::LoadTexture(47, L"Resources/+3000.png")) {
+		assert(0);
+		return;
+	}
+
+	if (!Sprite::LoadTexture(48, L"Resources/+4000.png")) {
+		assert(0);
+		return;
+	}
+
+	if (!Sprite::LoadTexture(49, L"Resources/+5000.png")) {
+		assert(0);
+		return;
+	}
+
+	if (!Sprite::LoadTexture(50, L"Resources/+6000.png")) {
+		assert(0);
+		return;
+	}
+
+	if (!Sprite::LoadTexture(51, L"Resources/+7000.png")) {
+		assert(0);
+		return;
+	}
+
+	if (!Sprite::LoadTexture(52, L"Resources/+8000.png")) {
+		assert(0);
+		return;
+	}
+
+	if (!Sprite::LoadTexture(53, L"Resources/+100.png")) {
+		assert(0);
+		return;
+	}
+
+	if (!Sprite::LoadTexture(54, L"Resources/+2.png")) {
+		assert(0);
+		return;
+	}
+
+	if (!Sprite::LoadTexture(55, L"Resources/-5.png")) {
 		assert(0);
 		return;
 	}
@@ -529,10 +590,24 @@ void GameScene::Initialize(DirectXCommon* dxCommon, Sound* audio)
 	spritePlayScore = Sprite::Create(44, { 0.0f,0.0f });
 	spritePlayScore->SetSize({ 343.0f,103.0f });
 	spritePlayScore->SetPosition({ 1460.0, 100 });
+	for (int i = 0; i < 8; i++)
+	{
+		spriteScorePluse[i] = Sprite::Create(45 + i, { 0.0f,0.0f });
+		spriteScorePluse[i]->SetSize({ 250.0f,103.0f });
+		spriteScorePluse[i]->SetPosition({ 1260.0, 300 });
+	}
 
-	spriteScorePluse = Sprite::Create(26, { 0.0f,0.0f });
-	spriteScorePluse->SetSize({ 343.0f,103.0f });
-	spriteScorePluse->SetPosition({ 1260.0, 300 });
+	spriteFireScorePluse = Sprite::Create(53, { 0.0f,0.0f });
+	spriteFireScorePluse->SetSize({ 250.0f,103.0f });
+	spriteFireScorePluse->SetPosition({ 1260.0, 300 });
+
+	spriteTimePluse = Sprite::Create(54, { 0.0f,0.0f });
+	spriteTimePluse->SetSize({ 150.0f,103.0f });
+	spriteTimePluse->SetPosition({ 1260.0, 300 });
+
+	spriteTimeMinus = Sprite::Create(55, { 0.0f,0.0f });
+	spriteTimeMinus->SetSize({ 150.0f,103.0f });
+	spriteTimeMinus->SetPosition({ 1260.0, 300 });
 
 	// 3Dオブジェクト生成
 	modelSkydome = Model::CreateFromObject("skydome", false);
@@ -851,32 +926,109 @@ void GameScene::Update()
 		backRotation-= 0.1;
 		spritePlayBack->SetRotation(backRotation);
 
-		if (enemy->GetScorePluse())
+		for (int i = 0; i < 8; i++)
 		{
-			scorePluse = true;
-			scorePlusePos = { 1160.0, 250 };
-			enemy->SetScorePluse();
+			if (enemy->GetScorePluse(i))
+			{
+				scorePluse[i] = true;
+				scorePlusePos[i] = { 1160.0, 250 };
+				enemy->SetScorePluse(i);
+
+			}
+			if (scorePluse[i] == 1)
+			{
+				scorePlusePos[i].y--;
+					spriteScorePluse[i]->SetPosition(scorePlusePos[i]);
+				if (scorePlusePos[i].y < 100)
+				{
+					scorePluse[i] = false;
+				}
+			}
+			if (scorePluse[i] == 0)
+			{
+				scorePlusePos[i] = { 1460.0, 100 };
+			
+				spriteScorePluse[i]->SetPosition(scorePlusePos[i]);
+				
+			}
+		}
+
+		
+		if (enemy->GetFireScorePluse())
+		{
+			scoreFirePluse = true;
+			scoreFirePlusePos = { 1160.0, 250 };
+			enemy->SetFireScorePluse();
 
 		}
-		if (scorePluse == 1)
+		if (scoreFirePluse == 1)
 		{
-			scorePlusePos.y --;
-			spriteScorePluse->SetPosition(scorePlusePos);
-			if (scorePlusePos.y < 100)
+			scoreFirePlusePos.y--;
+			spriteFireScorePluse->SetPosition(scoreFirePlusePos);
+			if (scoreFirePlusePos.y < 100)
 			{
-				scorePluse = false;
+				scoreFirePluse = false;
 			}
 		}
 		if (scorePluse == 0)
 		{
-			scorePlusePos = { 1460.0, 100 };
-			spriteScorePluse->SetPosition(scorePlusePos);
+			scoreFirePlusePos = { 1460.0, 100 };
+
+			spriteFireScorePluse->SetPosition(scoreFirePlusePos);
+
+		}
+		
+
+		if (enemy->GetTimePluse())
+		{
+			timePluse = true;
+			timePlusePos = { 420.0, 250 };
+			enemy->SetTimePluse();
+
+		}
+		if (timePluse)
+		{
+			timePlusePos.y--;
+			spriteTimePluse->SetPosition(timePlusePos);
+			if (timePlusePos.y < 100)
+			{
+				timePluse = false;
+			}
+		}
+		if (timePluse == 0)
+		{
+			timePlusePos = { 420.0, 100 };
+
+			spriteTimePluse->SetPosition(timePlusePos);
+		}
+
+		if (player->GetTimeMinus())
+		{
+			timeMinus = true;
+			timeMinusPos = { 420.0, 250 };
+			player->SetTimeMinus();
+
+		}
+		if (timeMinus)
+		{
+			timeMinusPos.y--;
+			spriteTimeMinus->SetPosition(timeMinusPos);
+			if (timeMinusPos.y < 100)
+			{
+				timeMinus = false;
+			}
+		}
+		if (timeMinus == 0)
+		{
+			timeMinusPos = { 420.0, 100 };
+
+			spriteTimeMinus->SetPosition(timeMinusPos);
 		}
 
 		if (bomSceneChange2 == true)
 		{
 			sceneChangeCount2++;
-			if (sceneChangeCount2 > 150)
+			if (sceneChangeCount2 > 120)
 			{
 				bomSceneChange = false;
 				for (int i = 0; i < 12; i++)
@@ -1474,9 +1626,26 @@ void GameScene::Draw()
 	
 			}
 		}
-		if (scorePluse == 1)
+		for (int i = 0; i < 8; i++)
 		{
-			spriteScorePluse->Draw();
+			if (scorePluse[i] == 1)
+			{
+				spriteScorePluse[i]->Draw();
+			}
+		}
+		if (scoreFirePluse == 1)
+		{
+			spriteFireScorePluse->Draw();
+		}
+
+		if (timePluse == 1)
+		{
+			spriteTimePluse->Draw();
+		}
+
+		if (timeMinus == 1)
+		{
+			spriteTimeMinus->Draw();
 		}
 	}
 	if (scene == CLEAR)

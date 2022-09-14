@@ -5,7 +5,7 @@
 
 void MapChip::Initialize()
 {
-	modelMapWall = Model::CreateFromObject("jimen2", false);
+	modelMapWall = Model::CreateFromObject("cube_blue", false);
 	modelMapWall2 = Model::CreateFromObject("cube_red", false);
 	modelMapWall3 = Model::CreateFromObject("cube_burned", false);
 	for (int x = 0; x < MapValue; x++)
