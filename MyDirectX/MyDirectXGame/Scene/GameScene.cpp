@@ -699,14 +699,22 @@ void GameScene::Update()
 		{
 			spriteRogo->SetSize(rogoSize);
 			spriteRogoBG->SetSize(rogoSize);
+			spriteRogo->SetRotation(rogoRot);
+			spriteRogoBG->SetRotation(rogoRot);
 
 			rogoSize.x -= 1920 / 30;
 			rogoSize.y -= 1080 / 30;
+			rogoRot -= 72;
+
 			rogoSceneChangeCount--;
 
 			if (rogoSceneChangeCount <= 0)
 			{
 				rogoSceneChange = false;
+
+				rogoSize.x = 0;
+				rogoSize.y = 0;
+				rogoRot = 0;
 			}
 		}
 
